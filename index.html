@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>મારો દિન | Islamic Life Companion</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f8f5;
+  color:#173b32;
+}
+header{
+  background:#075e54;
+  color:white;
+  padding:25px 15px;
+  text-align:center;
+}
+header h1{margin:0;font-size:32px}
+header p{margin:8px 0 0}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  margin:12px 0;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 3px 12px #00000015;
+}
+
+.card h2{
+  margin-top:0;
+  color:#075e54;
+}
+
+.btn{
+  width:100%;
+  padding:14px;
+  margin-top:8px;
+  border:0;
+  border-radius:12px;
+  background:#075e54;
+  color:white;
+  font-size:17px;
+}
+
+.tasbeeh{
+  text-align:center;
+}
+
+#count{
+  font-size:55px;
+  font-weight:bold;
+  margin:15px;
+  color:#075e54;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#666;
+}
+
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>☪️ મારો દિન</h1>
+  <p>Islamic Life Companion</p>
+  <small>Created by Minhaz Musa Patel</small>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>🕌 નમાઝ</h2>
+<p>પાંચ સમયની નમાઝ યાદ રાખો અને તમારી ઇબાદતને નિયમિત બનાવો.</p>
+<button class="btn" onclick="showMessage('નમાઝના સમયનું feature આગળ ઉમેરવામાં આવશે.')">
+નમાઝના સમય
+</button>
+</div>
+
+<div class="card">
+<h2>📖 કુરઆન</h2>
+<p>કુરઆન વાંચવા માટેનું વિભાગ.</p>
+<button class="btn" onclick="showMessage('કુરઆન feature આગળ ઉમેરવામાં આવશે.')">
+કુરઆન ખોલો
+</button>
+</div>
+
+<div class="card">
+<h2>🤲 દુઆ</h2>
+<p>રોજિંદી જરૂરી દુઆઓ.</p>
+<button class="btn" onclick="showMessage('દુઆઓનું collection આગળ ઉમેરવામાં આવશે.')">
+દુઆઓ
+</button>
+</div>
+
+<div class="card tasbeeh">
+<h2>📿 ડિજિટલ તસ્બીહ</h2>
+
+<div id="count">0</div>
+
+<button class="btn" onclick="addCount()">
+📿 તસ્બીહ ગણો
+</button>
+
+<button class="btn" onclick="resetCount()">
+🔄 Reset
+</button>
+</div>
+
+<div class="card">
+<h2>🌙 હિજરી કેલેન્ડર</h2>
+<p>ઇસ્લામિક તારીખ અને હિજરી કેલેન્ડર.</p>
+<button class="btn" onclick="showMessage('હિજરી કેલેન્ડર આગળ ઉમેરવામાં આવશે.')">
+કેલેન્ડર
+</button>
+</div>
+
+<div class="card">
+<h2>🕋 કિબલા</h2>
+<p>કિબલાની દિશા શોધવા માટેનું feature.</p>
+<button class="btn" onclick="showMessage('કિબલા feature આગળ ઉમેરવામાં આવશે.')">
+કિબલા
+</button>
+</div>
+
+<div class="card">
+<h2>❤️ ઇબાદત ટ્રેકર</h2>
+<p>તમારી રોજની ઇબાદતનો હિસાબ રાખો.</p>
+<button class="btn" onclick="showMessage('ઇબાદત ટ્રેકર આગળ ઉમેરવામાં આવશે.')">
+ટ્રેકર
+</button>
+</div>
+
+<div class="card">
+<h2>🤖 Islamic AI</h2>
+<p>ઇસ્લામ સંબંધિત પ્રશ્નો માટે AI Assistant.</p>
+<button class="btn" onclick="showMessage('Islamic AI feature આગળ ઉમેરવામાં આવશે.')">
+AI Assistant
+</button>
+</div>
+
+</div>
+
+<footer>
+© 2026 મારો દિન<br>
+Created by Minhaz Musa Patel
+</footer>
+
+<script>
+let count = Number(localStorage.getItem("tasbeehCount")) || 0;
+document.getElementById("count").innerText = count;
+
+function addCount(){
+  count++;
+  localStorage.setItem("tasbeehCount", count);
+  document.getElementById("count").innerText = count;
+}
+
+function resetCount(){
+  count=0;
+  localStorage.setItem("tasbeehCount", count);
+  document.getElementById("count").innerText = count;
+}
+
+function showMessage(message){
+  alert(message);
+}
+</script>
+
+</body>
+</html>
