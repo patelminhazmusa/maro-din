@@ -177,8 +177,28 @@ function resetCount(){
 }
 
 function showMessage(message){
-  alert(message);
-}
+  if(message === "નમાઝના સમય"){
+    fetch("https://api.aladhan.com/v1/timingsByCity?city=Bharuch&country=India")
+      .then(response => response.json())
+      .then(data => {
+        let t = data.data.timings;
+
+        alert(
+          "🕌 Bharuch નમાઝના સમય\n\n" +
+          "ફજર: " + t.Fajr + "\n" +
+          "ઝુહર: " + t.Dhuhr + "\n" +
+          "અસર: " + t.Asr + "\n" +
+          "મગરિબ: " + t.Maghrib + "\n" +
+          "ઈશા: " + t.Isha
+        );
+      })
+      .catch(error => {
+        alert("નમાઝનો સમય મેળવવામાં સમસ્યા આવી.");
+      });
+  } else {
+    alert(message);
+  }
+  }
 </script>
 
 
