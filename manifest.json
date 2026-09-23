@@ -8,5 +8,11 @@
   "background_color": "#eef7f3",
   "theme_color": "#075e54",
   "lang": "gu",
-  "dir": "ltr"
+  "dir": "ltr""icons": [
+  {
+    "src": "icon.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+  ]
 }
