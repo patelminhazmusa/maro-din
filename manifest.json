@@ -1,0 +1,12 @@
+{
+  "name": "મારો દિન",
+  "short_name": "મારો દિન",
+  "description": "Islamic Life Companion",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef7f3",
+  "theme_color": "#075e54",
+  "lang": "gu",
+  "dir": "ltr"
+}
