@@ -147,6 +147,48 @@ padding:25px;
 color:#666;
 font-size:13px;
 }
+
+/* HOME SCREEN */
+.home-hero{
+  background:linear-gradient(135deg,#075e54,#0b806f);
+  color:white;
+  padding:22px 18px;
+  border-radius:20px;
+  margin:12px 0;
+  box-shadow:0 5px 18px #0002;
+}
+.home-hero h2{color:white;margin:0 0 8px;font-size:27px}
+.home-hero p{margin:6px 0;line-height:1.5}
+.home-date{
+  background:#ffffff22;
+  padding:10px 12px;
+  border-radius:12px;
+  margin-top:12px;
+  text-align:center;
+}
+.home-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:14px;
+}
+.home-btn{
+  background:white;
+  color:#075e54;
+  border:0;
+  border-radius:16px;
+  padding:16px 10px;
+  font-size:16px;
+  box-shadow:0 3px 10px #0002;
+  cursor:pointer;
+}
+.home-btn span{display:block;font-size:28px;margin-bottom:6px}
+.section-card{scroll-margin-top:12px}
+.bottom-space{height:65px}
+@media(max-width:430px){
+  .home-grid{grid-template-columns:repeat(2,1fr)}
+}
+
 </style>
 </head>
 
@@ -160,9 +202,26 @@ font-size:13px;
 
 <div class="container">
 
+<!-- HOME SCREEN -->
+<div class="home-hero" id="home">
+  <h2>☪️ મારો દિન</h2>
+  <p>તમારા દિનની ઇબાદત માટે એક સરળ Islamic Life Companion.</p>
+  <div class="home-date" id="homeDate">📅 આજની તારીખ લોડ થઈ રહી છે...</div>
+
+  <div class="home-grid">
+    <button class="home-btn" onclick="goTo('namazCard')"><span>🕌</span>નમાઝ</button>
+    <button class="home-btn" onclick="goTo('quranCard')"><span>📖</span>કુરઆન</button>
+    <button class="home-btn" onclick="goTo('duaCard')"><span>🤲</span>દુઆ</button>
+    <button class="home-btn" onclick="goTo('tasbeehCard')"><span>📿</span>તસ્બીહ</button>
+    <button class="home-btn" onclick="goTo('ibadatCard')"><span>❤️</span>ઈબાદત</button>
+    <button class="home-btn" onclick="goTo('qiblaCard')"><span>🕋</span>કિબલા</button>
+  </div>
+</div>
+
+
 <!-- NAMAZ -->
 
-<div class="card">
+<div class="card section-card" id="namazCard">
 
 <h2>🕌 નમાઝના સમય</h2>
 
@@ -181,7 +240,7 @@ font-size:13px;
 
 <!-- HIJRI -->
 
-<div class="card">
+<div class="card section-card" id="hijriCard">
 
 <h2>🌙 હિજરી તારીખ</h2>
 
@@ -194,7 +253,7 @@ font-size:13px;
 
 <!-- QURAN -->
 
-<div class="card">
+<div class="card section-card" id="quranCard">
 
 <h2>📖 કુરઆન</h2>
 
@@ -212,7 +271,7 @@ oninput="searchQuran()"
 
 <!-- DUA -->
 
-<div class="card">
+<div class="card section-card" id="duaCard">
 
 <h2>🤲 દુઆ</h2>
 
@@ -230,7 +289,7 @@ oninput="searchDua()"
 
 <!-- TASBEEH -->
 
-<div class="card">
+<div class="card section-card" id="tasbeehCard">
 
 <h2>📿 Digital Tasbeeh</h2>
 
@@ -249,7 +308,7 @@ oninput="searchDua()"
 
 <!-- IBADAT -->
 
-<div class="card">
+<div class="card section-card" id="ibadatCard">
 
 <h2>❤️ ઈબાદત Tracker</h2>
 
@@ -288,7 +347,7 @@ oninput="searchDua()"
 
 <!-- QIBLA -->
 
-<div class="card">
+<div class="card section-card" id="qiblaCard">
 
 <h2>🕋 કિબલા</h2>
 
@@ -301,7 +360,7 @@ oninput="searchDua()"
 
 <!-- ASSISTANT -->
 
-<div class="card">
+<div class="card section-card" id="assistantCard">
 
 <h2>🤖 Islamic Assistant</h2>
 
@@ -347,6 +406,8 @@ oninput="searchDua()"
 </div>
 
 
+
+<div class="bottom-space"></div>
 <footer>
 
 © 2026 મારો દિન
@@ -833,7 +894,23 @@ document.getElementById("answer").innerHTML=
 }
 
 
+
+/* HOME HELPERS */
+function goTo(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function updateHomeDate(){
+  const d=new Date();
+  const options={weekday:"long",day:"numeric",month:"long",year:"numeric"};
+  document.getElementById("homeDate").innerText=
+    "📅 "+d.toLocaleDateString("gu-IN",options);
+}
+
 /* START */
+
+updateHomeDate();
 
 showQuran(surah);
 
@@ -848,4 +925,5 @@ loadQibla();
 </script>
 
 </body>
-</html>
+  </html>
+  
