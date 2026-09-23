@@ -273,6 +273,104 @@ function showMessage(message){
 function openQuran(){
   window.open("https://quran.com/", "_blank");
 }function openDuas(){
+
+  const duas = [
+    {
+      title: "🌅 સવારની દુઆ",
+      keywords: "સવાર morning"
+    },
+    {
+      title: "🌙 સૂવાની દુઆ",
+      keywords: "સૂવાની ઊંઘ sleep"
+    },
+    {
+      title: "🍽️ ખાવાની દુઆ",
+      keywords: "ખાવાની ખાવું food"
+    },
+    {
+      title: "🚪 ઘરેથી નીકળવાની દુઆ",
+      keywords: "ઘર બહાર નીકળવું"
+    },
+    {
+      title: "🧳 મુસાફરીની દુઆ",
+      keywords: "મુસાફરી travel સફર"
+    },
+    {
+      title: "🤲 માફીની દુઆ",
+      keywords: "માફી forgiveness"
+    },
+    {
+      title: "🕌 મસ્જિદની દુઆ",
+      keywords: "મસ્જિદ mosque"
+    },
+    {
+      title: "🚿 વુઝૂની દુઆ",
+      keywords: "વુઝૂ wudu"
+    }
+  ];
+
+  let html = `
+    <div style="padding:20px;">
+      <h2>🤲 Dua Collection</h2>
+
+      <input
+        id="duaSearch"
+        type="text"
+        placeholder="🔎 દુઆ શોધો..."
+        oninput="searchDuas()"
+        style="width:100%;padding:14px;border-radius:12px;border:1px solid #ccc;font-size:16px;"
+      >
+
+      <div id="duaResults" style="margin-top:15px;"></div>
+    </div>
+  `;
+
+  const win = window.open("", "_blank");
+
+  win.document.write(`
+    <!DOCTYPE html>
+    <html lang="gu">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Dua Collection</title>
+    </head>
+
+    <body style="font-family:Arial;background:#f1f8f5;color:#173b32;">
+      ${html}
+
+      <script>
+        const duas = ${JSON.stringify(duas)};
+
+        function searchDuas(){
+
+          const text =
+            document.getElementById("duaSearch").value.toLowerCase();
+
+          const results = duas.filter(d =>
+            (d.title + " " + d.keywords)
+            .toLowerCase()
+            .includes(text)
+          );
+
+          document.getElementById("duaResults").innerHTML =
+            results.map(d => \`
+              <div style="background:white;padding:16px;margin:10px 0;border-radius:14px;box-shadow:0 2px 8px #0002;">
+                <b style="font-size:18px;">\${d.title}</b>
+              </div>
+            \`).join("");
+
+        }
+
+        searchDuas();
+      <\/script>
+
+    </body>
+    </html>
+  `);
+
+  win.document.close();
+}(){
   const search = prompt("🔎 કઈ દુઆ જોઈએ?");
 
   if(!search) return;
