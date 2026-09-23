@@ -384,7 +384,60 @@ function openDuas(){
 
   ${html}
 <script>
-async function loadNamazTimes(){
+async function loadNamazTimes() {
+  const box = document.getElementById("namazTimes");
+
+  box.innerHTML = "<p>⏳ નમાઝના સમય લોડ થઈ રહ્યા છે...</p>";
+
+  const now = new Date();
+
+  const date =
+    String(now.getDate()).padStart(2, "0") + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    now.getFullYear();
+
+  const url =
+    "https://api.aladhan.com/v1/timingsByCity/" +
+    date +
+    "?city=Bharuch&country=India&method=1&school=1";
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("API error");
+    }
+
+    const result = await response.json();
+
+    if (!result.data || !result.data.timings) {
+      throw new Error("No timings");
+    }
+
+    const t = result.data.timings;
+
+    box.innerHTML = `
+      <div class="message">📍 Bharuch, Gujarat</div>
+
+      <p>🌅 <b>ફજર:</b> ${t.Fajr}</p>
+      <p>☀️ <b>ઝુહર:</b> ${t.Dhuhr}</p>
+      <p>🌤️ <b>અસર:</b> ${t.Asr}</p>
+      <p>🌇 <b>મગરિબ:</b> ${t.Maghrib}</p>
+      <p>🌙 <b>ઈશા:</b> ${t.Isha}</p>
+    `;
+
+  } catch (error) {
+    box.innerHTML = `
+      <p>❌ સમય લોડ થઈ શક્યા નથી.</p>
+      <button class="btn" onclick="loadNamazTimes()">
+        🔄 ફરી પ્રયાસ કરો
+      </button>
+    `;
+  }
+}
+
+loadNamazTimes();
+</script>
 
   const box = document.getElementById("namazTimes");
 
