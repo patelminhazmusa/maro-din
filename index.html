@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="gu">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>મારો દિન | Islamic Life Companion</title>
 
 <style>
@@ -44,15 +44,15 @@ header p{
 
 .card{
   background:white;
-  border-radius:15px;
-  padding:22px;
+  border-radius:8px;
+  padding:20px;
   margin-bottom:18px;
-  box-shadow:0 3px 12px rgba(0,0,0,.10);
+  box-shadow:0 2px 8px rgba(0,0,0,.10);
 }
 
 .card h2{
   color:#075e54;
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 
 .card p{
@@ -60,9 +60,213 @@ header p{
   margin-bottom:15px;
 }
 
+.prayer{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 5px;
+  border-bottom:1px solid #ddd;
+  font-size:17px;
+}
+
+.prayer:last-child{
+  border-bottom:none;
+}
+
+.time{
+  font-weight:bold;
+  color:#075e54;
+}
+
 .btn{
   background:#075e54;
   color:white;
   border:none;
   padding:12px 20px;
-  border-radius:
+  border-radius:8px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+#count{
+  font-size:42px;
+  font-weight:bold;
+  color:#075e54;
+  margin:15px 0;
+}
+
+footer{
+  text-align:center;
+  background:#075e54;
+  color:white;
+  padding:20px;
+  margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌙 મારો દિન</h1>
+  <p>Islamic Life Companion</p>
+  <small>
+    Created by Minhaz Musa Patel &amp; Abdullah Ilyas Bhoja
+  </small>
+</header>
+
+<div class="container">
+
+  <!-- NAMAZ -->
+  <div class="card">
+    <h2>🕌 આજના નમાઝના સમય</h2>
+    <p>📍 Bharuch, Gujarat</p>
+
+    <div class="prayer">
+      <span>ફજર</span>
+      <span class="time" id="fajr">Loading...</span>
+    </div>
+
+    <div class="prayer">
+      <span>ઝુહર</span>
+      <span class="time" id="dhuhr">Loading...</span>
+    </div>
+
+    <div class="prayer">
+      <span>અસર</span>
+      <span class="time" id="asr">Loading...</span>
+    </div>
+
+    <div class="prayer">
+      <span>મગરિબ</span>
+      <span class="time" id="maghrib">Loading...</span>
+    </div>
+
+    <div class="prayer">
+      <span>ઈશા</span>
+      <span class="time" id="isha">Loading...</span>
+    </div>
+  </div>
+
+  <!-- QURAN -->
+  <div class="card">
+    <h2>📖 કુરઆન</h2>
+    <p>દરરોજ કુરઆનની તિલાવત માટે સમય કાઢો.</p>
+    <button class="btn" onclick="showMessage('📖 કુરઆન વિભાગ ટૂંક સમયમાં આવશે.')">
+      કુરઆન
+    </button>
+  </div>
+
+  <!-- DUA -->
+  <div class="card">
+    <h2>🤲 દુઆ</h2>
+    <p>રોજિંદી જિંદગીની મહત્વપૂર્ણ દુઆઓ.</p>
+    <button class="btn" onclick="showMessage('🤲 દુઆઓ વિભાગ ટૂંક સમયમાં આવશે.')">
+      દુઆઓ
+    </button>
+  </div>
+
+  <!-- TASBEEH -->
+  <div class="card">
+    <h2>📿 Digital Tasbeeh</h2>
+    <p>તમારી તસ્બીહની ગણતરી કરો.</p>
+
+    <div id="count">0</div>
+
+    <button class="btn" onclick="addCount()">📿 ગણો</button>
+    <button class="btn" onclick="resetCount()">Reset</button>
+  </div>
+
+  <!-- ISLAMIC DATE -->
+  <div class="card">
+    <h2>🌙 Islamic Date</h2>
+    <p id="islamicDate">તારીખ લોડ થઈ રહી છે...</p>
+  </div>
+
+  <!-- QIBLA -->
+  <div class="card">
+    <h2>🧭 Qibla</h2>
+    <p>કિબલા વિભાગ ટૂંક સમયમાં ઉમેરવામાં આવશે.</p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 મારો દિન<br>
+  Created by Minhaz Musa Patel &amp; Abdullah Ilyas Bhoja
+</footer>
+
+<script>
+
+/* TASBEEH */
+
+let count = Number(localStorage.getItem("tasbeehCount")) || 0;
+
+document.getElementById("count").innerText = count;
+
+function addCount(){
+  count++;
+  localStorage.setItem("tasbeehCount", count);
+  document.getElementById("count").innerText = count;
+}
+
+function resetCount(){
+  count = 0;
+  localStorage.setItem("tasbeehCount", count);
+  document.getElementById("count").innerText = count;
+}
+
+
+/* NAMAZ TIME */
+
+fetch("https://api.aladhan.com/v1/timingsByCity?city=Bharuch&country=India")
+.then(response => response.json())
+.then(data => {
+
+  let t = data.data.timings;
+
+  document.getElementById("fajr").innerText = t.Fajr;
+  document.getElementById("dhuhr").innerText = t.Dhuhr;
+  document.getElementById("asr").innerText = t.Asr;
+  document.getElementById("maghrib").innerText = t.Maghrib;
+  document.getElementById("isha").innerText = t.Isha;
+
+})
+.catch(error => {
+
+  document.getElementById("fajr").innerText = "નથી મળ્યો";
+  document.getElementById("dhuhr").innerText = "નથી મળ્યો";
+  document.getElementById("asr").innerText = "નથી મળ્યો";
+  document.getElementById("maghrib").innerText = "નથી મળ્યો";
+  document.getElementById("isha").innerText = "નથી મળ્યો";
+
+});
+
+
+/* ISLAMIC DATE */
+
+fetch("https://api.aladhan.com/v1/gToH")
+.then(response => response.json())
+.then(data => {
+
+  let h = data.data.hijri;
+
+  document.getElementById("islamicDate").innerText =
+    h.day + " " + h.month.en + " " + h.year + " AH";
+
+})
+.catch(error => {
+
+  document.getElementById("islamicDate").innerText =
+    "તારીખ મળી નથી.";
+
+});
+
+
+function showMessage(message){
+  alert(message);
+}
+
+</script>
+
+</body>
+</html>
