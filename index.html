@@ -3,103 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>મારો દિન | Islamic Life Companion</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box}
 
 body{
+  margin:0;
   font-family:Arial,sans-serif;
-  background:#f4f7f5;
-  color:#222;
+  background:#f1f8f5;
+  color:#173b32;
 }
 
 header{
   background:#075e54;
   color:white;
+  padding:25px 15px;
   text-align:center;
-  padding:30px 15px;
 }
 
-header h1{
-  font-size:32px;
-  margin-bottom:8px;
-}
-
-header p{
-  font-size:18px;
-  margin-bottom:8px;
-}
+header h1{margin:0;font-size:32px}
+header p{margin:8px 0}
+header small{font-size:13px}
 
 .container{
-  max-width:900px;
-  margin:25px auto;
-  padding:0 15px;
+  max-width:700px;
+  margin:auto;
+  padding:15px;
 }
 
 .card{
   background:white;
-  border-radius:8px;
+  margin:12px 0;
   padding:20px;
-  margin-bottom:18px;
-  box-shadow:0 2px 8px rgba(0,0,0,.10);
+  border-radius:18px;
+  box-shadow:0 3px 12px #00000015;
 }
 
 .card h2{
-  color:#075e54;
-  margin-bottom:12px;
-}
-
-.card p{
-  line-height:1.7;
-  margin-bottom:15px;
-}
-
-.prayer{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 5px;
-  border-bottom:1px solid #ddd;
-  font-size:17px;
-}
-
-.prayer:last-child{
-  border-bottom:none;
-}
-
-.time{
-  font-weight:bold;
+  margin-top:0;
   color:#075e54;
 }
 
 .btn{
+  width:100%;
+  padding:14px;
+  margin-top:8px;
+  border:0;
+  border-radius:12px;
   background:#075e54;
   color:white;
-  border:none;
-  padding:12px 20px;
-  border-radius:8px;
-  font-size:16px;
-  cursor:pointer;
+  font-size:17px;
+}
+
+.btn:active{
+  transform:scale(.98);
+}
+
+.tasbeeh{
+  text-align:center;
 }
 
 #count{
-  font-size:42px;
+  font-size:55px;
   font-weight:bold;
+  margin:15px;
   color:#075e54;
-  margin:15px 0;
+}
+
+.search{
+  width:100%;
+  padding:14px;
+  border:1px solid #ccc;
+  border-radius:12px;
+  font-size:16px;
+  margin:10px 0;
+}
+
+.dua-item{
+  background:#f1f8f5;
+  padding:15px;
+  margin:10px 0;
+  border-radius:14px;
+}
+
+.arabic{
+  font-size:24px;
+  line-height:1.8;
+  text-align:right;
+  direction:rtl;
 }
 
 footer{
   text-align:center;
-  background:#075e54;
-  color:white;
-  padding:20px;
-  margin-top:30px;
+  padding:25px;
+  color:#666;
+}
+
+.hidden{
+  display:none;
+}
+
+.message{
+  padding:15px;
+  background:#e5f5ef;
+  border-radius:12px;
+  margin-top:10px;
 }
 </style>
 </head>
@@ -107,101 +116,106 @@ footer{
 <body>
 
 <header>
-  <h1>🌙 મારો દિન</h1>
+  <h1>☪️ મારો દિન</h1>
   <p>Islamic Life Companion</p>
-  <small>
-    Created by Minhaz Musa Patel &amp; Abdullah Ilyas Bhoja
-  </small>
+  <small>Created by Minhaz Musa Patel & Abdulla Ilyas Bhoja</small>
 </header>
 
 <div class="container">
 
-  <!-- NAMAZ -->
-  <div class="card">
-    <h2>🕌 આજના નમાઝના સમય</h2>
-    <p>📍 Bharuch, Gujarat</p>
-
-    <div class="prayer">
-      <span>ફજર</span>
-      <span class="time" id="fajr">Loading...</span>
-    </div>
-
-    <div class="prayer">
-      <span>ઝુહર</span>
-      <span class="time" id="dhuhr">Loading...</span>
-    </div>
-
-    <div class="prayer">
-      <span>અસર</span>
-      <span class="time" id="asr">Loading...</span>
-    </div>
-
-    <div class="prayer">
-      <span>મગરિબ</span>
-      <span class="time" id="maghrib">Loading...</span>
-    </div>
-
-    <div class="prayer">
-      <span>ઈશા</span>
-      <span class="time" id="isha">Loading...</span>
-    </div>
-  </div>
-
- <!-- QURAN -->
+<!-- NAMAZ -->
 <div class="card">
-  <h2>📖 કુરઆન</h2>
-  <p>કુરઆનની સૂરાઓ વાંચો અને રોજ તિલાવત કરો.</p>
+<h2>🕌 નમાઝ</h2>
+<p>પાંચ સમયની નમાઝ યાદ રાખો અને તમારી ઇબાદતને નિયમિત બનાવો.</p>
 
-  <button class="btn" onclick="openQuran()">
-    📖 કુરઆન ખોલો
-  </button>
+<button class="btn" onclick="showMessage('ફજર • ઝુહર • અસર • મગરિબ • ઈશા')">
+નમાઝના સમય
+</button>
+</div>
+
+<!-- QURAN -->
+<div class="card">
+<h2>📖 કુરઆન</h2>
+<p>કુરઆન વાંચવા માટેનું વિભાગ.</p>
+
+<button class="btn" onclick="showMessage('કુરઆન વિભાગ આગળ વધુ વિસ્તૃત કરવામાં આવશે.')">
+કુરઆન ખોલો
+</button>
 </div>
 
 <!-- DUA -->
 <div class="card">
-
 <h2>🤲 દુઆ</h2>
+<p>રોજિંદી જરૂરી મસ્નૂન દુઆઓ શોધો.</p>
 
-<p>રોજિંદી જિંદગીની મહત્વપૂર્ણ દુઆઓ.</p>
 <button class="btn" onclick="openDuas()">
 🤲 All Dua Collection
 </button>
-
 </div>
 
-  <!-- TASBEEH -->
-  <div class="card">
-    <h2>📿 Digital Tasbeeh</h2>
-    <p>તમારી તસ્બીહની ગણતરી કરો.</p>
+<!-- TASBEEH -->
+<div class="card tasbeeh">
+<h2>📿 ડિજિટલ તસ્બીહ</h2>
 
-    <div id="count">0</div>
+<div id="count">0</div>
 
-    <button class="btn" onclick="addCount()">📿 ગણો</button>
-    <button class="btn" onclick="resetCount()">Reset</button>
-  </div>
+<button class="btn" onclick="addCount()">
+📿 તસ્બીહ ગણો
+</button>
 
-  <!-- ISLAMIC DATE -->
-  <div class="card">
-    <h2>🌙 Islamic Date</h2>
-    <p id="islamicDate">તારીખ લોડ થઈ રહી છે...</p>
-  </div>
+<button class="btn" onclick="resetCount()">
+🔄 Reset
+</button>
+</div>
 
-  <!-- QIBLA -->
-  <div class="card">
-    <h2>🧭 Qibla</h2>
-    <p>કિબલા વિભાગ ટૂંક સમયમાં ઉમેરવામાં આવશે.</p>
-  </div>
+<!-- HIJRI -->
+<div class="card">
+<h2>🌙 હિજરી કેલેન્ડર</h2>
+<p>ઇસ્લામિક તારીખ અને હિજરી કેલેન્ડર.</p>
+
+<button class="btn" onclick="showMessage('હિજરી કેલેન્ડર આગળ ઉમેરવામાં આવશે.')">
+કેલેન્ડર
+</button>
+</div>
+
+<!-- QIBLA -->
+<div class="card">
+<h2>🕋 કિબલા</h2>
+<p>કિબલાની દિશા શોધવા માટેનું feature.</p>
+
+<button class="btn" onclick="showMessage('કિબલા feature આગળ ઉમેરવામાં આવશે.')">
+કિબલા
+</button>
+</div>
+
+<!-- IBADAT -->
+<div class="card">
+<h2>❤️ ઇબાદત ટ્રેકર</h2>
+<p>તમારી રોજની ઇબાદતનો હિસાબ રાખો.</p>
+
+<button class="btn" onclick="showMessage('ઇબાદત ટ્રેકર આગળ ઉમેરવામાં આવશે.')">
+ટ્રેકર
+</button>
+</div>
+
+<!-- AI -->
+<div class="card">
+<h2>🤖 Islamic AI</h2>
+<p>ઇસ્લામ સંબંધિત પ્રશ્નો માટે AI Assistant.</p>
+
+<button class="btn" onclick="showMessage('Islamic AI feature આગળ ઉમેરવામાં આવશે.')">
+AI Assistant
+</button>
+</div>
 
 </div>
 
 <footer>
-  © 2026 મારો દિન<br>
-  Created by Minhaz Musa Patel &amp; Abdullah Ilyas Bhoja
+© 2026 મારો દિન<br>
+Created by Minhaz Musa Patel & Abdulla Ilyas Bhoja
 </footer>
 
 <script>
-
-/* TASBEEH */
 
 let count = Number(localStorage.getItem("tasbeehCount")) || 0;
 
@@ -214,242 +228,205 @@ function addCount(){
 }
 
 function resetCount(){
-  count = 0;
+  count=0;
   localStorage.setItem("tasbeehCount", count);
   document.getElementById("count").innerText = count;
 }
-
-
-/* NAMAZ TIME */
-
-fetch("https://api.aladhan.com/v1/timingsByCity?city=Bharuch&country=India")
-.then(response => response.json())
-.then(data => {
-
-  let t = data.data.timings;
-
-  document.getElementById("fajr").innerText = t.Fajr;
-  document.getElementById("dhuhr").innerText = t.Dhuhr;
-  document.getElementById("asr").innerText = t.Asr;
-  document.getElementById("maghrib").innerText = t.Maghrib;
-  document.getElementById("isha").innerText = t.Isha;
-
-})
-.catch(error => {
-
-  document.getElementById("fajr").innerText = "નથી મળ્યો";
-  document.getElementById("dhuhr").innerText = "નથી મળ્યો";
-  document.getElementById("asr").innerText = "નથી મળ્યો";
-  document.getElementById("maghrib").innerText = "નથી મળ્યો";
-  document.getElementById("isha").innerText = "નથી મળ્યો";
-
-});
-
-
-/* ISLAMIC DATE */
-
-fetch("https://api.aladhan.com/v1/gToH")
-.then(response => response.json())
-.then(data => {
-
-  let h = data.data.hijri;
-
-  document.getElementById("islamicDate").innerText =
-    h.day + " " + h.month.en + " " + h.year + " AH";
-
-})
-.catch(error => {
-
-  document.getElementById("islamicDate").innerText =
-    "તારીખ મળી નથી.";
-
-});
-
 
 function showMessage(message){
   alert(message);
 }
 
-function openQuran(){
-  window.open("https://quran.com/", "_blank");
-}function openDuas(){
+function openDuas(){
 
   const duas = [
+
     {
-      title: "🌅 સવારની દુઆ",
-      keywords: "સવાર morning"
+      title:"🌅 સવારની દુઆ",
+      keywords:"સવાર morning સવારે",
+      arabic:"اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا",
+      meaning:"હે અલ્લાહ! તારી મદદથી અમે સવાર કરીએ છીએ અને તારી મદદથી સાંજ કરીએ છીએ."
     },
+
     {
-      title: "🌙 સૂવાની દુઆ",
-      keywords: "સૂવાની ઊંઘ sleep"
+      title:"🌙 સૂવાની દુઆ",
+      keywords:"સૂવાની ઊંઘ sleep bedtime",
+      arabic:"بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+      meaning:"હે અલ્લાહ! તારા નામ સાથે હું મરું છું અને જીવું છું."
     },
+
     {
-      title: "🍽️ ખાવાની દુઆ",
-      keywords: "ખાવાની ખાવું food"
+      title:"🍽️ ખાવાની દુઆ",
+      keywords:"ખાવાની ખાવું food eating",
+      arabic:"بِسْمِ اللَّهِ",
+      meaning:"અલ્લાહના નામથી."
     },
+
     {
-      title: "🚪 ઘરેથી નીકળવાની દુઆ",
-      keywords: "ઘર બહાર નીકળવું"
+      title:"🚪 ઘરેથી નીકળવાની દુઆ",
+      keywords:"ઘર બહાર નીકળવું home leaving",
+      arabic:"بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ",
+      meaning:"અલ્લાહના નામથી, મેં અલ્લાહ પર ભરોસો કર્યો."
     },
+
     {
-      title: "🧳 મુસાફરીની દુઆ",
-      keywords: "મુસાફરી travel સફર"
+      title:"🧳 મુસાફરીની દુઆ",
+      keywords:"મુસાફરી સફર travel journey",
+      arabic:"سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا",
+      meaning:"પવિત્ર છે તે અલ્લાહ જેણે આને અમારા માટે વશમાં કર્યું."
     },
+
     {
-      title: "🤲 માફીની દુઆ",
-      keywords: "માફી forgiveness"
+      title:"🤲 માફીની દુઆ",
+      keywords:"માફી forgiveness ગફુર",
+      arabic:"رَبِّ اغْفِرْ لِي",
+      meaning:"હે મારા રબ! મને માફ કર."
     },
+
     {
-      title: "🕌 મસ્જિદની દુઆ",
-      keywords: "મસ્જિદ mosque"
+      title:"🕌 મસ્જિદની દુઆ",
+      keywords:"મસ્જિદ mosque masjid",
+      arabic:"اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+      meaning:"હે અલ્લાહ! મારા માટે તારી રહમતના દરવાજા ખોલી દે."
     },
+
     {
-      title: "🚿 વુઝૂની દુઆ",
-      keywords: "વુઝૂ wudu"
+      title:"🚿 વુઝૂની દુઆ",
+      keywords:"વુઝૂ wudu ablution",
+      arabic:"أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّهُ",
+      meaning:"હું સાક્ષી આપું છું કે અલ્લાહ સિવાય કોઈ ઈલાહ નથી."
     }
+
   ];
 
   let html = `
-    <div style="padding:20px;">
-      <h2>🤲 Dua Collection</h2>
+  <div style="
+    padding:20px;
+    font-family:Arial;
+    background:#f1f8f5;
+    min-height:100vh;
+    color:#173b32;
+  ">
 
-      <input
-        id="duaSearch"
-        type="text"
-        placeholder="🔎 દુઆ શોધો..."
-        oninput="searchDuas()"
-        style="width:100%;padding:14px;border-radius:12px;border:1px solid #ccc;font-size:16px;"
-      >
+  <h2 style="color:#075e54;">
+  🤲 Dua Collection
+  </h2>
 
-      <div id="duaResults" style="margin-top:15px;"></div>
-    </div>
+  <input
+    id="duaSearch"
+    class="search"
+    type="text"
+    placeholder="🔎 દુઆ શોધો... જેમ કે મુસાફરી, સૂવાની, ખાવાની"
+    oninput="searchDuas()"
+  >
+
+  <div id="duaResults"></div>
+
+  </div>
   `;
 
   const win = window.open("", "_blank");
 
   win.document.write(`
-    <!DOCTYPE html>
-    <html lang="gu">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Dua Collection</title>
-    </head>
+  <!DOCTYPE html>
+  <html lang="gu">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <body style="font-family:Arial;background:#f1f8f5;color:#173b32;">
-      ${html}
+  <title>મારો દિન - Dua Collection</title>
 
-      <script>
-        const duas = ${JSON.stringify(duas)};
+  <style>
 
-        function searchDuas(){
+  body{
+    margin:0;
+    background:#f1f8f5;
+  }
 
-          const text =
-            document.getElementById("duaSearch").value.toLowerCase();
+  .search{
+    width:100%;
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:12px;
+    font-size:16px;
+    box-sizing:border-box;
+  }
 
-          const results = duas.filter(d =>
-            (d.title + " " + d.keywords)
-            .toLowerCase()
-            .includes(text)
-          );
+  .dua-item{
+    background:white;
+    padding:18px;
+    margin:12px 0;
+    border-radius:16px;
+    box-shadow:0 2px 10px #00000015;
+  }
 
-          document.getElementById("duaResults").innerHTML =
-            results.map(d => \`
-              <div style="background:white;padding:16px;margin:10px 0;border-radius:14px;box-shadow:0 2px 8px #0002;">
-                <b style="font-size:18px;">\${d.title}</b>
-              </div>
-            \`).join("");
+  .arabic{
+    font-size:25px;
+    line-height:1.9;
+    text-align:right;
+    direction:rtl;
+  }
 
-        }
+  </style>
 
-        searchDuas();
-      <\/script>
+  </head>
 
-    </body>
-    </html>
+  <body>
+
+  ${html}
+
+  <script>
+
+  const duas = ${JSON.stringify(duas)};
+
+  function searchDuas(){
+
+    const text =
+    document.getElementById("duaSearch").value
+    .toLowerCase()
+    .trim();
+
+    const results =
+    duas.filter(d =>
+      (d.title + " " + d.keywords)
+      .toLowerCase()
+      .includes(text)
+    );
+
+    document.getElementById("duaResults").innerHTML =
+    results.map(d => \`
+
+      <div class="dua-item">
+
+        <h3>\${d.title}</h3>
+
+        <div class="arabic">
+        \${d.arabic}
+        </div>
+
+        <p>
+        <b>ગુજરાતી અર્થ:</b><br>
+        \${d.meaning}
+        </p>
+
+      </div>
+
+    \`).join("");
+
+  }
+
+  searchDuas();
+
+  <\/script>
+
+  </body>
+  </html>
   `);
 
   win.document.close();
-}(){
-  const search = prompt("🔎 કઈ દુઆ જોઈએ?");
+}
 
-  if(!search) return;
-
-  const duas = [
-    "🌅 સવારની દુઆ",
-    "🌙 સૂવાની દુઆ",
-    "🍽️ ખાવાની દુઆ",
-    "🚪 ઘરેથી નીકળવાની દુઆ",
-    "🧳 મુસાફરીની દુઆ",
-    "🤲 માફીની દુઆ",
-    "🕌 મસ્જિદની દુઆ",
-    "🚿 વુઝૂની દુઆ"
-  ];
-
-  const result = duas.filter(dua =>
-    dua.toLowerCase().includes(search.toLowerCase())
-  );
-
-  if(result.length){
-    alert("🤲 મળેલી દુઆઓ:\n\n" + result.join("\n"));
-  }else{
-    alert("દુઆ મળી નથી. બીજો શબ્દ લખીને શોધો.");
-  }
-    }{
-  alert(
-`🤲 All Dua Collection
-
-🌅 સવારની દુઆ
-
-اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا
-
-અર્થ: હે અલ્લાહ! તારી મદદથી અમે સવાર કરીએ છીએ અને તારી મદદથી સાંજ કરીએ છીએ.
-
-━━━━━━━━━━━━
-
-🌙 સૂવાની દુઆ
-
-بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا
-
-અર્થ: હે અલ્લાહ! તારા નામ સાથે હું મરું છું અને જીવું છું.
-
-━━━━━━━━━━━━
-
-🍽️ ખાવાની દુઆ
-
-بِسْمِ اللَّهِ
-
-અર્થ: અલ્લાહના નામથી.
-
-━━━━━━━━━━━━
-
-🚪 ઘરેથી નીકળવાની દુઆ
-
-بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ
-
-અર્થ: અલ્લાહના નામથી, મેં અલ્લાહ પર ભરોસો કર્યો.
-
-━━━━━━━━━━━━
-
-🧳 મુસાફરીની દુઆ
-
-سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا
-
-અર્થ: પવિત્ર છે તે અલ્લાહ જેણે આને અમારા માટે વશમાં કર્યું.
-
-━━━━━━━━━━━━
-
-🤲 માફીની દુઆ
-
-رَبِّ اغْفِرْ لِي
-
-અર્થ: હે મારા રબ! મને માફ કર.
-
-━━━━━━━━━━━━
-
-❤️ અલ્લાહ આપણને દુઆઓ પર અમલ કરવાની તૌફીક આપે. آمین`
-  );
-}</script>
+</script>
 
 </body>
 </html>
