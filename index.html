@@ -273,6 +273,31 @@ function showMessage(message){
 function openQuran(){
   window.open("https://quran.com/", "_blank");
 }function openDuas(){
+  const search = prompt("🔎 કઈ દુઆ જોઈએ?");
+
+  if(!search) return;
+
+  const duas = [
+    "🌅 સવારની દુઆ",
+    "🌙 સૂવાની દુઆ",
+    "🍽️ ખાવાની દુઆ",
+    "🚪 ઘરેથી નીકળવાની દુઆ",
+    "🧳 મુસાફરીની દુઆ",
+    "🤲 માફીની દુઆ",
+    "🕌 મસ્જિદની દુઆ",
+    "🚿 વુઝૂની દુઆ"
+  ];
+
+  const result = duas.filter(dua =>
+    dua.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if(result.length){
+    alert("🤲 મળેલી દુઆઓ:\n\n" + result.join("\n"));
+  }else{
+    alert("દુઆ મળી નથી. બીજો શબ્દ લખીને શોધો.");
+  }
+    }{
   alert(
 `🤲 All Dua Collection
 
