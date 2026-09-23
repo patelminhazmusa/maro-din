@@ -125,7 +125,16 @@ footer{
 
 <!-- NAMAZ -->
 <div class="card">
-<h2>🕌 નમાઝ</h2>
+<h2>🕌 નમાઝ — Bharuch</h2>
+
+<div id="namazTimes">
+<p>⏳ નમાઝના સમય લોડ થઈ રહ્યા છે...</p>
+</div>
+
+<button class="btn" onclick="loadNamazTimes()">
+🔄 સમય ફરી લોડ કરો
+</button>
+</div>
 <p>પાંચ સમયની નમાઝ યાદ રાખો અને તમારી ઇબાદતને નિયમિત બનાવો.</p>
 
 <button class="btn" onclick="showMessage('ફજર • ઝુહર • અસર • મગરિબ • ઈશા')">
@@ -374,7 +383,47 @@ function openDuas(){
   <body>
 
   ${html}
+<script>
+async function loadNamazTimes(){
 
+  const box = document.getElementById("namazTimes");
+
+  box.innerHTML = "<p>⏳ સમય લોડ થઈ રહ્યા છે...</p>";
+
+  try{
+
+    const today = new Date();
+
+    const day = String(today.getDate()).padStart(2,"0");
+    const month = String(today.getMonth()+1).padStart(2,"0");
+    const year = today.getFullYear();
+
+    const url =
+      `https://api.aladhan.com/v1/timingsByCity/${day}-${month}-${year}?city=Bharuch&country=India&method=1`;
+
+    const response = await fetch(url);
+    const result = await response.json();
+
+    const t = result.data.timings;
+
+    box.innerHTML = `
+      <p>🌅 <b>ફજર:</b> ${t.Fajr}</p>
+      <p>☀️ <b>ઝુહર:</b> ${t.Dhuhr}</p>
+      <p>🌤️ <b>અસર:</b> ${t.Asr}</p>
+      <p>🌇 <b>મગરિબ:</b> ${t.Maghrib}</p>
+      <p>🌙 <b>ઈશા:</b> ${t.Isha}</p>
+    `;
+
+  }catch(error){
+
+    box.innerHTML =
+      "<p>❌ નમાઝના સમય લોડ થઈ શક્યા નથી.</p>";
+
+  }
+}
+
+loadNamazTimes();
+</script>
   <script>
 
   const duas = ${JSON.stringify(duas)};
