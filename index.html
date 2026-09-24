@@ -733,7 +733,85 @@ footer{
 
 </div>
 
+<!-- DAILY AZKAR -->
 
+<div class="card section-card" id="azkarCard">
+
+  <h2>🌙 આજના અઝકાર</h2>
+
+  <p style="margin-top:-5px;color:#68756f;">
+    સવાર, સાંજ અને રાત્રિના અઝકાર
+  </p>
+
+  <!-- AZKAR 1 -->
+
+  <div class="dua">
+
+    <div style="font-weight:bold;color:#075e54;">
+      🌅 સવાર અને સાંજ
+    </div>
+
+    <div class="arabic">
+      سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
+    </div>
+
+    <p style="color:#68756f;">
+      📿 100 વખત
+    </p>
+
+    <button onclick="azkarCount(0)">
+      📿 વાંચ્યું — <span id="azkar0">0</span>/100
+    </button>
+
+  </div>
+
+
+  <!-- AZKAR 2 -->
+
+  <div class="dua">
+
+    <div style="font-weight:bold;color:#075e54;">
+      🛡️ સવાર અને સાંજ
+    </div>
+
+    <div class="arabic">
+      بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ
+    </div>
+
+    <p style="color:#68756f;">
+      📿 3 વખત
+    </p>
+
+    <button onclick="azkarCount(1)">
+      🤲 વાંચ્યું — <span id="azkar1">0</span>/3
+    </button>
+
+  </div>
+
+
+  <!-- AZKAR 3 -->
+
+  <div class="dua">
+
+    <div style="font-weight:bold;color:#075e54;">
+      🌙 રાત્રિ
+    </div>
+
+    <div class="arabic">
+      سُبْحَانَ اللَّهِ
+    </div>
+
+    <p style="color:#68756f;">
+      📿 અલ્લાહનું સ્મરણ
+    </p>
+
+    <button onclick="azkarCount(2)">
+      📿 Count — <span id="azkar2">0</span>
+    </button>
+
+  </div>
+
+</div>
 <!-- PREMIUM TASBEEH -->
 
 <div class="card section-card" id="tasbeehCard">
@@ -1410,7 +1488,29 @@ loadNamaz();
 loadHijri();
 
 loadQibla();
+/* DAILY AZKAR */
 
+let azkarCounts =
+  JSON.parse(localStorage.getItem("azkarCounts")) || [0,0,0];
+
+function azkarCount(index){
+
+  const limits = [100, 3, 0];
+
+  if(index !== 2 && azkarCounts[index] >= limits[index]){
+    return;
+  }
+
+  azkarCounts[index]++;
+
+  localStorage.setItem(
+    "azkarCounts",
+    JSON.stringify(azkarCounts)
+  );
+
+  document.getElementById("azkar" + index).innerText =
+    azkarCounts[index];
+}
 </script>
 
 </body>
