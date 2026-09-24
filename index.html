@@ -738,21 +738,10 @@ year:"numeric"
 
 async function loadNamaz(){
 
-async function loadNamaz(){
-
   const box = document.getElementById("namaz");
 
-  const city = document.getElementById("cityInput").value.trim();
-
-  if(!city){
-    box.innerHTML =
-      "<p class='center'>⚠️ પહેલા City / District લખો.</p>";
-    return;
-  }
-
   box.innerHTML =
-    "<p class='center'>⏳ " + city +
-    " માટે નમાઝના સમય શોધાઈ રહ્યા છે...</p>";
+    "<p class='center'>⏳ નમાઝના સમય લોડ થઈ રહ્યા છે...</p>";
 
   try{
 
@@ -765,8 +754,7 @@ async function loadNamaz(){
     const url =
       "https://api.aladhan.com/v1/timingsByCity/" +
       day + "-" + month + "-" + year +
-      "?city=" + encodeURIComponent(city) +
-      "&country=India&method=1&school=1";
+      "?city=Bharuch&country=India&method=1&school=1";
 
     const response = await fetch(url);
 
@@ -775,10 +763,6 @@ async function loadNamaz(){
     }
 
     const result = await response.json();
-
-    if(!result.data || !result.data.timings){
-      throw new Error("Timing data missing");
-    }
 
     const t = result.data.timings;
 
@@ -790,9 +774,7 @@ async function loadNamaz(){
       ["Isha","ઈશા","🌙"]
     ];
 
-    let html =
-      "<div class='location'>📍 " +
-      city + ", India</div>";
+    let html = "";
 
     prayers.forEach(function(p){
 
@@ -811,17 +793,15 @@ async function loadNamaz(){
   }catch(error){
 
     box.innerHTML =
-      "<div class='center'>" +
-      "⚠️ " + city +
-      " માટે નમાઝનો સમય મળ્યો નથી." +
-      "<br><br>City / District નું નામ સાચું લખો." +
-      "<br><br>" +
-      "<button onclick='loadNamaz()'>🔄 ફરી પ્રયાસ કરો</button>" +
-      "</div>";
+      "<p class='center'>" +
+      "⚠️ નમાઝના સમય લોડ થઈ શક્યા નથી." +
+      "<br><small>Internet ચાલુ છે કે નહીં તપાસો.</small>" +
+      "</p>";
 
   }
 
 }
+      
 /* HIJRI */
 
 async function loadHijri(){
