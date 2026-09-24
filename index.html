@@ -738,83 +738,90 @@ year:"numeric"
 
 async function loadNamaz(){
 
-const box=document.getElementById("namaz");
+async function loadNamaz(){
 
-box.innerHTML=
-"<p class='center'>⏳ નમાઝના સમય લોડ થઈ રહ્યા છે...</p>";
+  const box = document.getElementById("namaz");
 
-try{
+  const city = document.getElementById("cityInput").value.trim();
 
-const now=new Date();
+  if(!city){
+    box.innerHTML =
+      "<p class='center'>⚠️ પહેલા City / District લખો.</p>";
+    return;
+  }
 
-const day=
-String(now.getDate()).padStart(2,"0");
+  box.innerHTML =
+    "<p class='center'>⏳ " + city +
+    " માટે નમાઝના સમય શોધાઈ રહ્યા છે...</p>";
 
-const month=
-String(now.getMonth()+1).padStart(2,"0");
+  try{
 
-const year=
-now.getFullYear();
+    const now = new Date();
 
-const url=
-"https://api.aladhan.com/v1/timings/"+
-day+"-"+month+"-"+year+
-"?city=Bharuch&country=India&method=1&school=1";
+    const day = String(now.getDate()).padStart(2,"0");
+    const month = String(now.getMonth()+1).padStart(2,"0");
+    const year = now.getFullYear();
 
-const response=await fetch(url);
+    const url =
+      "https://api.aladhan.com/v1/timingsByCity/" +
+      day + "-" + month + "-" + year +
+      "?city=" + encodeURIComponent(city) +
+      "&country=India&method=1&school=1";
 
-if(!response.ok){
+    const response = await fetch(url);
 
-throw new Error("Namaz API error");
+    if(!response.ok){
+      throw new Error("API Error");
+    }
+
+    const result = await response.json();
+
+    if(!result.data || !result.data.timings){
+      throw new Error("Timing data missing");
+    }
+
+    const t = result.data.timings;
+
+    const prayers = [
+      ["Fajr","ફજર","🌅"],
+      ["Dhuhr","ઝુહર","☀️"],
+      ["Asr","અસર","🌤️"],
+      ["Maghrib","મગરિબ","🌇"],
+      ["Isha","ઈશા","🌙"]
+    ];
+
+    let html =
+      "<div class='location'>📍 " +
+      city + ", India</div>";
+
+    prayers.forEach(function(p){
+
+      html +=
+        "<div class='prayer'>" +
+        "<span>" + p[2] + " " + p[1] + "</span>" +
+        "<span class='prayer-time'>" +
+        t[p[0]] +
+        "</span>" +
+        "</div>";
+
+    });
+
+    box.innerHTML = html;
+
+  }catch(error){
+
+    box.innerHTML =
+      "<div class='center'>" +
+      "⚠️ " + city +
+      " માટે નમાઝનો સમય મળ્યો નથી." +
+      "<br><br>City / District નું નામ સાચું લખો." +
+      "<br><br>" +
+      "<button onclick='loadNamaz()'>🔄 ફરી પ્રયાસ કરો</button>" +
+      "</div>";
+
+  }
 
 }
-
-const result=await response.json();
-
-const t=result.data.timings;
-
-const prayers=[
-
-["Fajr","ફજર"],
-
-["Dhuhr","ઝુહર"],
-
-["Asr","અસર"],
-
-["Maghrib","મગરિબ"],
-
-["Isha","ઈશા"]
-
-];
-
-let html="";
-
-prayers.forEach(function(p){
-
-html+=
-"<div class='prayer'>"+
-"<span>🕌 "+p[1]+"</span>"+
-"<span class='prayer-time'>"+
-t[p[0]]+
-"</span>"+
-"</div>";
-
-});
-
-box.innerHTML=html;
-
-}catch(error){
-
-box.innerHTML=
-"<p class='center'>"+
-"⚠️ નમાઝના સમય લોડ થઈ શક્યા નથી."+
-"</p>";
-
-}
-
-}
-
-
 /* HIJRI */
 
 async function loadHijri(){
