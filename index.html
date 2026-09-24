@@ -1,267 +1,663 @@
 <!DOCTYPE html>
 <html lang="gu">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>મારો દિન</title>
+
 <meta name="theme-color" content="#075e54">
+<meta name="description" content="મારો દિન - Islamic Life Companion">
+
+<link rel="manifest" href="manifest.json">
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,"Noto Sans Gujarati",sans-serif;background:#eef7f3;color:#173b32}
-header{background:#075e54;color:#fff;text-align:center;padding:24px 12px}
-header h1{margin:0;font-size:32px}
-header p{margin:6px 0}
-.container{max-width:760px;margin:auto;padding:12px}
-.card{background:#fff;border-radius:18px;padding:17px;margin:13px 0;box-shadow:0 4px 15px #0002}
-.hero{background:linear-gradient(135deg,#075e54,#0b927b);color:white;border-radius:20px;padding:20px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:15px}
-button{width:100%;border:0;border-radius:12px;padding:13px;margin-top:8px;background:#075e54;color:white;font-size:16px;font-weight:bold;cursor:pointer}
-button:active{transform:scale(.98)}
-.homeBtn{background:#fff;color:#075e54;margin:0}
-input{width:100%;padding:13px;border:1px solid #bfd5ce;border-radius:12px;font-size:16px;margin:7px 0 10px}
-.item{background:#f0f8f5;padding:14px;border-radius:12px;margin:8px 0;cursor:pointer;color:#075e54;font-weight:bold}
-.dua{background:#f5faf8;border-left:4px solid #075e54;padding:15px;margin:9px 0;border-radius:12px}
-.arabic{direction:rtl;text-align:right;font-size:24px;line-height:2;margin-top:8px}
-.center{text-align:center}
-.count{font-size:58px;text-align:center;font-weight:bold;color:#075e54}
-.check{display:block;background:#f1f8f5;padding:13px;border-radius:10px;margin:7px 0}
-.answer{background:#e5f5ef;padding:14px;border-radius:12px;margin-top:10px;line-height:1.7}
-footer{text-align:center;padding:25px;color:#68756f;font-size:13px}
-@media(max-width:430px){header h1{font-size:28px}.container{padding:8px}}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans Gujarati",sans-serif;
+  background:linear-gradient(135deg,#e9f7f2,#f8fbfa);
+  color:#173b32;
+}
+
+header{
+  background:linear-gradient(135deg,#064e45,#087c6b,#075e54);
+  color:white;
+  text-align:center;
+  padding:28px 15px;
+  box-shadow:0 5px 20px #0003;
+}
+
+header h1{
+  margin:0;
+  font-size:32px;
+}
+
+header p{
+  margin:7px 0 0;
+  opacity:.9;
+}
+
+.container{
+  max-width:720px;
+  margin:auto;
+  padding:12px;
+}
+
+.home-hero{
+  background:linear-gradient(135deg,#075e54,#0b927b);
+  color:white;
+  padding:22px 15px;
+  border-radius:22px;
+  margin:8px 0 15px;
+  box-shadow:0 7px 22px #075e5438;
+}
+
+.home-hero h2{
+  margin:5px 0;
+  font-size:30px;
+}
+
+.home-hero p{
+  line-height:1.6;
+}
+
+.home-date{
+  background:#ffffff20;
+  border:1px solid #ffffff30;
+  padding:10px;
+  border-radius:13px;
+  text-align:center;
+  margin-top:12px;
+}
+
+.home-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+  margin-top:15px;
+}
+
+.home-btn{
+  background:white;
+  color:#075e54;
+  border:0;
+  border-radius:16px;
+  padding:14px 6px;
+  font-size:15px;
+  font-weight:bold;
+  box-shadow:0 4px 12px #0002;
+}
+
+.home-btn span{
+  display:block;
+  font-size:28px;
+  margin-bottom:5px;
+}
+
+.card{
+  background:white;
+  padding:18px;
+  margin:14px 0;
+  border-radius:20px;
+  border:1px solid #dcece6;
+  box-shadow:0 5px 18px #173b3212;
+}
+
+.card h2{
+  color:#075e54;
+  margin:0 0 13px;
+}
+
+.location{
+  background:#e7f6f0;
+  color:#075e54;
+  padding:11px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.prayer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 4px;
+  border-bottom:1px solid #e5ebe8;
+}
+
+.prayer:last-child{
+  border-bottom:0;
+}
+
+.prayer-time{
+  font-weight:bold;
+  color:#075e54;
+  background:#e7f6f0;
+  padding:5px 9px;
+  border-radius:8px;
+}
+
+button{
+  width:100%;
+  border:0;
+  border-radius:13px;
+  padding:13px;
+  margin-top:9px;
+  background:linear-gradient(135deg,#075e54,#087b69);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.secondary{
+  background:#5a9489;
+}
+
+input[type="text"]{
+  width:100%;
+  padding:13px;
+  border:1px solid #cbded7;
+  border-radius:12px;
+  font-size:16px;
+  margin-bottom:10px;
+  outline:none;
+}
+
+.quran{
+  background:#f0f8f5;
+  padding:14px;
+  margin:8px 0;
+  border-radius:12px;
+  color:#075e54;
+  font-weight:bold;
+}
+
+.dua{
+  background:#f5faf8;
+  padding:16px;
+  margin:11px 0;
+  border-radius:15px;
+  border-left:4px solid #075e54;
+}
+
+.arabic{
+  direction:rtl;
+  text-align:right;
+  font-size:25px;
+  line-height:2;
+  color:#173b32;
+  padding:6px 0;
+}
+
+.count{
+  font-size:60px;
+  font-weight:bold;
+  text-align:center;
+  color:#075e54;
+  padding:10px;
+}
+
+.check{
+  display:block;
+  background:#f1f8f5;
+  padding:14px;
+  margin:8px 0;
+  border-radius:12px;
+  border:1px solid #e0eee9;
+}
+
+.check input{
+  transform:scale(1.2);
+  margin-right:8px;
+}
+
+.answer{
+  background:#e5f5ef;
+  padding:15px;
+  border-radius:12px;
+  margin-top:11px;
+  line-height:1.7;
+}
+
+.center{
+  text-align:center;
+}
+
+footer{
+  text-align:center;
+  padding:30px 15px;
+  color:#68756f;
+  font-size:13px;
+}
+
+@media(max-width:430px){
+
+  header h1{
+    font-size:29px;
+  }
+
+  .container{
+    padding:9px;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>☪️ મારો દિન</h1>
-<p>Islamic Life Companion</p>
-<p>Minhaz Musa Patel & Abdulla Ilyas Bhoja</p>
+  <h1>☪️ મારો દિન</h1>
+  <p>Islamic Life Companion</p>
+  <p>Minhaz Musa Patel & Abdulla Ilyas Bhoja</p>
 </header>
 
 <div class="container">
 
-<section class="hero">
-<div style="font-size:40px">☪️</div>
-<h2>મારો દિન</h2>
-<p>તમારા દિનની ઇબાદતને સરળ અને સુંદર બનાવતો Islamic Life Companion.</p>
-<div id="today">📅 તારીખ લોડ થઈ રહી છે...</div>
+<!-- HOME -->
 
-<div class="grid">
-<button class="homeBtn" onclick="go('namaz')">🕌<br>નમાઝ</button>
-<button class="homeBtn" onclick="go('quran')">📖<br>કુરઆન</button>
-<button class="homeBtn" onclick="go('dua')">🤲<br>દુઆ</button>
-<button class="homeBtn" onclick="go('azkar')">🌙<br>અઝકાર</button>
-<button class="homeBtn" onclick="go('tasbeeh')">📿<br>તસ્બીહ</button>
-<button class="homeBtn" onclick="go('ibadat')">❤️<br>ઈબાદત</button>
-<button class="homeBtn" onclick="go('qibla')">🕋<br>કિબલા</button>
-<button class="homeBtn" onclick="go('assistant')">🤖<br>Assistant</button>
-</div>
-</section>
+<div class="home-hero" id="home">
 
+  <div style="font-size:42px;">☪️</div>
 
-<section class="card" id="namaz">
-<h2>🕌 નમાઝ</h2>
-<p>📍 Bharuch, Gujarat</p>
+  <h2>મારો દિન</h2>
 
-<div id="prayerList">
-<div class="center">⏳ નમાઝના સમય મેળવાઈ રહ્યા છે...</div>
-</div>
+  <p>
+    તમારા દિનની ઇબાદતને સરળ અને સુંદર બનાવતો
+    Islamic Life Companion.
+  </p>
 
-<button onclick="loadPrayer()">🔄 Refresh</button>
-</section>
+  <div class="home-date" id="homeDate">
+    📅 તારીખ લોડ થઈ રહી છે...
+  </div>
 
+  <div class="home-grid">
 
-<section class="card">
-<h2>🌙 હિજરી તારીખ</h2>
-<div id="hijri" class="center">⏳ લોડ થઈ રહી છે...</div>
-</section>
+    <button class="home-btn" onclick="goTo('namazCard')">
+      <span>🕌</span>
+      નમાઝ
+    </button>
 
+    <button class="home-btn" onclick="goTo('quranCard')">
+      <span>📖</span>
+      કુરઆન
+    </button>
 
-<section class="card" id="quran">
-<h2>📖 કુરઆન</h2>
+    <button class="home-btn" onclick="goTo('duaCard')">
+      <span>🤲</span>
+      દુઆ
+    </button>
 
-<p>ગુજરાતી નામ અથવા Surah નંબરથી શોધો.</p>
+    <button class="home-btn" onclick="goTo('azkarCard')">
+      <span>🌙</span>
+      આજના અઝકાર
+    </button>
 
-<input
-id="quranSearch"
-type="text"
-placeholder="🔎 જેમ કે યાસીન અથવા 36"
-oninput="searchQuran()"
->
+    <button class="home-btn" onclick="goTo('tasbeehCard')">
+      <span>📿</span>
+      તસ્બીહ
+    </button>
 
-<div id="quranList"></div>
-</section>
+    <button class="home-btn" onclick="goTo('ibadatCard')">
+      <span>❤️</span>
+      ઈબાદત
+    </button>
 
+    <button class="home-btn" onclick="goTo('qiblaCard')">
+      <span>🕋</span>
+      કિબલા
+    </button>
 
-<section class="card" id="dua">
-<h2>🤲 દુઆ</h2>
+    <button class="home-btn" onclick="goTo('assistantCard')">
+      <span>🤖</span>
+      Assistant
+    </button>
 
-<p>ગુજરાતી નામથી દુઆ શોધો.</p>
+  </div>
 
-<input
-id="duaSearch"
-type="text"
-placeholder="🔎 જેમ કે જ્ઞાન, માફી, માતા"
-oninput="searchDua()"
->
-
-<div id="duaList"></div>
-</section>
-
-
-<section class="card" id="azkar">
-<h2>🌙 આજના અઝકાર</h2>
-
-<div class="dua">
-<b>સવાર અને સાંજ</b>
-
-<div class="arabic">
-سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
 </div>
 
-<p>100 વખત</p>
 
-<button onclick="azkar(0)">
-📿 Count: <span id="a0">0</span>/100
-</button>
+<!-- NAMAZ -->
+
+<div class="card" id="namazCard">
+
+  <h2>🕌 આજના નમાઝના સમય</h2>
+
+  <div class="location">
+    📍 Bharuch, Gujarat, India
+  </div>
+
+  <div id="namaz">
+    <p class="center">⏳ સમય લોડ થઈ રહ્યો છે...</p>
+  </div>
+
+  <button onclick="loadNamaz()">
+    🔄 સમય Refresh કરો
+  </button>
+
 </div>
 
 
-<div class="dua">
-<b>સવાર અને સાંજ</b>
+<!-- HIJRI -->
 
-<div class="arabic">
-بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ
-</div>
+<div class="card">
 
-<p>3 વખત</p>
+  <h2>🌙 આજની હિજરી તારીખ</h2>
 
-<button onclick="azkar(1)">
-🤲 Count: <span id="a1">0</span>/3
-</button>
-</div>
+  <div style="
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    color:white;
+    padding:20px;
+    border-radius:17px;
+    text-align:center;
+  ">
 
+    <div style="font-size:42px;">🌙</div>
 
-<div class="dua">
-<b>રાત્રિ</b>
+    <div id="hijri" style="
+      font-size:20px;
+      font-weight:bold;
+      margin-top:8px;
+    ">
+      ⏳ હિજરી તારીખ લોડ થઈ રહી છે...
+    </div>
 
-<div class="arabic">
-سُبْحَانَ اللَّهِ
-</div>
-
-<button onclick="azkar(2)">
-📿 Count: <span id="a2">0</span>
-</button>
-</div>
-
-</section>
-
-
-<section class="card" id="tasbeeh">
-<h2>📿 Digital Tasbeeh</h2>
-
-<div class="count" id="counter">0</div>
-
-<button onclick="add()">📿 ગણો</button>
-
-<button onclick="resetCount()">🔄 Reset</button>
-</section>
-
-
-<section class="card" id="ibadat">
-<h2>❤️ આજની ઈબાદત</h2>
-
-<label class="check">
-<input type="checkbox">
-🕌 પાંચ વક્તની નમાઝ
-</label>
-
-<label class="check">
-<input type="checkbox">
-📖 કુરઆનનું પઠન
-</label>
-
-<label class="check">
-<input type="checkbox">
-📿 ઝિક્ર / તસ્બીહ
-</label>
-
-<label class="check">
-<input type="checkbox">
-🤲 દુઆ
-</label>
-
-<label class="check">
-<input type="checkbox">
-❤️ સદકો / મદદ
-</label>
-</section>
-
-
-<section class="card" id="qibla">
-<h2>🕋 કિબલા</h2>
-
-<p>હાલ Bharuch માટે કિબલા દિશા.</p>
-
-<div
-id="qiblaBox"
-class="center"
-style="background:#f1f8f5;padding:18px;border-radius:14px"
->
-🕋 કિબલા direction
-</div>
-
-<button onclick="loadQibla()">
-🧭 કિબલા તપાસો
-</button>
-</section>
-
-
-<section class="card" id="assistant">
-<h2>🤖 Islamic Assistant</h2>
-
-<input
-id="ask"
-type="text"
-placeholder="નમાઝ, વુઝૂ, દુઆ, કુરઆન..."
->
-
-<button onclick="answer()">
-🤲 જવાબ મેળવો
-</button>
-
-<div
-id="ans"
-class="answer"
-style="display:none"
-></div>
-</section>
-
-
-<section class="card">
-<h2>ℹ️ મારો દિન</h2>
-
-<p>
-<b>મારો દિન</b> એક Islamic Life Companion છે.
-</p>
-
-<p>
-નમાઝ, કુરઆન, દુઆ, અઝકાર, તસ્બીહ,
-હિજરી તારીખ અને ઈબાદતને એક જગ્યાએ રાખવાનો પ્રયત્ન છે.
-</p>
-
-<div class="center">
-<b>Created by</b><br>
-Minhaz Musa Patel & Abdulla Ilyas Bhoja
-</div>
-</section>
+  </div>
 
 </div>
+
+
+<!-- QURAN -->
+
+<div class="card" id="quranCard">
+
+  <h2>📖 કુરઆન</h2>
+
+  <p style="color:#68756f;">
+    સૂરા શોધો અને વાંચવા માટે પસંદ કરો.
+  </p>
+
+  <input
+    type="text"
+    id="quranSearch"
+    placeholder="🔎 સૂરા શોધો..."
+    oninput="searchQuran()"
+  >
+
+  <div id="quranList"></div>
+
+</div>
+
+
+<!-- DUA -->
+
+<div class="card" id="duaCard">
+
+  <h2>🤲 દુઆ</h2>
+
+  <p style="color:#68756f;">
+    રોજિંદા જીવનની ઉપયોગી દુઆઓ
+  </p>
+
+  <input
+    type="text"
+    id="duaSearch"
+    placeholder="🔎 દુઆ શોધો..."
+    oninput="searchDua()"
+  >
+
+  <div id="duaList"></div>
+
+</div>
+
+
+<!-- DAILY AZKAR -->
+
+<div class="card" id="azkarCard">
+
+  <h2>🌙 આજના અઝકાર</h2>
+
+  <p style="color:#68756f;">
+    સવાર, સાંજ અને રાત્રિના અઝકાર
+  </p>
+
+  <div class="dua">
+
+    <b style="color:#075e54;">
+      🌅 સવાર અને સાંજ
+    </b>
+
+    <div class="arabic">
+      سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
+    </div>
+
+    <p>📿 100 વખત</p>
+
+    <button onclick="azkarCount(0)">
+      📿 વાંચ્યું — <span id="azkar0">0</span>/100
+    </button>
+
+  </div>
+
+
+  <div class="dua">
+
+    <b style="color:#075e54;">
+      🛡️ સવાર અને સાંજ
+    </b>
+
+    <div class="arabic">
+      بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ
+    </div>
+
+    <p>📿 3 વખત</p>
+
+    <button onclick="azkarCount(1)">
+      🤲 વાંચ્યું — <span id="azkar1">0</span>/3
+    </button>
+
+  </div>
+
+
+  <div class="dua">
+
+    <b style="color:#075e54;">
+      🌙 રાત્રિ
+    </b>
+
+    <div class="arabic">
+      سُبْحَانَ اللَّهِ
+    </div>
+
+    <p>📿 અલ્લાહનું સ્મરણ</p>
+
+    <button onclick="azkarCount(2)">
+      📿 Count — <span id="azkar2">0</span>
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- TASBEEH -->
+
+<div class="card" id="tasbeehCard">
+
+  <h2>📿 Digital Tasbeeh</h2>
+
+  <p class="center" style="color:#68756f;">
+    તમારો તસ્બીહ count સાચવો
+  </p>
+
+  <div class="count" id="count">0</div>
+
+  <button onclick="addTasbeeh()">
+    📿 ગણો
+  </button>
+
+  <button class="secondary" onclick="resetTasbeeh()">
+    🔄 Reset
+  </button>
+
+</div>
+
+
+<!-- IBADAT -->
+
+<div class="card" id="ibadatCard">
+
+  <h2>❤️ આજની ઈબાદત</h2>
+
+  <p style="color:#68756f;">
+    પૂર્ણ થયેલી ઈબાદત પર ✔️ કરો.
+  </p>
+
+  <label class="check">
+    <input type="checkbox">
+    🕌 પાંચ વક્તની નમાઝ
+  </label>
+
+  <label class="check">
+    <input type="checkbox">
+    📖 કુરઆનનું પઠન
+  </label>
+
+  <label class="check">
+    <input type="checkbox">
+    📿 તસ્બીહ / ઝિક્ર
+  </label>
+
+  <label class="check">
+    <input type="checkbox">
+    🤲 દુઆ
+  </label>
+
+  <label class="check">
+    <input type="checkbox">
+    ❤️ સદકો / કોઈને મદદ
+  </label>
+
+</div>
+
+
+<!-- QIBLA -->
+
+<div class="card" id="qiblaCard">
+
+  <h2>🕋 કિબલા દિશા</h2>
+
+  <p style="color:#68756f;">
+    નમાઝ માટે કિબલા દિશા શોધો.
+  </p>
+
+  <div id="qibla"
+    style="
+      background:#f1f8f5;
+      padding:20px;
+      border-radius:17px;
+      text-align:center;
+      color:#075e54;
+      font-weight:bold;
+    ">
+
+    🕋 કિબલા direction
+
+  </div>
+
+  <button onclick="loadQibla()">
+    🧭 કિબલા તપાસો
+  </button>
+
+</div>
+
+
+<!-- ASSISTANT -->
+
+<div class="card" id="assistantCard">
+
+  <h2>🤖 Islamic Assistant</h2>
+
+  <p style="color:#68756f;">
+    સરળ ઇસ્લામિક માહિતી માટે પૂછો.
+  </p>
+
+  <input
+    type="text"
+    id="assistantInput"
+    placeholder="નમાઝ, વુઝૂ, દુઆ, કુરઆન..."
+  >
+
+  <button onclick="askAssistant()">
+    🤲 જવાબ મેળવો
+  </button>
+
+  <div id="assistantAnswer"
+       class="answer"
+       style="display:none;">
+  </div>
+
+</div>
+
+
+<!-- ABOUT -->
+
+<div class="card">
+
+  <h2>ℹ️ મારો દિન</h2>
+
+  <p>
+    <b>મારો દિન</b> એક Islamic Life Companion છે.
+  </p>
+
+  <p style="line-height:1.8;">
+    નમાઝ, કુરઆન, દુઆ, અઝકાર,
+    તસ્બીહ, હિજરી તારીખ અને ઈબાદતને
+    એક જગ્યાએ રાખવાનો પ્રયત્ન છે.
+  </p>
+
+  <div style="
+    background:#f1f8f5;
+    padding:15px;
+    border-radius:14px;
+    text-align:center;
+  ">
+
+    <b style="color:#075e54;">
+      👨‍💻 Created by
+    </b>
+
+    <p style="margin-bottom:0;">
+      Minhaz Musa Patel & Abdulla Ilyas Bhoja
+    </p>
+
+  </div>
+
+</div>
+
+</div>
+
 
 <footer>
-© 2026 મારો દિન — Islamic Life Companion
+  © 2026 મારો દિન — Islamic Life Companion
 </footer>
 
 
@@ -269,36 +665,150 @@ Minhaz Musa Patel & Abdulla Ilyas Bhoja
 
 /* HOME */
 
-function go(id){
+function goTo(id){
 
-var el=document.getElementById(id);
+  const element = document.getElementById(id);
 
-if(el){
-
-el.scrollIntoView({
-behavior:"smooth"
-});
+  if(element){
+    element.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  }
 
 }
 
+function updateHomeDate(){
+
+  const now = new Date();
+
+  document.getElementById("homeDate").innerText =
+    "📅 " +
+    now.toLocaleDateString("gu-IN",{
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    });
+
 }
 
 
-document.getElementById("today").textContent =
-"📅 " +
-new Date().toLocaleDateString(
-"gu-IN",
-{
-day:"numeric",
-month:"long",
-year:"numeric"
+/* NAMAZ */
+
+async function loadNamaz(){
+
+  const box = document.getElementById("namaz");
+
+  box.innerHTML =
+    "<p class='center'>⏳ નમાઝના સમય લોડ થઈ રહ્યા છે...</p>";
+
+  try{
+
+    const now = new Date();
+
+    const day =
+      String(now.getDate()).padStart(2,"0");
+
+    const month =
+      String(now.getMonth()+1).padStart(2,"0");
+
+    const year =
+      now.getFullYear();
+
+    const url =
+      "https://api.aladhan.com/v1/timings/" +
+      day + "-" + month + "-" + year +
+      "?city=Bharuch&country=India&method=1&school=1";
+
+    const response = await fetch(url);
+
+    if(!response.ok){
+      throw new Error("Namaz API error");
+    }
+
+    const result = await response.json();
+
+    const t = result.data.timings;
+
+    const prayers = [
+      ["Fajr","ફજર"],
+      ["Dhuhr","ઝુહર"],
+      ["Asr","અસર"],
+      ["Maghrib","મગરિબ"],
+      ["Isha","ઈશા"]
+    ];
+
+    let html = "";
+
+    prayers.forEach(function(p){
+
+      html +=
+        "<div class='prayer'>" +
+        "<span>🕌 " + p[1] + "</span>" +
+        "<span class='prayer-time'>" +
+        t[p[0]] +
+        "</span>" +
+        "</div>";
+
+    });
+
+    box.innerHTML = html;
+
+  }catch(error){
+
+    box.innerHTML =
+      "<p class='center'>⚠️ નમાઝના સમય લોડ થઈ શક્યા નથી.</p>";
+
+  }
+
 }
-);
+
+
+/* HIJRI */
+
+async function loadHijri(){
+
+  try{
+
+    const now = new Date();
+
+    const day =
+      String(now.getDate()).padStart(2,"0");
+
+    const month =
+      String(now.getMonth()+1).padStart(2,"0");
+
+    const year =
+      now.getFullYear();
+
+    const url =
+      "https://api.aladhan.com/v1/gToH/" +
+      day + "-" + month + "-" + year;
+
+    const response = await fetch(url);
+
+    const result = await response.json();
+
+    const h = result.data.hijri;
+
+    document.getElementById("hijri").innerText =
+      h.day + " " +
+      h.month.en + " " +
+      h.year + " AH";
+
+  }catch(error){
+
+    document.getElementById("hijri").innerText =
+      "હિજરી તારીખ ઉપલબ્ધ નથી";
+
+  }
+
+}
 
 
 /* QURAN */
 
-var surah=[
+const surah = [
 
 "અલ-ફાતિહા",
 "અલ-બકરા",
@@ -322,7 +832,7 @@ var surah=[
 "તાહા",
 "અલ-અંબિયા",
 "અલ-હજ",
-"અલ-મુનિમૂન",
+"અલ-મુમીનૂન",
 "અન-નૂર",
 "અલ-ફુરકાન",
 "અશ-શુઅરા",
@@ -417,504 +927,220 @@ var surah=[
 
 ];
 
-
 function showQuran(list){
 
-var box=document.getElementById("quranList");
+  const box =
+    document.getElementById("quranList");
 
-box.innerHTML="";
+  box.innerHTML = "";
 
+  list.forEach(function(name,index){
 
-if(!list.length){
+    const number = index + 1;
 
-box.innerHTML=
-"<div class='dua'>🔎 કોઈ Surah મળી નથી.</div>";
+    const div =
+      document.createElement("div");
 
-return;
+    div.className = "quran";
 
-}
+    div.innerHTML =
+      "📖 " + number + ". " + name;
 
+    div.onclick = function(){
 
-list.forEach(function(x){
+      window.open(
+        "https://quran.com/" + number,
+        "_blank"
+      );
 
-var d=document.createElement("div");
+    };
 
-d.className="item";
+    box.appendChild(div);
 
-d.textContent=
-"📖 "+x.n+". "+x.name;
-
-d.onclick=function(){
-
-window.open(
-"https://quran.com/"+x.n,
-"_blank"
-);
-
-};
-
-box.appendChild(d);
-
-});
+  });
 
 }
-
 
 function searchQuran(){
 
-var q=
-document.getElementById("quranSearch")
-.value
-.trim()
-.toLowerCase();
+  const text =
+    document.getElementById("quranSearch")
+    .value
+    .toLowerCase();
 
+  const filtered =
+    surah.filter(function(name){
+      return name.toLowerCase().includes(text);
+    });
 
-var list=
-surah.map(function(name,i){
-
-return {
-name:name,
-n:i+1
-};
-
-});
-
-
-if(q){
-
-list=
-list.filter(function(x){
-
-return(
-x.name.toLowerCase().indexOf(q)>=0
-||
-String(x.n).indexOf(q)>=0
-);
-
-});
-
-}
-
-
-showQuran(list);
+  showQuran(filtered);
 
 }
 
 
 /* DUA */
 
-var duas=[
+const duas = [
 
 {
-t:"ઘરથી બહાર નીકળવાની દુઆ",
-a:"بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ"
+  title:"ઘરથી બહાર નીકળવાની દુઆ",
+  arabic:"بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ"
 },
 
 {
-t:"જ્ઞાન માટે દુઆ",
-a:"رَبِّ زِدْنِي عِلْمًا"
+  title:"જ્ઞાન માટે દુઆ",
+  arabic:"رَبِّ زِدْنِي عِلْمًا"
 },
 
 {
-t:"માફી માટે દુઆ",
-a:"رَبِّ اغْفِرْ لِي"
+  title:"માફી માટે દુઆ",
+  arabic:"رَبِّ اغْفِرْ لِي"
 },
 
 {
-t:"માતા-પિતા માટે દુઆ",
-a:"رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا"
+  title:"માતા-પિતા માટે દુઆ",
+  arabic:"رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا"
 },
 
 {
-t:"દુનિયા અને આખિરત માટે દુઆ",
-a:"رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً"
+  title:"દુનિયા અને આખિરત માટે દુઆ",
+  arabic:"رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً"
 },
 
 {
-t:"મુશ્કેલીમાં દુઆ",
-a:"لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ"
+  title:"મુશ્કેલીમાં દુઆ",
+  arabic:"لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ"
 }
 
 ];
 
+function showDuas(list){
 
-function showDua(list){
+  const box =
+    document.getElementById("duaList");
 
-var box=
-document.getElementById("duaList");
+  box.innerHTML = "";
 
-box.innerHTML="";
+  list.forEach(function(item){
 
+    const div =
+      document.createElement("div");
 
-if(!list.length){
+    div.className = "dua";
 
-box.innerHTML=
-"<div class='dua'>🔎 કોઈ દુઆ મળી નથી.</div>";
+    div.innerHTML =
+      "<b style='color:#075e54'>" +
+      item.title +
+      "</b>" +
+      "<div class='arabic'>" +
+      item.arabic +
+      "</div>";
 
-return;
+    box.appendChild(div);
 
-}
-
-
-list.forEach(function(x){
-
-var d=document.createElement("div");
-
-d.className="dua";
-
-d.innerHTML=
-"<b>"+x.t+"</b>"+
-"<div class='arabic'>"+
-x.a+
-"</div>";
-
-box.appendChild(d);
-
-});
+  });
 
 }
-
 
 function searchDua(){
 
-var q=
-document.getElementById("duaSearch")
-.value
-.trim()
-.toLowerCase();
+  const text =
+    document.getElementById("duaSearch")
+    .value
+    .toLowerCase();
 
+  const filtered =
+    duas.filter(function(item){
 
-var list=duas;
+      return item.title
+        .toLowerCase()
+        .includes(text);
 
+    });
 
-if(q){
-
-list=
-duas.filter(function(x){
-
-return(
-x.t.toLowerCase().indexOf(q)>=0
-||
-x.a.indexOf(q)>=0
-);
-
-});
-
-}
-
-
-showDua(list);
+  showDuas(filtered);
 
 }
 
 
 /* TASBEEH */
 
-var count=
-Number(
-localStorage.getItem("marodin_count")||0
-);
+let count =
+  Number(localStorage.getItem("tasbeeh")) || 0;
 
+function updateCount(){
 
-function renderCount(){
+  document.getElementById("count").innerText =
+    count;
 
-document.getElementById("counter")
-.textContent=count;
+}
+
+function addTasbeeh(){
+
+  count++;
+
+  localStorage.setItem(
+    "tasbeeh",
+    count
+  );
+
+  updateCount();
+
+}
+
+function resetTasbeeh(){
+
+  count = 0;
+
+  localStorage.setItem(
+    "tasbeeh",
+    count
+  );
+
+  updateCount();
 
 }
 
 
-function add(){
+/* DAILY AZKAR */
 
-count++;
+let azkarCounts =
+  JSON.parse(
+    localStorage.getItem("azkarCounts")
+  ) || [0,0,0];
 
-localStorage.setItem(
-"marodin_count",
-count
-);
+function updateAzkar(){
 
-renderCount();
+  document.getElementById("azkar0").innerText =
+    azkarCounts[0];
 
-}
+  document.getElementById("azkar1").innerText =
+    azkarCounts[1];
 
-
-function resetCount(){
-
-count=0;
-
-localStorage.setItem(
-"marodin_count",
-count
-);
-
-renderCount();
+  document.getElementById("azkar2").innerText =
+    azkarCounts[2];
 
 }
 
+function azkarCount(index){
 
-/* AZKAR */
+  const limits = [100,3,0];
 
-var ac=
-JSON.parse(
-localStorage.getItem("marodin_azkar")
-||
-"[0,0,0]"
-);
+  if(index !== 2 &&
+     azkarCounts[index] >= limits[index]){
 
+    return;
 
-function renderAzkar(){
+  }
 
-for(
-var i=0;
-i<3;
-i++
-){
+  azkarCounts[index]++;
 
-document.getElementById(
-"a"+i
-).textContent=ac[i];
+  localStorage.setItem(
+    "azkarCounts",
+    JSON.stringify(azkarCounts)
+  );
 
-}
-
-}
-
-
-function azkar(i){
-
-if(
-i===0 &&
-ac[i]>=100
-)return;
-
-
-if(
-i===1 &&
-ac[i]>=3
-)return;
-
-
-ac[i]++;
-
-localStorage.setItem(
-"marodin_azkar",
-JSON.stringify(ac)
-);
-
-renderAzkar();
-
-}
-
-
-/* ASSISTANT */
-
-function answer(){
-
-var q=
-document.getElementById("ask")
-.value
-.toLowerCase()
-.trim();
-
-var r;
-
-
-if(!q){
-
-r="🤲 કૃપા કરીને પ્રશ્ન લખો.";
-
-}
-
-else if(
-q.indexOf("નમાઝ")>=0 ||
-q.indexOf("namaz")>=0
-){
-
-r=
-"<b>🕌 નમાઝ</b><br><br>"+
-"ઇસ્લામમાં પાંચ સમયની નમાઝ છે: "+
-"ફજર, ઝુહર, અસર, મગરિબ અને ઈશા.";
-
-}
-
-else if(
-q.indexOf("વુઝૂ")>=0 ||
-q.indexOf("wudu")>=0
-){
-
-r=
-"<b>💧 વુઝૂ</b><br><br>"+
-"નમાઝ પહેલાં વુઝૂ કરવામાં આવે છે. "+
-"વિગત માટે વિશ્વસનીય આલિમ પાસેથી શીખો.";
-
-}
-
-else if(
-q.indexOf("દુઆ")>=0 ||
-q.indexOf("dua")>=0
-){
-
-r=
-"<b>🤲 દુઆ</b><br><br>"+
-"દુઆ અલ્લાહ પાસે માગવાની ઇબાદત છે.";
-
-}
-
-else if(
-q.indexOf("કુરઆન")>=0 ||
-q.indexOf("quran")>=0
-){
-
-r=
-"<b>📖 કુરઆન</b><br><br>"+
-"કુરઆન વાંચો, તેનો અર્થ સમજો અને "+
-"તેના માર્ગદર્શન પર અમલ કરવાનો પ્રયત્ન કરો.";
-
-}
-
-else{
-
-r=
-"📚 આ પ્રશ્ન માટે હાલમાં જવાબ ઉપલબ્ધ નથી.";
-
-}
-
-
-var box=
-document.getElementById("ans");
-
-box.innerHTML=r;
-
-box.style.display="block";
-
-}
-
-
-/* NAMAZ */
-
-async function loadPrayer(){
-
-var box=
-document.getElementById("prayerList");
-
-box.innerHTML=
-"<div class='center'>⏳ લોડ થઈ રહ્યું છે...</div>";
-
-
-try{
-
-var d=new Date();
-
-var day=
-String(d.getDate())
-.padStart(2,"0");
-
-var m=
-String(d.getMonth()+1)
-.padStart(2,"0");
-
-var y=d.getFullYear();
-
-
-var r=
-await fetch(
-"https://api.aladhan.com/v1/timings/"+
-day+"-"+m+"-"+y+
-"?city=Bharuch&country=India&method=1&school=1"
-);
-
-
-var j=
-await r.json();
-
-var t=
-j.data.timings;
-
-
-var p=[
-
-["Fajr","ફજર"],
-["Dhuhr","ઝુહર"],
-["Asr","અસર"],
-["Maghrib","મગરિબ"],
-["Isha","ઈશા"]
-
-];
-
-
-box.innerHTML=
-p.map(function(x){
-
-return(
-"<div class='item' "+
-"style='display:flex;justify-content:space-between'>"+
-"<span>🕌 "+x[1]+"</span>"+
-"<span>"+t[x[0]]+"</span>"+
-"</div>"
-);
-
-}).join("");
-
-
-}catch(e){
-
-box.innerHTML=
-"<div class='center'>⚠️ સમય લોડ થઈ શક્યા નથી.</div>";
-
-}
-
-}
-
-
-/* HIJRI */
-
-async function loadHijri(){
-
-try{
-
-var d=new Date();
-
-var day=
-String(d.getDate())
-.padStart(2,"0");
-
-var m=
-String(d.getMonth()+1)
-.padStart(2,"0");
-
-var y=d.getFullYear();
-
-
-var r=
-await fetch(
-"https://api.aladhan.com/v1/gToH/"+
-day+"-"+m+"-"+y
-);
-
-
-var j=
-await r.json();
-
-var h=
-j.data.hijri;
-
-
-document.getElementById("hijri")
-.textContent=
-h.day+
-" "+
-h.month.en+
-" "+
-h.year+
-" AH";
-
-
-}catch(e){
-
-document.getElementById("hijri")
-.textContent=
-"હિજરી તારીખ ઉપલબ્ધ નથી";
-
-}
+  updateAzkar();
 
 }
 
@@ -923,62 +1149,147 @@ document.getElementById("hijri")
 
 async function loadQibla(){
 
-var b=
-document.getElementById("qiblaBox");
+  const box =
+    document.getElementById("qibla");
 
-b.textContent=
-"⏳ શોધી રહ્યા છીએ...";
+  box.innerHTML =
+    "⏳ કિબલા direction શોધી રહ્યા છીએ...";
 
+  try{
 
-try{
+    const response = await fetch(
+      "https://api.aladhan.com/v1/qibla/21.7051/72.9959"
+    );
 
-var r=
-await fetch(
-"https://api.aladhan.com/v1/qibla/21.7051/72.9959"
-);
+    if(!response.ok){
+      throw new Error("Qibla error");
+    }
 
-var j=
-await r.json();
+    const result =
+      await response.json();
 
+    const direction =
+      Number(result.data.direction);
 
-b.innerHTML=
-"<div style='font-size:50px'>🕋</div>"+
-"<b style='font-size:28px'>"+
-Number(j.data.direction).toFixed(1)+
-"°</b>"+
-"<br>Bharuchથી કિબલા direction";
+    if(!Number.isFinite(direction)){
+      throw new Error("Invalid direction");
+    }
 
+    box.innerHTML =
+      "<div style='font-size:55px'>🕋</div>" +
+      "<div style='font-size:32px'>" +
+      direction.toFixed(1) +
+      "°" +
+      "</div>" +
+      "<p>Bharuchથી કિબલા direction</p>";
 
-}catch(e){
+  }catch(error){
 
-b.textContent=
-"⚠️ કિબલા direction લોડ થઈ શકી નથી.";
+    box.innerHTML =
+      "⚠️ કિબલા direction લોડ થઈ શકી નથી.";
+
+  }
 
 }
+
+
+/* ASSISTANT */
+
+function askAssistant(){
+
+  const input =
+    document.getElementById("assistantInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  let answer = "";
+
+  if(
+    input.includes("નમાઝ") ||
+    input.includes("namaz")
+  ){
+
+    answer =
+      "<b>🕌 નમાઝ</b><br><br>" +
+      "ઇસ્લામમાં પાંચ સમયની નમાઝ છે: " +
+      "ફજર, ઝુહર, અસર, મગરિબ અને ઈશા.";
+
+  }
+
+  else if(
+    input.includes("વુઝૂ") ||
+    input.includes("wudu")
+  ){
+
+    answer =
+      "<b>💧 વુઝૂ</b><br><br>" +
+      "નમાઝ પહેલાં વુઝૂ કરવું જરૂરી છે. " +
+      "વિગત માટે વિશ્વસનીય આલિમ પાસેથી શીખો.";
+
+  }
+
+  else if(
+    input.includes("દુઆ") ||
+    input.includes("dua")
+  ){
+
+    answer =
+      "<b>🤲 દુઆ</b><br><br>" +
+      "દુઆ અલ્લાહ પાસે માગવાની ઇબાદત છે.";
+
+  }
+
+  else if(
+    input.includes("કુરઆન") ||
+    input.includes("quran")
+  ){
+
+    answer =
+      "<b>📖 કુરઆન</b><br><br>" +
+      "કુરઆન વાંચો, તેનો અર્થ સમજો અને " +
+      "તેના માર્ગદર્શન પર અમલ કરવાનો પ્રયત્ન કરો.";
+
+  }
+
+  else if(input === ""){
+
+    answer =
+      "🤲 કૃપા કરીને પ્રશ્ન લખો.";
+
+  }
+
+  else{
+
+    answer =
+      "📚 આ પ્રશ્ન માટે હાલમાં જવાબ ઉપલબ્ધ નથી.<br><br>" +
+      "વિશ્વસનીય આલિમ અથવા અધિકૃત ઇસ્લામિક સ્ત્રોતથી માહિતી મેળવો.";
+
+  }
+
+  const box =
+    document.getElementById("assistantAnswer");
+
+  box.innerHTML = answer;
+
+  box.style.display = "block";
 
 }
 
 
 /* START */
 
-showQuran(
-surah.map(function(name,i){
+updateHomeDate();
 
-return{
-name:name,
-n:i+1
-};
+updateCount();
 
-})
-);
+updateAzkar();
 
-showDua(duas);
+showQuran(surah);
 
-renderCount();
+showDuas(duas);
 
-renderAzkar();
-
-loadPrayer();
+loadNamaz();
 
 loadHijri();
 
