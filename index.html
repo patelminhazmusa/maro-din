@@ -165,30 +165,374 @@ font-size:13px;
   border-radius:12px;
   margin-top:12px;
   text-align:center;
-}
-.home-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:14px;
-}
-.home-btn{
-  background:white;
-  color:#075e54;
-  border:0;
-  border-radius:16px;
-  padding:16px 10px;
-  font-size:16px;
-  box-shadow:0 3px 10px #0002;
-  cursor:pointer;
-}
-.home-btn span{display:block;font-size:28px;margin-bottom:6px}
-.section-card{scroll-margin-top:12px}
-.bottom-space{height:65px}
-@media(max-width:430px){
-  .home-grid{grid-template-columns:repeat(2,1fr)}
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans Gujarati",sans-serif;
+  background:
+    radial-gradient(circle at top,#dff4eb 0,#eef7f3 40%,#f8fbf9 100%);
+  color:#173b32;
+}
+
+/* HEADER */
+
+header{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#064e45,#087c6b,#075e54);
+  color:white;
+  text-align:center;
+  padding:30px 15px 34px;
+  box-shadow:0 5px 20px #0003;
+}
+
+header:before{
+  content:"☪";
+  position:absolute;
+  font-size:120px;
+  opacity:.06;
+  left:-15px;
+  top:-35px;
+}
+
+header:after{
+  content:"✦";
+  position:absolute;
+  font-size:90px;
+  opacity:.06;
+  right:15px;
+  bottom:-25px;
+}
+
+header h1{
+  position:relative;
+  margin:0;
+  font-size:34px;
+  letter-spacing:.3px;
+}
+
+header p{
+  position:relative;
+  margin:7px 0 0;
+  opacity:.9;
+}
+
+/* CONTAINER */
+
+.container{
+  width:100%;
+  max-width:720px;
+  margin:auto;
+  padding:14px;
+}
+
+/* HOME */
+
+.home-hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(135deg,#075e54,#087b69 55%,#0b927b);
+  color:white;
+  padding:25px 18px 20px;
+  border-radius:24px;
+  margin:8px 0 16px;
+  box-shadow:0 8px 25px #075e5438;
+}
+
+.home-hero:before{
+  content:"☪";
+  position:absolute;
+  right:-15px;
+  top:-30px;
+  font-size:145px;
+  opacity:.07;
+}
+
+.home-hero h2{
+  position:relative;
+  color:white;
+  margin:0 0 8px;
+  font-size:30px;
+}
+
+.home-hero p{
+  position:relative;
+  margin:6px 0;
+  line-height:1.6;
+  opacity:.95;
+}
+
+.home-date{
+  position:relative;
+  background:#ffffff1c;
+  border:1px solid #ffffff30;
+  padding:11px 12px;
+  border-radius:14px;
+  margin-top:15px;
+  text-align:center;
+  backdrop-filter:blur(5px);
+}
+
+.home-grid{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:11px;
+  margin-top:16px;
+}
+
+.home-btn{
+  border:1px solid #ffffff40;
+  border-radius:17px;
+  padding:15px 8px;
+  background:white;
+  color:#075e54;
+  font-size:16px;
+  font-weight:bold;
+  box-shadow:0 4px 12px #0002;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.home-btn span{
+  display:block;
+  font-size:29px;
+  margin-bottom:6px;
+}
+
+.home-btn:active{
+  transform:scale(.96);
+}
+
+/* CARDS */
+
+.card{
+  background:#fff;
+  padding:19px;
+  margin:14px 0;
+  border-radius:20px;
+  border:1px solid #dcece6;
+  box-shadow:0 5px 18px #173b3212;
+  scroll-margin-top:12px;
+}
+
+.card h2{
+  color:#075e54;
+  margin:0 0 14px;
+  font-size:22px;
+}
+
+/* LOCATION */
+
+.location{
+  background:#e7f6f0;
+  color:#075e54;
+  padding:11px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:bold;
+}
+
+/* PRAYER */
+
+.prayer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 5px;
+  border-bottom:1px solid #e5ebe8;
+}
+
+.prayer:last-child{
+  border-bottom:0;
+}
+
+.prayer-time{
+  font-weight:bold;
+  color:#075e54;
+  background:#e7f6f0;
+  padding:5px 9px;
+  border-radius:8px;
+}
+
+/* BUTTONS */
+
+button{
+  width:100%;
+  border:0;
+  border-radius:13px;
+  padding:13px;
+  margin-top:9px;
+  background:linear-gradient(135deg,#075e54,#087b69);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 3px 8px #0002;
+  transition:.2s;
+}
+
+button:active{
+  transform:scale(.98);
+}
+
+.secondary{
+  background:#5a9489;
+}
+
+/* SEARCH */
+
+input[type="text"]{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #cbded7;
+  border-radius:12px;
+  font-size:16px;
+  margin-bottom:10px;
+  outline:none;
+  background:#fbfdfc;
+}
+
+input[type="text"]:focus{
+  border-color:#075e54;
+  box-shadow:0 0 0 3px #075e5415;
+}
+
+/* QURAN */
+
+.quran{
+  background:#f0f8f5;
+  padding:14px;
+  margin:8px 0;
+  border-radius:12px;
+  color:#075e54;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.quran:active{
+  transform:scale(.98);
+}
+
+/* DUA */
+
+.dua{
+  background:linear-gradient(135deg,#f1f8f5,#fbfdfc);
+  padding:16px;
+  margin:11px 0;
+  border-radius:15px;
+  border-left:4px solid #075e54;
+}
+
+.arabic{
+  direction:rtl;
+  text-align:right;
+  font-size:25px;
+  line-height:2;
+  color:#173b32;
+  padding:5px 0;
+}
+
+/* TASBEEH */
+
+.count{
+  font-size:60px;
+  font-weight:bold;
+  text-align:center;
+  color:#075e54;
+  padding:8px;
+}
+
+/* IBADAT */
+
+.check{
+  display:block;
+  background:#f1f8f5;
+  padding:14px;
+  margin:8px 0;
+  border-radius:12px;
+  border:1px solid #e0eee9;
+}
+
+.check input{
+  transform:scale(1.2);
+  margin-right:8px;
+}
+
+/* ANSWER */
+
+.answer{
+  background:#e5f5ef;
+  padding:15px;
+  border-radius:12px;
+  margin-top:11px;
+  line-height:1.7;
+}
+
+/* CENTER */
+
+.center{
+  text-align:center;
+}
+
+/* FOOTER */
+
+footer{
+  text-align:center;
+  padding:30px 15px;
+  color:#68756f;
+  font-size:13px;
+}
+
+.bottom-space{
+  height:60px;
+}
+
+.section-card{
+  scroll-margin-top:10px;
+}
+
+/* MOBILE */
+
+@media(max-width:430px){
+
+  header h1{
+    font-size:30px;
+  }
+
+  .container{
+    padding:10px;
+  }
+
+  .home-hero{
+    padding:22px 15px 18px;
+  }
+
+  .home-grid{
+    gap:9px;
+  }
+
+  .home-btn{
+    padding:14px 6px;
+    font-size:15px;
+  }
+
+  .card{
+    padding:16px;
+    border-radius:18px;
+  }
+
+}
 </style>
 </head>
 
@@ -202,11 +546,70 @@ font-size:13px;
 
 <div class="container">
 
-<!-- HOME SCREEN -->
+<!-- PREMIUM HOME SCREEN -->
+
 <div class="home-hero" id="home">
-  <h2>☪️ મારો દિન</h2>
-  <p>તમારા દિનની ઇબાદત માટે એક સરળ Islamic Life Companion.</p>
-  <div class="home-date" id="homeDate">📅 આજની તારીખ લોડ થઈ રહી છે...</div>
+
+  <div style="position:relative;z-index:2">
+
+    <div style="font-size:42px;margin-bottom:5px;">
+      ☪️
+    </div>
+
+    <h2>મારો દિન</h2>
+
+    <p>
+      તમારા દિનની ઇબાદતને સરળ અને સુંદર બનાવતો
+      Islamic Life Companion.
+    </p>
+
+    <div class="home-date" id="homeDate">
+      📅 આજની તારીખ લોડ થઈ રહી છે...
+    </div>
+
+  </div>
+
+  <div class="home-grid">
+
+    <button class="home-btn"
+      onclick="goTo('namazCard')">
+      <span>🕌</span>
+      નમાઝના સમય
+    </button>
+
+    <button class="home-btn"
+      onclick="goTo('quranCard')">
+      <span>📖</span>
+      કુરઆન
+    </button>
+
+    <button class="home-btn"
+      onclick="goTo('duaCard')">
+      <span>🤲</span>
+      દુઆ
+    </button>
+
+    <button class="home-btn"
+      onclick="goTo('tasbeehCard')">
+      <span>📿</span>
+      તસ્બીહ
+    </button>
+
+    <button class="home-btn"
+      onclick="goTo('ibadatCard')">
+      <span>❤️</span>
+      ઈબાદત
+    </button>
+
+    <button class="home-btn"
+      onclick="goTo('qiblaCard')">
+      <span>🕋</span>
+      કિબલા
+    </button>
+
+  </div>
+
+</div>
 
   <div class="home-grid">
     <button class="home-btn" onclick="goTo('namazCard')"><span>🕌</span>નમાઝ</button>
@@ -218,15 +621,24 @@ font-size:13px;
   </div>
 </div>
 
-
-<!-- NAMAZ -->
+<!-- PREMIUM NAMAZ -->
 
 <div class="card section-card" id="namazCard">
 
-<h2>🕌 નમાઝના સમય</h2>
+  <h2>🕌 આજના નમાઝના સમય</h2>
 
-<div class="location">
-📍 Bharuch, Gujarat, India
+  <div class="location">
+    📍 Bharuch, Gujarat, India
+  </div>
+
+  <div id="namaz">
+    <p class="center">⏳ નમાઝના સમય લોડ થઈ રહ્યા છે...</p>
+  </div>
+
+  <button onclick="loadNamaz()">
+    🔄 સમય Refresh કરો
+  </button>
+
 </div>
 
 <div id="namaz">
@@ -238,152 +650,202 @@ font-size:13px;
 </div>
 
 
-<!-- HIJRI -->
+<!-- PREMIUM HIJRI DATE -->
 
 <div class="card section-card" id="hijriCard">
 
-<h2>🌙 હિજરી તારીખ</h2>
+  <h2>🌙 આજની હિજરી તારીખ</h2>
 
-<div id="hijri" class="center">
-⏳ લોડ થઈ રહી છે...
+  <div style="
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    color:white;
+    padding:20px;
+    border-radius:17px;
+    text-align:center;
+    box-shadow:0 5px 15px #075e5430;
+  ">
+
+    <div style="font-size:42px;">
+      🌙
+    </div>
+
+    <div id="hijri" style="
+      font-size:20px;
+      font-weight:bold;
+      margin-top:8px;
+    ">
+      ⏳ હિજરી તારીખ લોડ થઈ રહી છે...
+    </div>
+
+    <div style="
+      margin-top:8px;
+      opacity:.85;
+      font-size:13px;
+    ">
+      Islamic Calendar
+    </div>
+
+  </div>
+
 </div>
 
-</div>
 
-
-<!-- QURAN -->
+<!-- PREMIUM QURAN -->
 
 <div class="card section-card" id="quranCard">
 
-<h2>📖 કુરઆન</h2>
+  <h2>📖 કુરઆન</h2>
 
-<input
-type="text"
-id="quranSearch"
-placeholder="🔎 સૂરા શોધો"
-oninput="searchQuran()"
->
+  <p style="margin-top:-5px;color:#68756f;">
+    સૂરા શોધો અને કુરઆન વાંચવા માટે પસંદ કરો.
+  </p>
 
-<div id="quranList"></div>
+  <input
+    type="text"
+    id="quranSearch"
+    placeholder="🔎 સૂરા શોધો..."
+    oninput="searchQuran()"
+  >
+
+  <div id="quranList"></div>
 
 </div>
 
 
-<!-- DUA -->
+<!-- PREMIUM DUA -->
 
 <div class="card section-card" id="duaCard">
 
-<h2>🤲 દુઆ</h2>
+  <h2>🤲 દુઆ</h2>
 
-<input
-type="text"
-id="duaSearch"
-placeholder="🔎 દુઆ શોધો"
-oninput="searchDua()"
->
+  <p style="margin-top:-5px;color:#68756f;">
+    રોજિંદા જીવનની ઉપયોગી દુઆઓ
+  </p>
 
-<div id="duaList"></div>
+  <input
+    type="text"
+    id="duaSearch"
+    placeholder="🔎 દુઆ શોધો..."
+    oninput="searchDua()"
+  >
+
+  <div id="duaList"></div>
 
 </div>
 
 
-<!-- TASBEEH -->
+<!-- PREMIUM TASBEEH -->
 
 <div class="card section-card" id="tasbeehCard">
 
-<h2>📿 Digital Tasbeeh</h2>
+  <h2>📿 Digital Tasbeeh</h2>
 
-<div id="count" class="count">0</div>
+  <p style="text-align:center;color:#68756f;margin-top:-5px;">
+    તસ્બીહ ગણો અને તમારો count સાચવો
+  </p>
 
-<button onclick="addTasbeeh()">
-📿 ગણો
-</button>
+  <div style="
+    background:linear-gradient(135deg,#e5f5ef,#f7fbf9);
+    border-radius:20px;
+    padding:20px 15px;
+    text-align:center;
+    border:1px solid #d6ebe3;
+  ">
 
-<button class="secondary" onclick="resetTasbeeh()">
-🔄 Reset
-</button>
+    <div style="font-size:40px;">
+      📿
+    </div>
+
+    <div id="count" class="count">
+      0
+    </div>
+
+    <button onclick="addTasbeeh()">
+      📿 ગણો
+    </button>
+
+    <button class="secondary" onclick="resetTasbeeh()">
+      🔄 Reset
+    </button>
+
+  </div>
 
 </div>
 
-
-<!-- IBADAT -->
+<!-- PREMIUM IBADAT -->
 
 <div class="card section-card" id="ibadatCard">
 
-<h2>❤️ ઈબાદત Tracker</h2>
+  <h2>❤️ આજની ઈબાદત</h2>
 
-<label class="check">
-<input type="checkbox" id="fajr">
-ફજર
-</label>
+  <p style="margin-top:-5px;color:#68756f;">
+    આજની ઈબાદત પૂર્ણ થયા પછી ✔️ કરો.
+  </p>
 
-<label class="check">
-<input type="checkbox" id="zuhr">
-ઝુહર
-</label>
+  <label class="check">
+    <input type="checkbox">
+    🕌 પાંચ વક્તની નમાઝ
+  </label>
 
-<label class="check">
-<input type="checkbox" id="asr">
-અસર
-</label>
+  <label class="check">
+    <input type="checkbox">
+    📖 કુરઆનનું પઠન
+  </label>
 
-<label class="check">
-<input type="checkbox" id="maghrib">
-મગરિબ
-</label>
+  <label class="check">
+    📿 તસ્બીહ / ઝિક્ર
+  </label>
 
-<label class="check">
-<input type="checkbox" id="isha">
-ઈશા
-</label>
+  <label class="check">
+    🤲 દુઆ
+  </label>
 
-<label class="check">
-<input type="checkbox" id="quran">
-કુરઆન
-</label>
+  <label class="check">
+    ❤️ સદકો / કોઈને મદદ
+  </label>
 
 </div>
 
 
-<!-- QIBLA -->
+
+<!-- PREMIUM QIBLA -->
 
 <div class="card section-card" id="qiblaCard">
 
-<h2>🕋 કિબલા</h2>
+  <h2>🕋 કિબલા દિશા</h2>
 
-<div id="qibla" class="center">
-⏳ કિબલા લોડ થઈ રહ્યો છે...
+  <p style="margin-top:-5px;color:#68756f;">
+    નમાઝ માટે કિબલા તરફની દિશા શોધો.
+  </p>
+
+  <div style="
+    background:linear-gradient(135deg,#e5f5ef,#f7fbf9);
+    border-radius:20px;
+    padding:25px 15px;
+    text-align:center;
+    border:1px solid #d6ebe3;
+  ">
+
+    <div style="font-size:70px;">
+      🕋
+    </div>
+
+    <div id="qibla" style="
+      margin-top:15px;
+      color:#075e54;
+      font-size:18px;
+      font-weight:bold;
+    ">
+      ⏳ કિબલા દિશા લોડ થઈ રહી છે...
+    </div>
+
+    <button onclick="loadQibla()">
+      🧭 કિબલા તપાસો
+    </button>
+
+  </div>
+
 </div>
-
-</div>
-
-
-<!-- ASSISTANT -->
-
-<div class="card section-card" id="assistantCard">
-
-<h2>🤖 Islamic Assistant</h2>
-
-<button onclick="assistant('namaz')">
-🕌 નમાઝ વિશે
-</button>
-
-<button onclick="assistant('wudu')">
-💧 વુઝૂ વિશે
-</button>
-
-<button onclick="assistant('dua')">
-🤲 દુઆ વિશે
-</button>
-
-<button onclick="assistant('quran')">
-📖 કુરઆન વિશે
-</button>
-
-<div id="answer"></div>
-
-</div>
-
 
 <!-- ABOUT -->
 
@@ -402,7 +864,6 @@ oninput="searchDua()"
 </p>
 
 </div>
-
 </div>
 
 
@@ -850,47 +1311,54 @@ return d.join(" ")
 }
 
 
-/* ASSISTANT */
+/* PREMIUM ASSISTANT */
 
-function assistant(topic){
+function askAssistant(){
 
-let text="";
+  let input =
+    document.getElementById("assistantInput").value
+    .toLowerCase()
+    .trim();
 
-if(topic==="namaz"){
+  let answer = "";
 
-text=
-"<b>🕌 નમાઝ</b><br><br>"+
-"ઇસ્લામમાં પાંચ સમયની નમાઝ છે: ફજર, ઝુહર, અસર, મગરિબ અને ઈશા.";
+  if(input.includes("નમાઝ") || input.includes("namaz")){
+    answer =
+      "<b>🕌 નમાઝ</b><br><br>" +
+      "ઇસ્લામમાં પાંચ સમયની નમાઝ છે: ફજર, ઝુહર, અસર, મગરિબ અને ઈશા.";
+  }
 
-}
+  else if(input.includes("વુઝૂ") || input.includes("wudu")){
+    answer =
+      "<b>💧 વુઝૂ</b><br><br>" +
+      "નમાઝ પહેલાં વુઝૂ કરવું જરૂરી છે. વિગત માટે વિશ્વસનીય આલિમ પાસેથી શીખો.";
+  }
 
-if(topic==="wudu"){
+  else if(input.includes("દુઆ") || input.includes("dua")){
+    answer =
+      "<b>🤲 દુઆ</b><br><br>" +
+      "દુઆ અલ્લાહ પાસે માગવાની ઇબાદત છે.";
+  }
 
-text=
-"<b>💧 વુઝૂ</b><br><br>"+
-"નમાઝ પહેલાં વુઝૂ કરવું જરૂરી છે. વિગત માટે વિશ્વસનીય આલિમ પાસેથી શીખો.";
+  else if(input.includes("કુરઆન") || input.includes("quran")){
+    answer =
+      "<b>📖 કુરઆન</b><br><br>" +
+      "કુરઆન વાંચો, તેનો અર્થ સમજો અને તેના માર્ગદર્શન પર અમલ કરવાનો પ્રયત્ન કરો.";
+  }
 
-}
+  else if(input === ""){
+    answer =
+      "🤲 કૃપા કરીને કોઈ પ્રશ્ન લખો.";
+  }
 
-if(topic==="dua"){
+  else{
+    answer =
+      "📚 આ પ્રશ્ન માટે હાલમાં મારી પાસે જવાબ ઉપલબ્ધ નથી.<br><br>" +
+      "કૃપા કરીને વિશ્વસનીય આલિમ અથવા અધિકૃત ઇસ્લામિક સ્ત્રોતથી માહિતી મેળવો.";
+  }
 
-text=
-"<b>🤲 દુઆ</b><br><br>"+
-"દુઆ અલ્લાહ પાસે માગવાની ઇબાદત છે.";
-
-}
-
-if(topic==="quran"){
-
-text=
-"<b>📖 કુરઆન</b><br><br>"+
-"કુરઆન વાંચો, તેનો અર્થ સમજો અને તેના માર્ગદર્શન પર અમલ કરવાનો પ્રયત્ન કરો.";
-
-}
-
-document.getElementById("answer").innerHTML=
-"<div class='answer'>"+text+"</div>";
-
+  document.getElementById("assistantAnswer").innerHTML = answer;
+  document.getElementById("assistantAnswer").style.display = "block";
 }
 
 
