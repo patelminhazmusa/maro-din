@@ -554,27 +554,18 @@ Created by:
 
 function goTo(id){
 
-document.querySelectorAll(".card").forEach(function(card){
-
-card.style.display="none";
-
-});
-
 const target=document.getElementById(id);
 
 if(target){
 
-target.style.display="block";
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
+target.scrollIntoView({
+behavior:"smooth",
+block:"start"
 });
 
 }
 
 }
-
 
 /* =========================
    HOME DATE
