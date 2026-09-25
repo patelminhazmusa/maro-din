@@ -243,7 +243,9 @@ header h1{font-size:27px}
 <button onclick="enableNamazReminder()">
 🔔 Reminder ચાલુ કરો
 </button>
-
+<button onclick="disableNamazReminder()" type="button">
+❌ Reminder બંધ કરો
+</button>
 <div id="reminderStatus"
 style="background:#f1f8f5;padding:14px;border-radius:12px;margin-top:10px">
 Reminder બંધ છે.
@@ -1431,6 +1433,18 @@ async function setupNamazReminders(){
     }
 
   }
+   function disableNamazReminder(){
+
+    namazReminderTimers.forEach(function(timer){
+        clearTimeout(timer);
+    });
+
+    namazReminderTimers = [];
+
+    document.getElementById("reminderStatus").innerText =
+    "🔕 Namaz Reminder બંધ છે.";
+   }
+
 </script>
 
 </body>
