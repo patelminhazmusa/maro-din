@@ -1452,14 +1452,16 @@ async function setupNamazReminders(){
    }
 function startPrayerCountdown(){
 
+    const box = document.getElementById("prayerCountdown");
+
+    if(!box) return;
+
     setInterval(function(){
 
-        const box = document.getElementById("prayerCountdown");
-
-        if(!box) return;
+        const now = new Date();
 
         box.innerText =
-        "⏳ Prayer Countdown ચાલુ છે";
+        "🕌 આગલી નમાઝ માટે Countdown તૈયાર થઈ રહ્યું છે...";
 
     },1000);
 
