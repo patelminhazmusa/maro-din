@@ -1261,17 +1261,18 @@ arrow.style.transform=
 
 }
 
+<script>
 
 /* ISLAMIC ASSISTANT */
 
 function askAssistant(){
 
-const question=
+const question =
 document.getElementById("assistantQuestion")
 .value
 .toLowerCase();
 
-let answer=
+let answer =
 "માફ કરશો, આ સવાલનો જવાબ હાલમાં ઉપલબ્ધ નથી.";
 
 if(
@@ -1279,5 +1280,91 @@ question.includes("નમાઝ") ||
 question.includes("namaz")
 ){
 
-answer=
-"ઇસ્લામમાં પાં
+answer =
+"ઇસ્લામમાં પાંચ વક્તની નમાઝ છે: ફજર, ઝુહર, અસર, મગરિબ અને ઈશા.";
+
+}
+
+else if(
+question.includes("કુરઆન") ||
+question.includes("quran")
+){
+
+answer =
+"કુરઆનમાં 114 સૂરા છે.";
+
+}
+
+else if(
+question.includes("રોઝા") ||
+question.includes("roza")
+){
+
+answer =
+"રમઝાનના રોઝા ઇસ્લામના પાંચ સ્તંભોમાંથી એક છે.";
+
+}
+
+else if(
+question.includes("ઝકાત") ||
+question.includes("zakat")
+){
+
+answer =
+"ઝકાત ઇસ્લામના પાંચ સ્તંભોમાંથી એક છે.";
+
+}
+
+else if(
+question.includes("કલમા") ||
+question.includes("kalma")
+){
+
+answer =
+"કલિમા ઇમાનનો મૂળભૂત ઇકરાર છે.";
+
+}
+
+document.getElementById("assistantAnswer").innerText =
+answer;
+
+}
+
+
+/* START */
+
+updateHomeDate();
+
+updateTasbeeh();
+
+updateAzkar();
+
+showNamazTracker();
+
+showQuran(surah);
+
+showDuas(duas);
+
+loadNamaz();
+
+loadHijri();
+
+loadQibla();
+
+
+/* HOME FIRST */
+
+document.querySelectorAll(".card").forEach(function(card){
+
+if(card.id !== "homeCard"){
+
+card.style.display = "none";
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
