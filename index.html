@@ -205,6 +205,13 @@ header h1{font-size:27px}
 <h2>🕌 આજના નમાઝના સમય</h2>
    
 <div id="namazTimes">લોડ થઈ રહ્યું છે...</div>
+</div><div class="card" id="countdownCard">
+<h2>⏳ આગલી નમાઝ Countdown</h2>
+
+<div id="prayerCountdown"
+style="background:#f1f8f5;padding:14px;border-radius:12px;text-align:center;font-weight:bold;">
+⏳ ગણતરી થઈ રહી છે...
+</div>
 </div>
 
 
@@ -212,10 +219,7 @@ header h1{font-size:27px}
 <h2>☑️ નમાઝ Tracker</h2>
 <h2>🕌 નમાઝના સમય</h2>
 
-<div id="prayerCountdown"
-style="background:#f1f8f5;padding:14px;border-radius:12px;margin-top:10px;text-align:center;font-weight:bold;">
-⏳ આગલી નમાઝનો સમય ગણાઈ રહ્યો છે...
-</div>
+
 <p style="color:#68756f">
 આજની પાંચેય નમાઝ પૂર્ણ થાય ત્યારે સામે ✔️ કરો.
 </p>
@@ -1466,6 +1470,17 @@ function startPrayerCountdown(){
 }
 
 startPrayerCountdown();
+function updatePrayerCountdown(){
+
+    const box = document.getElementById("prayerCountdown");
+
+    if(!box) return;
+
+    box.innerText = "⏳ આગલી નમાઝનો સમય ગણાઈ રહ્યો છે...";
+
+}
+
+updatePrayerCountdown();
 </script>
 
 </body>
