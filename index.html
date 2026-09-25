@@ -134,10 +134,6 @@ font-size:16px;
 margin-bottom:10px;
 }
 
-.hidden{
-display:none;
-}
-
 .quran-item,
 .dua-item,
 .azkar-item{
@@ -186,6 +182,7 @@ gap:5px;
 }
 
 @media(max-width:600px){
+
 .home-grid{
 grid-template-columns:repeat(2,1fr);
 }
@@ -197,6 +194,7 @@ padding:15px;
 header h1{
 font-size:27px;
 }
+
 }
 </style>
 </head>
@@ -204,16 +202,22 @@ font-size:27px;
 <body>
 
 <header>
+
 <h1>☪️ મારો દિન</h1>
+
 <p>Islamic Life Companion</p>
+
 <div class="author">
 Minhaz Musa Patel & Abdulla Ilyas Bhoja
 </div>
+
 </header>
+
 
 <div class="container">
 
 <!-- HOME -->
+
 <div class="card" id="homeCard">
 
 <h2>🌙 મારો દિન</h2>
@@ -223,6 +227,7 @@ Minhaz Musa Patel & Abdulla Ilyas Bhoja
 </p>
 
 <div id="homeDate"></div>
+
 <div id="hijriDate"></div>
 
 <div class="home-grid">
@@ -267,11 +272,18 @@ Minhaz Musa Patel & Abdulla Ilyas Bhoja
 Islamic Assistant
 </button>
 
+<button class="home-btn" onclick="goTo('aboutCard')">
+<span>ℹ️</span>
+About
+</button>
+
 </div>
+
 </div>
 
 
-<!-- NAMAZ TIMES -->
+<!-- NAMAZ -->
+
 <div class="card" id="namazCard">
 
 <h2>🕌 આજના નમાઝના સમય</h2>
@@ -280,12 +292,15 @@ Islamic Assistant
 લોડ થઈ રહ્યું છે...
 </div>
 
-<button onclick="goTo('homeCard')">⬅️ Home</button>
+<button onclick="goTo('homeCard')">
+⬅️ Home
+</button>
 
 </div>
 
 
-<!-- NAMAZ TRACKER -->
+<!-- TRACKER -->
+
 <div class="card" id="trackerCard">
 
 <h2>🕌 નમાઝ Tracker</h2>
@@ -305,7 +320,10 @@ margin-top:12px;
 font-weight:bold;
 color:#075e54;
 ">
-આજે: <span id="todayNamazCount">0</span>/5 નમાઝ
+
+આજે:
+<span id="todayNamazCount">0</span>/5 નમાઝ
+
 </div>
 
 <button onclick="showNamazHistory()">
@@ -314,12 +332,15 @@ color:#075e54;
 
 <div id="namazHistory" style="display:none;"></div>
 
-<button onclick="goTo('homeCard')">⬅️ Home</button>
+<button onclick="goTo('homeCard')">
+⬅️ Home
+</button>
 
 </div>
 
 
 <!-- QURAN -->
+
 <div class="card" id="quranCard">
 
 <h2>📖 કુરઆન</h2>
@@ -333,12 +354,15 @@ oninput="searchQuran()"
 
 <div id="quranList"></div>
 
-<button onclick="goTo('homeCard')">⬅️ Home</button>
+<button onclick="goTo('homeCard')">
+⬅️ Home
+</button>
 
 </div>
 
 
 <!-- DUA -->
+
 <div class="card" id="duaCard">
 
 <h2>🤲 દુઆ</h2>
@@ -352,24 +376,30 @@ oninput="searchDua()"
 
 <div id="duaList"></div>
 
-<button onclick="goTo('homeCard')">⬅️ Home</button>
+<button onclick="goTo('homeCard')">
+⬅️ Home
+</button>
 
 </div>
 
 
 <!-- AZKAR -->
+
 <div class="card" id="azkarCard">
 
 <h2>📿 અઝકાર</h2>
 
 <div id="azkarList"></div>
 
-<button onclick="goTo('homeCard')">⬅️ Home</button>
+<button onclick="goTo('homeCard')">
+⬅️ Home
+</button>
 
 </div>
 
 
 <!-- TASBEEH -->
+
 <div class="card" id="tasbeehCard">
 
 <h2>📿 Digital Tasbeeh</h2>
@@ -392,12 +422,15 @@ oninput="searchDua()"
 
 </div>
 
-<button onclick="goTo('homeCard')">⬅️ Home</button>
+<button onclick="goTo('homeCard')">
+⬅️ Home
+</button>
 
 </div>
 
 
 <!-- QIBLA -->
+
 <div class="card" id="qiblaCard">
 
 <h2>🕋 Qibla Compass</h2>
@@ -406,9 +439,12 @@ oninput="searchDua()"
 ફોનને ફેરવો. Arrow કિબલા તરફ બતાવશે.
 </p>
 
-<div id="qiblaArrow">⬆️</div>
+<div id="qiblaArrow">
+⬆️
+</div>
 
 <div style="text-align:center;">
+
 <p>
 Qibla Direction:
 <strong>
@@ -419,14 +455,18 @@ Qibla Direction:
 <button onclick="startCompass()">
 🧭 Compass શરૂ કરો
 </button>
+
 </div>
 
-<button onclick="goTo('homeCard')">⬅️ Home</button>
+<button onclick="goTo('homeCard')">
+⬅️ Home
+</button>
 
 </div>
 
 
 <!-- ASSISTANT -->
+
 <div class="card" id="assistantCard">
 
 <h2>🤖 Islamic Assistant</h2>
@@ -455,12 +495,15 @@ margin-top:10px;
 "
 ></div>
 
-<button onclick="goTo('homeCard')">⬅️ Home</button>
+<button onclick="goTo('homeCard')">
+⬅️ Home
+</button>
 
 </div>
 
 
 <!-- ABOUT -->
+
 <div class="card" id="aboutCard">
 
 <h2>ℹ️ About</h2>
@@ -471,7 +514,8 @@ margin-top:10px;
 
 <p>
 અહીં તમે નમાઝના સમય, કુરઆન, દુઆ, અઝકાર,
-ડિજિટલ તસ્બીહ, કિબલા અને નમાઝ Tracker જેવી સુવિધાઓનો ઉપયોગ કરી શકો છો.
+ડિજિટલ તસ્બીહ, કિબલા અને નમાઝ Tracker જેવી
+સુવિધાઓનો ઉપયોગ કરી શકો છો.
 </p>
 
 <p>
@@ -482,7 +526,9 @@ Created by:
 <b>Abdulla Ilyas Bhoja</b>
 </p>
 
-<button onclick="goTo('homeCard')">⬅️ Home</button>
+<button onclick="goTo('homeCard')">
+⬅️ Home
+</button>
 
 </div>
 
@@ -502,53 +548,72 @@ Created by:
 
 <script>
 
-/* NAVIGATION */
+/* =========================
+   NAVIGATION
+========================= */
 
 function goTo(id){
 
 document.querySelectorAll(".card").forEach(function(card){
+
 card.style.display="none";
+
 });
 
 const target=document.getElementById(id);
 
 if(target){
+
 target.style.display="block";
+
 window.scrollTo({
 top:0,
 behavior:"smooth"
 });
-}
 
 }
 
+}
 
-/* HOME DATE */
+
+/* =========================
+   HOME DATE
+========================= */
 
 function updateHomeDate(){
 
 const now=new Date();
 
 document.getElementById("homeDate").innerHTML=
-"<p>📅 "+now.toLocaleDateString("gu-IN",{
+
+"<p>📅 "+
+now.toLocaleDateString("gu-IN",{
 weekday:"long",
 year:"numeric",
 month:"long",
 day:"numeric"
-})+"</p>";
+})+
+"</p>";
 
 }
 
 
-/* NAMAZ TIMES */
+/* =========================
+   NAMAZ TIMES
+========================= */
 
 async function loadNamaz(){
 
 const now=new Date();
 
-const dd=String(now.getDate()).padStart(2,"0");
-const mm=String(now.getMonth()+1).padStart(2,"0");
-const yyyy=now.getFullYear();
+const dd=
+String(now.getDate()).padStart(2,"0");
+
+const mm=
+String(now.getMonth()+1).padStart(2,"0");
+
+const yyyy=
+now.getFullYear();
 
 const url=
 "https://api.aladhan.com/v1/timingsByCity/"+
@@ -558,6 +623,7 @@ dd+"-"+mm+"-"+yyyy+
 try{
 
 const response=await fetch(url);
+
 const data=await response.json();
 
 const t=data.data.timings;
@@ -565,10 +631,15 @@ const t=data.data.timings;
 document.getElementById("namazTimes").innerHTML=
 
 "<div class='row'><b>🌅 ફજર</b><span>"+t.Fajr+"</span></div>"+
+
 "<div class='row'><b>☀️ સૂર્યોદય</b><span>"+t.Sunrise+"</span></div>"+
+
 "<div class='row'><b>☀️ ઝુહર</b><span>"+t.Dhuhr+"</span></div>"+
+
 "<div class='row'><b>🌤️ અસર</b><span>"+t.Asr+"</span></div>"+
+
 "<div class='row'><b>🌇 મગરિબ</b><span>"+t.Maghrib+"</span></div>"+
+
 "<div class='row'><b>🌙 ઈશા</b><span>"+t.Isha+"</span></div>";
 
 }catch(error){
@@ -581,15 +652,22 @@ document.getElementById("namazTimes").innerHTML=
 }
 
 
-/* HIJRI DATE */
+/* =========================
+   HIJRI DATE
+========================= */
 
 async function loadHijri(){
 
 const now=new Date();
 
-const dd=String(now.getDate()).padStart(2,"0");
-const mm=String(now.getMonth()+1).padStart(2,"0");
-const yyyy=now.getFullYear();
+const dd=
+String(now.getDate()).padStart(2,"0");
+
+const mm=
+String(now.getMonth()+1).padStart(2,"0");
+
+const yyyy=
+now.getFullYear();
 
 const url=
 "https://api.aladhan.com/v1/gToH/"+
@@ -598,12 +676,18 @@ dd+"-"+mm+"-"+yyyy;
 try{
 
 const response=await fetch(url);
+
 const data=await response.json();
 
 const h=data.data.hijri;
 
 document.getElementById("hijriDate").innerHTML=
-"<p>🌙 "+h.day+" "+h.month.en+" "+h.year+" AH</p>";
+
+"<p>🌙 "+
+h.day+" "+
+h.month.en+" "+
+h.year+
+" AH</p>";
 
 }catch(error){
 
@@ -615,7 +699,9 @@ document.getElementById("hijriDate").innerHTML=
 }
 
 
-/* QURAN */
+/* =========================
+   QURAN
+========================= */
 
 const surah=[
 
@@ -746,6 +832,7 @@ box.innerHTML="";
 list.forEach(function(s,i){
 
 box.innerHTML+=
+
 "<div class='quran-item'>"+
 "<b>"+(i+1)+". "+s[2]+"</b>"+
 "<div class='arabic'>"+s[0]+"</div>"+
@@ -760,11 +847,13 @@ box.innerHTML+=
 function searchQuran(){
 
 const value=
-document.getElementById("quranSearch").value.toLowerCase();
+document.getElementById("quranSearch")
+.value
+.toLowerCase();
 
 const result=surah.filter(function(s){
 
-return (
+return(
 s[0].includes(value) ||
 s[1].toLowerCase().includes(value) ||
 s[2].toLowerCase().includes(value)
@@ -777,14 +866,20 @@ showQuran(result);
 }
 
 
-/* DUA */
+/* =========================
+   DUA
+========================= */
 
 const duas=[
 
 ["સવારની દુઆ","اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا"],
+
 ["માફીની દુઆ","رَبِّ اغْفِرْ لِي وَارْحَمْنِي"],
+
 ["માતા-પિતા માટે","رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا"],
+
 ["જ્ઞાન માટે","رَبِّ زِدْنِي عِلْمًا"],
+
 ["દુનિયા અને આખિરત","رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً"]
 
 ];
@@ -799,6 +894,7 @@ box.innerHTML="";
 list.forEach(function(d){
 
 box.innerHTML+=
+
 "<div class='dua-item'>"+
 "<b>"+d[0]+"</b>"+
 "<div class='arabic'>"+d[1]+"</div>"+
@@ -812,12 +908,16 @@ box.innerHTML+=
 function searchDua(){
 
 const value=
-document.getElementById("duaSearch").value.toLowerCase();
+document.getElementById("duaSearch")
+.value
+.toLowerCase();
 
 const result=duas.filter(function(d){
 
-return d[0].toLowerCase().includes(value) ||
-d[1].includes(value);
+return(
+d[0].toLowerCase().includes(value) ||
+d[1].includes(value)
+);
 
 });
 
@@ -826,14 +926,20 @@ showDuas(result);
 }
 
 
-/* AZKAR */
+/* =========================
+   AZKAR
+========================= */
 
 const azkar=[
 
 ["سُبْحَانَ اللَّهِ","સુબ્હાનલ્લાહ"],
+
 ["الْحَمْدُ لِلَّهِ","અલહમ્દુલિલ્લાહ"],
+
 ["اللَّهُ أَكْبَرُ","અલ્લાહુ અકબર"],
+
 ["أَسْتَغْفِرُ اللَّهَ","અસ્તગફિરુલ્લાહ"],
+
 ["لَا إِلَهَ إِلَّا اللَّهُ","લા ઇલાહ ઇલ્લલ્લાહ"]
 
 ];
@@ -848,6 +954,7 @@ box.innerHTML="";
 azkar.forEach(function(z){
 
 box.innerHTML+=
+
 "<div class='azkar-item'>"+
 "<div class='arabic'>"+z[0]+"</div>"+
 "<b>"+z[1]+"</b>"+
@@ -858,17 +965,24 @@ box.innerHTML+=
 }
 
 
-/* TASBEEH */
+/* =========================
+   TASBEEH
+========================= */
 
 let tasbeehCount=
-parseInt(localStorage.getItem("tasbeehCount")) || 0;
+parseInt(
+localStorage.getItem("tasbeehCount")
+) || 0;
+
 
 function updateTasbeeh(){
 
-document.getElementById("tasbeehCount").innerText=
+document.getElementById("tasbeehCount")
+.innerText=
 tasbeehCount;
 
 }
+
 
 function addTasbeeh(){
 
@@ -882,6 +996,7 @@ tasbeehCount
 updateTasbeeh();
 
 }
+
 
 function resetTasbeeh(){
 
@@ -897,14 +1012,22 @@ updateTasbeeh();
 }
 
 
-/* NAMAZ TRACKER */
+/* =========================
+   NAMAZ TRACKER
+========================= */
 
 const trackerPrayers=[
+
 ["Fajr","ફજર","🌅"],
+
 ["Dhuhr","ઝુહર","☀️"],
+
 ["Asr","અસર","🌤️"],
+
 ["Maghrib","મગરિબ","🌇"],
+
 ["Isha","ઈશા","🌙"]
+
 ];
 
 
@@ -912,18 +1035,28 @@ function getTodayKey(){
 
 const now=new Date();
 
-return now.getFullYear()+"-"+
+return(
+now.getFullYear()+"-"+
 String(now.getMonth()+1).padStart(2,"0")+"-"+
-String(now.getDate()).padStart(2,"0");
+String(now.getDate()).padStart(2,"0")
+);
 
 }
 
 
 function getNamazData(){
 
+try{
+
 return JSON.parse(
 localStorage.getItem("namazTracker")
 ) || {};
+
+}catch(error){
+
+return {};
+
+}
 
 }
 
@@ -934,6 +1067,25 @@ localStorage.setItem(
 "namazTracker",
 JSON.stringify(data)
 );
+
+}
+
+
+function createEmptyDay(){
+
+return{
+
+Fajr:false,
+
+Dhuhr:false,
+
+Asr:false,
+
+Maghrib:false,
+
+Isha:false
+
+};
 
 }
 
@@ -951,19 +1103,14 @@ const today=getTodayKey();
 
 if(!data[today]){
 
-data[today]={
-Fajr:false,
-Dhuhr:false,
-Asr:false,
-Maghrib:false,
-Isha:false
-};
+data[today]=createEmptyDay();
 
 saveNamazData(data);
 
 }
 
 let html="";
+
 
 trackerPrayers.forEach(function(p){
 
@@ -972,19 +1119,25 @@ data[today][p[0]]
 ? "checked"
 : "";
 
+
 html+=
+
 "<label class='check' style='display:flex;align-items:center;cursor:pointer;'>"+
+
 "<input type='checkbox' "+
 "style='transform:scale(1.4);margin-right:12px;' "+
 "onchange=\"toggleNamaz('"+p[0]+"',this.checked)\" "+
 checked+
 ">"+
+
 "<span style='font-size:17px;'>"+
 p[2]+" "+p[1]+
 "</span>"+
+
 "</label>";
 
 });
+
 
 box.innerHTML=html;
 
@@ -1001,13 +1154,7 @@ const today=getTodayKey();
 
 if(!data[today]){
 
-data[today]={
-Fajr:false,
-Dhuhr:false,
-Asr:false,
-Maghrib:false,
-Isha:false
-};
+data[today]=createEmptyDay();
 
 }
 
@@ -1033,7 +1180,9 @@ if(data[today]){
 trackerPrayers.forEach(function(p){
 
 if(data[today][p[0]]){
+
 count++;
+
 }
 
 });
@@ -1044,13 +1193,17 @@ const box=
 document.getElementById("todayNamazCount");
 
 if(box){
+
 box.innerText=count;
-}
 
 }
 
+}
 
-/* 1 MONTH HISTORY */
+
+/* =========================
+   NAMAZ HISTORY
+========================= */
 
 function showNamazHistory(){
 
@@ -1058,6 +1211,7 @@ const box=
 document.getElementById("namazHistory");
 
 if(!box)return;
+
 
 if(box.style.display==="block"){
 
@@ -1067,18 +1221,23 @@ return;
 
 }
 
+
 const data=getNamazData();
 
 const now=new Date();
 
 const year=now.getFullYear();
+
 const month=now.getMonth();
 
 const daysInMonth=
 new Date(year,month+1,0).getDate();
 
+
 let html=
+
 "<div style='margin-top:15px;'>"+
+
 "<h3 style='color:#075e54;text-align:center;'>"+
 "📅 "+
 now.toLocaleDateString("gu-IN",{
@@ -1087,60 +1246,97 @@ year:"numeric"
 })+
 "</h3>";
 
+
 let total=0;
 
-for(let day=1;day<=daysInMonth;day++){
+
+for(
+let day=1;
+day<=daysInMonth;
+day++
+){
 
 const key=
+
 year+"-"+
+
 String(month+1).padStart(2,"0")+"-"+
+
 String(day).padStart(2,"0");
 
-const record=data[key] || {};
+
+const record=
+data[key] || {};
+
 
 let dayCount=0;
+
 
 trackerPrayers.forEach(function(p){
 
 if(record[p[0]]){
+
 dayCount++;
+
 }
 
 });
 
+
 total+=dayCount;
+
 
 let status="";
 
+
 trackerPrayers.forEach(function(p){
 
-status+=record[p[0]]
+status+=
+
+record[p[0]]
+
 ? "<span>✅</span>"
 : "<span>❌</span>";
 
 });
 
+
 html+=
+
 "<div class='history-day'>"+
+
 "<b>"+day+"</b>"+
+
 "<span>"+status+"</span>"+
+
 "<small style='color:#075e54;font-weight:bold;'>"+
 dayCount+"/5"+
 "</small>"+
+
 "</div>";
 
 }
 
+
 html+=
+
 "<div style='background:#075e54;color:white;padding:14px;border-radius:13px;text-align:center;margin-top:12px;font-weight:bold;'>"+
+
 "📊 આ મહિને કુલ: "+
+
 total+
+
 "/"+
+
 (daysInMonth*5)+
+
 " નમાઝ"+
+
 "</div>";
 
+
 html+="</div>";
+
 
 box.innerHTML=html;
 
@@ -1149,11 +1345,13 @@ box.style.display="block";
 }
 
 
-/* QIBLA */
+/* =========================
+   QIBLA
+========================= */
 
 let qiblaDirection=0;
+
 let compassStarted=false;
-let lastHeading=0;
 
 
 async function loadQibla(){
@@ -1169,13 +1367,18 @@ const data=await response.json();
 qiblaDirection=
 data.data.direction;
 
-document.getElementById("qiblaDegree").innerText=
+
+document.getElementById(
+"qiblaDegree"
+).innerText=
 Math.round(qiblaDirection);
+
 
 }catch(error){
 
-document.getElementById("qiblaDegree").innerText=
-"--";
+document.getElementById(
+"qiblaDegree"
+).innerText="--";
 
 }
 
@@ -1186,9 +1389,13 @@ async function startCompass(){
 
 if(compassStarted)return;
 
+
 if(
+
 typeof DeviceOrientationEvent!=="undefined" &&
+
 typeof DeviceOrientationEvent.requestPermission==="function"
+
 ){
 
 try{
@@ -1196,9 +1403,12 @@ try{
 const permission=
 await DeviceOrientationEvent.requestPermission();
 
+
 if(permission!=="granted"){
 
-alert("Compass permission આપવી જરૂરી છે.");
+alert(
+"Compass permission આપવી જરૂરી છે."
+);
 
 return;
 
@@ -1211,6 +1421,7 @@ return;
 }
 
 }
+
 
 window.addEventListener(
 "deviceorientation",
@@ -1227,30 +1438,41 @@ function handleOrientation(event){
 
 let heading;
 
+
 if(event.webkitCompassHeading){
 
-heading=event.webkitCompassHeading;
+heading=
+event.webkitCompassHeading;
 
-}else if(event.alpha!==null){
+}
 
-heading=360-event.alpha;
+else if(event.alpha!==null){
 
-}else{
+heading=
+360-event.alpha;
+
+}
+
+else{
 
 return;
 
 }
 
-lastHeading=heading;
 
 let relative=
 qiblaDirection-heading;
 
+
 relative=
 ((relative%360)+360)%360;
 
+
 const arrow=
-document.getElementById("qiblaArrow");
+document.getElementById(
+"qiblaArrow"
+);
+
 
 if(arrow){
 
@@ -1261,77 +1483,111 @@ arrow.style.transform=
 
 }
 
-<script>
 
-/* ISLAMIC ASSISTANT */
+/* =========================
+   ISLAMIC ASSISTANT
+========================= */
 
 function askAssistant(){
 
-const question =
-document.getElementById("assistantQuestion")
-.value
-.toLowerCase();
+const question=
 
-let answer =
+document.getElementById(
+"assistantQuestion"
+).value.toLowerCase();
+
+
+let answer=
+
 "માફ કરશો, આ સવાલનો જવાબ હાલમાં ઉપલબ્ધ નથી.";
 
+
 if(
+
 question.includes("નમાઝ") ||
+
 question.includes("namaz")
+
 ){
 
-answer =
+answer=
+
 "ઇસ્લામમાં પાંચ વક્તની નમાઝ છે: ફજર, ઝુહર, અસર, મગરિબ અને ઈશા.";
 
 }
 
+
 else if(
+
 question.includes("કુરઆન") ||
+
 question.includes("quran")
+
 ){
 
-answer =
+answer=
+
 "કુરઆનમાં 114 સૂરા છે.";
 
 }
 
+
 else if(
+
 question.includes("રોઝા") ||
+
 question.includes("roza")
+
 ){
 
-answer =
+answer=
+
 "રમઝાનના રોઝા ઇસ્લામના પાંચ સ્તંભોમાંથી એક છે.";
 
 }
 
+
 else if(
+
 question.includes("ઝકાત") ||
+
 question.includes("zakat")
+
 ){
 
-answer =
+answer=
+
 "ઝકાત ઇસ્લામના પાંચ સ્તંભોમાંથી એક છે.";
 
 }
 
+
 else if(
+
 question.includes("કલમા") ||
+
 question.includes("kalma")
+
 ){
 
-answer =
+answer=
+
 "કલિમા ઇમાનનો મૂળભૂત ઇકરાર છે.";
 
 }
 
-document.getElementById("assistantAnswer").innerText =
+
+document.getElementById(
+"assistantAnswer"
+).innerText=
 answer;
 
 }
 
 
-/* START */
+/* =========================
+   START WEBSITE
+========================= */
 
 updateHomeDate();
 
@@ -1354,11 +1610,13 @@ loadQibla();
 
 /* HOME FIRST */
 
-document.querySelectorAll(".card").forEach(function(card){
+document.querySelectorAll(
+".card"
+).forEach(function(card){
 
-if(card.id !== "homeCard"){
+if(card.id!=="homeCard"){
 
-card.style.display = "none";
+card.style.display="none";
 
 }
 
