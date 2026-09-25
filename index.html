@@ -164,7 +164,13 @@ header h1{font-size:27px}
 <button class="home-btn" onclick="goTo('trackerCard')">
 <span>☑️</span>નમાઝ Tracker
 </button>
+<button class="home-btn" onclick="goTo('trackerCard')">
+<span>☑️</span>નમાઝ Tracker
+</button>
 
+<button class="home-btn" onclick="goTo('reminderCard')">
+<span>🔔</span>Namaz Reminder
+</button>
 <button class="home-btn" onclick="goTo('quranCard')">
 <span>📖</span>કુરઆન
 </button>
@@ -1288,7 +1294,126 @@ loadQibla();
 
 }
 );
+/* =========================
+   NAMAZ REMINDER
+========================= */
 
+let namazReminderTimers = [];
+
+async function enableNamazReminder(){
+
+    if(!("Notification" in window)){
+
+        document.getElementById("reminderStatus").innerText =
+        "આ browser માં Notification support નથી.";
+
+        return;
+    }
+
+    const permission = await Notification.requestPermission();
+
+    if(permission !== "granted"){
+
+        document.getElementById("reminderStatus").innerText =
+        "Notification permission આપવામાં આવી નથી.";
+
+        return;
+    }
+
+    document.getElementById("reminderStatus").innerText =
+    "🔔 Namaz Reminder ચાલુ છે.";
+
+    setupNamazReminders();
+}
+
+
+async function setupNamazReminders(){
+
+    namazReminderTimers.forEach(function(timer){
+        clearTimeout(timer);
+    });
+
+    namazReminderTimers = [];
+
+    try{
+
+        const now = new Date();
+
+        const dd = String(now.getDate()).padStart(2,"0");
+        const mm = String(now.getMonth()+1).padStart(2,"0");
+        const yyyy = now.getFullYear();
+
+        const url =
+        "https://api.aladhan.com/v1/timingsByCity/" +
+        dd + "-" + mm + "-" + yyyy +
+        "?city=Bharuch&country=India&method=1&school=1";
+
+        const r = await fetch(url);
+        const data = await r.json();
+
+        const t = data.data.timings;
+
+        const prayers = [
+
+            ["Fajr","🌅 ફજર",t.Fajr],
+            ["Dhuhr","☀️ ઝુહર",t.Dhuhr],
+            ["Asr","🌤️ અસર",t.Asr],
+            ["Maghrib","🌇 મગરિબ",t.Maghrib],
+            ["Isha","🌙 ઈશા",t.Isha]
+
+        ];
+
+        prayers.forEach(function(p){
+
+            const parts = p[2].split(":");
+
+            const prayerTime = new Date();
+
+            prayerTime.setHours(
+                parseInt(parts[0],10),
+                parseInt(parts[1],10),
+                0,
+                0
+            );
+
+            const reminderTime =
+            new Date(prayerTime.getTime() - 10 * 60 * 1000);
+
+            const delay =
+            reminderTime.getTime() - Date.now();
+
+            if(delay > 0){
+
+                const timer = setTimeout(function(){
+
+                    new Notification(
+                        "🕌 મારો દિન — નમાઝ Reminder",
+                        {
+                            body:
+                            p[1] +
+                            " ની નમાઝનો સમય નજીક છે.",
+                            icon:"https://patelminhazmusa.github.io/maro-din/"
+                        }
+                    );
+
+                },delay);
+
+                namazReminderTimers.push(timer);
+
+            }
+
+        });
+
+    }
+
+    catch(e){
+
+        document.getElementById("reminderStatus").innerText =
+        "Reminder માટે નમાઝના સમય લોડ થઈ શક્યા નથી.";
+
+    }
+
+  }
 </script>
 
 </body>
