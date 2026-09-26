@@ -496,7 +496,7 @@ t.Maghrib+
 "<div class='row'><b>🌙 ઈશા</b><span>"+
 t.Isha+
 "</span></div>";
-
+updatePrayerCountdown(t);
 }
 
 catch(e){
@@ -1452,35 +1452,84 @@ async function setupNamazReminders(){
     document.getElementById("reminderStatus").innerText =
     "🔕 Namaz Reminder બંધ છે.";
    }
-function startPrayerCountdown(){
+function updatePrayerCountdown(t){
 
     const box = document.getElementById("prayerCountdown");
-
     if(!box) return;
 
-    setInterval(function(){
+    const prayers = [
+        ["ફજર", t.Fajr],
+        ["ઝુહર", t.Dhuhr],
+        ["અસર", t.Asr],
+        ["મગરિબ", t.Maghrib],
+        ["ઈશા", t.Isha]
+    ];
+
+    function renderCountdown(){
 
         const now = new Date();
+        let nextPrayer = null;
+        let nextTime = null;
+
+        prayers.forEach(function(p){
+
+            const parts = p[1].split(":");
+            const d = new Date();
+
+            d.setHours(
+                parseInt(parts[0],10),
+                parseInt(parts[1],10),
+                0,
+                0
+            );
+
+            if(d > now && !nextTime){
+                nextPrayer = p[0];
+                nextTime = d;
+            }
+        });
+
+        if(!nextTime){
+
+            const parts = prayers[0][1].split(":");
+
+            nextTime = new Date();
+            nextTime.setDate(nextTime.getDate()+1);
+
+            nextTime.setHours(
+                parseInt(parts[0],10),
+                parseInt(parts[1],10),
+                0,
+                0
+            );
+
+            nextPrayer = prayers[0][0];
+        }
+
+        const diff = nextTime - now;
+
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
 
         box.innerText =
-        "🕌 આગલી નમાઝ માટે Countdown તૈયાર થઈ રહ્યું છે...";
+            "🕌 " + nextPrayer +
+            " માટે " +
+            String(hours).padStart(2,"0") + ":" +
+            String(minutes).padStart(2,"0") + ":" +
+            String(seconds).padStart(2,"0") +
+            " બાકી";
+    }
 
-    },1000);
+    renderCountdown();
 
+    if(window.prayerCountdownInterval){
+        clearInterval(window.prayerCountdownInterval);
+    }
+
+    window.prayerCountdownInterval =
+        setInterval(renderCountdown,1000);
 }
-
-startPrayerCountdown();
-function updatePrayerCountdown(){
-
-    const box = document.getElementById("prayerCountdown");
-
-    if(!box) return;
-
-    box.innerText = "⏳ આગલી નમાઝનો સમય ગણાઈ રહ્યો છે...";
-
-}
-
-updatePrayerCountdown();
 </script>
 
 </body>
