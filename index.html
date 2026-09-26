@@ -1569,20 +1569,83 @@ function toggleEnglish(){
    }
 
 /* =========================
-   SAFE MULTILINGUAL LAYER
-   Existing JavaScript is kept unchanged.
+   COMPLETE MULTILINGUAL SYSTEM
+   Gujarati / English / Hindi / Urdu / Arabic
+   Arabic Quran & Dua text stays Arabic.
 ========================= */
 const UI_LANGS=["gu","en","hi","ur","ar"];
-const UI_TEXT={
- gu:{home:"મારો દિન",companion:"Islamic Life Companion",namaz:"નમાઝના સમય",tracker:"નમાઝ Tracker",reminder:"Namaz Reminder",quran:"કુરઆન",dua:"દુઆ",azkar:"અઝકાર",tasbeeh:"તસ્બીહ",qibla:"કિબલા",assistant:"Islamic Assistant",about:"About"},
- en:{home:"My Deen",companion:"Islamic Life Companion",namaz:"Prayer Times",tracker:"Namaz Tracker",reminder:"Namaz Reminder",quran:"Quran",dua:"Dua",azkar:"Azkar",tasbeeh:"Tasbeeh",qibla:"Qibla",assistant:"Islamic Assistant",about:"About"},
- hi:{home:"मेरा दीन",companion:"Islamic Life Companion",namaz:"नमाज़ के समय",tracker:"नमाज़ ट्रैकर",reminder:"नमाज़ रिमाइंडर",quran:"क़ुरआन",dua:"दुआ",azkar:"अज़कार",tasbeeh:"तस्बीह",qibla:"क़िबला",assistant:"इस्लामिक असिस्टेंट",about:"जानकारी"},
- ur:{home:"میرا دین",companion:"Islamic Life Companion",namaz:"نماز کے اوقات",tracker:"نماز ٹریکر",reminder:"نماز ریمائنڈر",quran:"قرآن",dua:"دعا",azkar:"اذکار",tasbeeh:"تسبیح",qibla:"قبلہ",assistant:"اسلامک اسسٹنٹ",about:"تعارف"},
- ar:{home:"دِيني",companion:"رفيق الحياة الإسلامية",namaz:"أوقات الصلاة",tracker:"متابعة الصلاة",reminder:"تذكير الصلاة",quran:"القرآن",dua:"الدعاء",azkar:"الأذكار",tasbeeh:"التسبيح",qibla:"القبلة",assistant:"المساعد الإسلامي",about:"حول"}
+const L={
+ gu:{
+  name:"ગુજરાતી",dir:"ltr",title:"મારો દિન",tagline:"ઇસ્લામિક જીવન સાથી",
+  homeDesc:"તમારા દિનની ઇબાદતને સરળ અને સુંદર બનાવતો ઇસ્લામિક જીવન સાથી.",
+  namaz:"નમાઝના સમય",tracker:"નમાઝ ટ્રેકર",reminder:"નમાઝ રિમાઇન્ડર",quran:"કુરઆન",dua:"દુઆ",azkar:"અઝકાર",tasbeeh:"તસ્બીહ",qibla:"કિબલા",assistant:"ઇસ્લામિક સહાયક",about:"માહિતી",
+  namazToday:"આજના નમાઝના સમય",loading:"લોડ થઈ રહ્યું છે...",nextPrayer:"આગલી નમાઝ કાઉન્ટડાઉન",counting:"ગણતરી થઈ રહી છે...",remaining:"માટે બાકી",
+  trackerTitle:"નમાઝ ટ્રેકર",trackerSub:"આજની પાંચેય નમાઝ પૂર્ણ થાય ત્યારે સામે ✔️ કરો.",today:"આજે:",history:"📅 1 મહિનાની હિસ્ટરી જુઓ",totalMonth:"📊 આ મહિને કુલ:",prayers:"નમાઝ",
+  reminderTitle:"નમાઝ રિમાઇન્ડર",reminderDesc:"નમાઝના સમય પહેલાં રિમાઇન્ડર માટે નોટિફિકેશન ચાલુ કરો.",enable:"🔔 રિમાઇન્ડર ચાલુ કરો",disable:"❌ રિમાઇન્ડર બંધ કરો",reminderOff:"રિમાઇન્ડર બંધ છે.",reminderOn:"🔔 નમાઝ રિમાઇન્ડર ચાલુ છે.",reminderDisabled:"🔕 નમાઝ રિમાઇન્ડર બંધ છે.",noNotification:"આ બ્રાઉઝરમાં નોટિફિકેશન સપોર્ટ નથી.",permissionDenied:"નોટિફિકેશનની પરવાનગી આપવામાં આવી નથી.",
+  quranSearch:"સૂરાનું નામ શોધો...",duaSearch:"દુઆ શોધો...",azkarTitle:"અઝકાર",tasbeehTitle:"ડિજિટલ તસ્બીહ",add:"📿 તસ્બીહ +1",reset:"🔄 રીસેટ",
+  qiblaTitle:"કિબલા કંપાસ",qiblaDesc:"ફોન ફેરવો. તીર કિબલા તરફ બતાવશે.",qiblaDirection:"કિબલા દિશા:",compass:"🧭 કંપાસ શરૂ કરો",compassPermission:"કંપાસની પરવાનગી આપવી જરૂરી છે.",compassError:"આ ફોન/બ્રાઉઝરમાં કંપાસ શરૂ થઈ શક્યો નથી.",
+  assistantPrompt:"તમારો સવાલ લખો:",assistantPlaceholder:"જેમ કે નમાઝ કેટલી ફરજ છે?",assistantButton:"💬 જવાબ જુઓ",unknown:"માફ કરશો, આ સવાલનો જવાબ હાલમાં ઉપલબ્ધ નથી.",
+  aboutP1:"મારો દિન એક ઇસ્લામિક જીવન સાથી વેબસાઇટ છે.",aboutP2:"અહીં તમે નમાઝના સમય, કુરઆન, દુઆ, અઝકાર, ડિજિટલ તસ્બીહ, કિબલા અને નમાઝ ટ્રેકર જેવી સુવિધાઓનો ઉપયોગ કરી શકો છો.",created:"બનાવનાર:",footer:"મારો દિન — ઇસ્લામિક જીવન સાથી",
+  fajr:"ફજર",sunrise:"સૂર્યોદય",dhuhr:"ઝુહર",asr:"અસર",maghrib:"મગરિબ",isha:"ઈશા",
+  fajrReminder:"ફજર",dhuhrReminder:"ઝુહર",asrReminder:"અસર",maghribReminder:"મગરિબ",ishaReminder:"ઈશા",
+  prayerFive:"ફજર, ઝુહર, અસર, મગરિબ અને ઈશા",quranFact:"કુરઆનમાં 114 સૂરા છે.",rozaFact:"રમઝાનના રોઝા ઇસ્લામના પાંચ સ્તંભોમાંથી એક છે.",zakatFact:"ઝકાત ઇસ્લામના પાંચ સ્તંભોમાંથી એક છે.",kalmaFact:"કલિમા ઇમાનનો મૂળભૂત ઇકરાર છે.",
+  hijriLoading:"🌙 હિજરી તારીખ લોડ થઈ રહી છે...",hijriUnavailable:"🌙 હિજરી તારીખ ઉપલબ્ધ નથી.",namazError:"નમાઝના સમય લોડ થઈ શક્યા નથી.",reminderError:"રિમાઇન્ડર માટે નમાઝના સમય લોડ થઈ શક્યા નથી.",
+  historyTitle:"📅",language:"ભાષા"
+ },
+ en:{
+  name:"English",dir:"ltr",title:"My Deen",tagline:"Islamic Life Companion",homeDesc:"An Islamic Life Companion that makes your daily worship simple and beautiful.",
+  namaz:"Prayer Times",tracker:"Prayer Tracker",reminder:"Prayer Reminder",quran:"Quran",dua:"Dua",azkar:"Azkar",tasbeeh:"Tasbeeh",qibla:"Qibla",assistant:"Islamic Assistant",about:"About",
+  namazToday:"Today's Prayer Times",loading:"Loading...",nextPrayer:"Next Prayer Countdown",counting:"Calculating...",remaining:"remaining for",
+  trackerTitle:"Prayer Tracker",trackerSub:"Tick ✔️ when you complete each of the five daily prayers.",today:"Today:",history:"📅 View 1 Month History",totalMonth:"📊 This month total:",prayers:"prayers",
+  reminderTitle:"Prayer Reminder",reminderDesc:"Turn on notifications for reminders before prayer times.",enable:"🔔 Turn Reminder On",disable:"❌ Turn Reminder Off",reminderOff:"Reminder is off.",reminderOn:"🔔 Prayer Reminder is on.",reminderDisabled:"🔕 Prayer Reminder is off.",noNotification:"Notifications are not supported in this browser.",permissionDenied:"Notification permission was not granted.",
+  quranSearch:"Search Surah name...",duaSearch:"Search Dua...",azkarTitle:"Azkar",tasbeehTitle:"Digital Tasbeeh",add:"📿 Tasbeeh +1",reset:"🔄 Reset",
+  qiblaTitle:"Qibla Compass",qiblaDesc:"Turn your phone. The arrow will point toward the Qibla.",qiblaDirection:"Qibla Direction:",compass:"🧭 Start Compass",compassPermission:"Compass permission is required.",compassError:"Compass could not be started on this phone/browser.",
+  assistantPrompt:"Write your question:",assistantPlaceholder:"For example: How many prayers are obligatory?",assistantButton:"💬 View Answer",unknown:"Sorry, an answer to this question is not currently available.",
+  aboutP1:"Maro Deen is an Islamic Life Companion website.",aboutP2:"Use it for prayer times, Quran, Dua, Azkar, digital Tasbeeh, Qibla and prayer tracking.",created:"Created by:",footer:"Maro Deen — Islamic Life Companion",
+  fajr:"Fajr",sunrise:"Sunrise",dhuhr:"Dhuhr",asr:"Asr",maghrib:"Maghrib",isha:"Isha",fajrReminder:"Fajr",dhuhrReminder:"Dhuhr",asrReminder:"Asr",maghribReminder:"Maghrib",ishaReminder:"Isha",prayerFive:"Fajr, Dhuhr, Asr, Maghrib and Isha",quranFact:"The Quran has 114 surahs.",rozaFact:"Fasting in Ramadan is one of the five pillars of Islam.",zakatFact:"Zakat is one of the five pillars of Islam.",kalmaFact:"The Kalima is a fundamental declaration of faith.",hijriLoading:"🌙 Loading Hijri date...",hijriUnavailable:"🌙 Hijri date is unavailable.",namazError:"Prayer times could not be loaded.",reminderError:"Prayer times could not be loaded for the reminder.",historyTitle:"📅",language:"Language"
+ },
+ hi:{
+  name:"हिन्दी",dir:"ltr",title:"मेरा दीन",tagline:"इस्लामिक जीवन साथी",homeDesc:"आपकी रोज़ाना इबादत को आसान और सुंदर बनाने वाला इस्लामिक जीवन साथी।",
+  namaz:"नमाज़ के समय",tracker:"नमाज़ ट्रैकर",reminder:"नमाज़ रिमाइंडर",quran:"क़ुरआन",dua:"दुआ",azkar:"अज़कार",tasbeeh:"तस्बीह",qibla:"क़िबला",assistant:"इस्लामिक सहायक",about:"जानकारी",
+  namazToday:"आज के नमाज़ के समय",loading:"लोड हो रहा है...",nextPrayer:"अगली नमाज़ काउंटडाउन",counting:"गणना हो रही है...",remaining:"के लिए बाकी",
+  trackerTitle:"नमाज़ ट्रैकर",trackerSub:"पाँचों नमाज़ पूरी होने पर ✔️ करें।",today:"आज:",history:"📅 1 महीने की हिस्ट्री देखें",totalMonth:"📊 इस महीने कुल:",prayers:"नमाज़",
+  reminderTitle:"नमाज़ रिमाइंडर",reminderDesc:"नमाज़ के समय से पहले रिमाइंडर के लिए नोटिफिकेशन चालू करें।",enable:"🔔 रिमाइंडर चालू करें",disable:"❌ रिमाइंडर बंद करें",reminderOff:"रिमाइंडर बंद है।",reminderOn:"🔔 नमाज़ रिमाइंडर चालू है।",reminderDisabled:"🔕 नमाज़ रिमाइंडर बंद है।",noNotification:"इस ब्राउज़र में नोटिफिकेशन उपलब्ध नहीं है।",permissionDenied:"नोटिफिकेशन की अनुमति नहीं दी गई।",
+  quranSearch:"सूरह का नाम खोजें...",duaSearch:"दुआ खोजें...",azkarTitle:"अज़कार",tasbeehTitle:"डिजिटल तस्बीह",add:"📿 तस्बीह +1",reset:"🔄 रीसेट",
+  qiblaTitle:"क़िबला कम्पास",qiblaDesc:"फोन घुमाएँ। तीर क़िबला की दिशा दिखाएगा।",qiblaDirection:"क़िबला दिशा:",compass:"🧭 कम्पास शुरू करें",compassPermission:"कम्पास की अनुमति आवश्यक है।",compassError:"इस फोन/ब्राउज़र में कम्पास शुरू नहीं हो सका।",
+  assistantPrompt:"अपना सवाल लिखें:",assistantPlaceholder:"जैसे: कितनी नमाज़ फ़र्ज़ हैं?",assistantButton:"💬 जवाब देखें",unknown:"माफ़ कीजिए, इस सवाल का जवाब अभी उपलब्ध नहीं है।",
+  aboutP1:"मेरा दीन एक इस्लामिक जीवन साथी वेबसाइट है।",aboutP2:"यहाँ नमाज़ के समय, क़ुरआन, दुआ, अज़कार, डिजिटल तस्बीह, क़िबला और नमाज़ ट्रैकर की सुविधाएँ हैं।",created:"बनाने वाले:",footer:"मेरा दीन — इस्लामिक जीवन साथी",
+  fajr:"फ़ज्र",sunrise:"सूर्योदय",dhuhr:"ज़ुहर",asr:"असर",maghrib:"मग़रिब",isha:"ईशा",fajrReminder:"फ़ज्र",dhuhrReminder:"ज़ुहर",asrReminder:"असर",maghribReminder:"मग़रिब",ishaReminder:"ईशा",prayerFive:"फ़ज्र, ज़ुहर, असर, मग़रिब और ईशा",quranFact:"क़ुरआन में 114 सूरह हैं।",rozaFact:"रमज़ान के रोज़े इस्लाम के पाँच स्तंभों में से एक हैं।",zakatFact:"ज़कात इस्लाम के पाँच स्तंभों में से एक है।",kalmaFact:"कलिमा ईमान की मूल घोषणा है।",hijriLoading:"🌙 हिजरी तारीख लोड हो रही है...",hijriUnavailable:"🌙 हिजरी तारीख उपलब्ध नहीं है।",namazError:"नमाज़ के समय लोड नहीं हो सके।",reminderError:"रिमाइंडर के लिए नमाज़ के समय लोड नहीं हो सके।",historyTitle:"📅",language:"भाषा"
+ },
+ ur:{
+  name:"اردو",dir:"rtl",title:"میرا دین",tagline:"اسلامی زندگی کا ساتھی",homeDesc:"آپ کی روزانہ عبادت کو آسان اور خوبصورت بنانے والا اسلامی زندگی کا ساتھی۔",
+  namaz:"نماز کے اوقات",tracker:"نماز ٹریکر",reminder:"نماز ریمائنڈر",quran:"قرآن",dua:"دعا",azkar:"اذکار",tasbeeh:"تسبیح",qibla:"قبلہ",assistant:"اسلامی معاون",about:"تعارف",
+  namazToday:"آج کے نماز کے اوقات",loading:"لوڈ ہو رہا ہے...",nextPrayer:"اگلی نماز کاؤنٹ ڈاؤن",counting:"حساب ہو رہا ہے...",remaining:"کے لیے باقی",
+  trackerTitle:"نماز ٹریکر",trackerSub:"پانچوں نماز مکمل ہونے پر ✔️ کریں۔",today:"آج:",history:"📅 ایک ماہ کی ہسٹری دیکھیں",totalMonth:"📊 اس ماہ کل:",prayers:"نماز",
+  reminderTitle:"نماز ریمائنڈر",reminderDesc:"نماز کے وقت سے پہلے ریمائنڈر کے لیے نوٹیفکیشن آن کریں۔",enable:"🔔 ریمائنڈر آن کریں",disable:"❌ ریمائنڈر بند کریں",reminderOff:"ریمائنڈر بند ہے۔",reminderOn:"🔔 نماز ریمائنڈر آن ہے۔",reminderDisabled:"🔕 نماز ریمائنڈر بند ہے۔",noNotification:"اس براؤزر میں نوٹیفکیشن دستیاب نہیں ہے۔",permissionDenied:"نوٹیفکیشن کی اجازت نہیں دی گئی۔",
+  quranSearch:"سورہ کا نام تلاش کریں...",duaSearch:"دعا تلاش کریں...",azkarTitle:"اذکار",tasbeehTitle:"ڈیجیٹل تسبیح",add:"📿 تسبیح +1",reset:"🔄 ری سیٹ",
+  qiblaTitle:"قبلہ کمپاس",qiblaDesc:"فون گھمائیں۔ تیر قبلہ کی سمت دکھائے گا۔",qiblaDirection:"قبلہ کی سمت:",compass:"🧭 کمپاس شروع کریں",compassPermission:"کمپاس کی اجازت ضروری ہے۔",compassError:"اس فون/براؤزر میں کمپاس شروع نہیں ہو سکا۔",
+  assistantPrompt:"اپنا سوال لکھیں:",assistantPlaceholder:"مثلاً: کتنی نمازیں فرض ہیں؟",assistantButton:"💬 جواب دیکھیں",unknown:"معذرت، اس سوال کا جواب فی الحال دستیاب نہیں ہے۔",
+  aboutP1:"میرا دین ایک اسلامی زندگی کا ساتھی ویب سائٹ ہے۔",aboutP2:"یہاں نماز کے اوقات، قرآن، دعا، اذکار، ڈیجیٹل تسبیح، قبلہ اور نماز ٹریکر کی سہولیات موجود ہیں۔",created:"تیار کرنے والے:",footer:"میرا دین — اسلامی زندگی کا ساتھی",
+  fajr:"فجر",sunrise:"سورج طلوع",dhuhr:"ظہر",asr:"عصر",maghrib:"مغرب",isha:"عشاء",fajrReminder:"فجر",dhuhrReminder:"ظہر",asrReminder:"عصر",maghribReminder:"مغرب",ishaReminder:"عشاء",prayerFive:"فجر، ظہر، عصر، مغرب اور عشاء",quranFact:"قرآن میں 114 سورتیں ہیں۔",rozaFact:"رمضان کے روزے اسلام کے پانچ ارکان میں سے ایک ہیں۔",zakatFact:"زکوٰۃ اسلام کے پانچ ارکان میں سے ایک ہے۔",kalmaFact:"کلمہ ایمان کا بنیادی اقرار ہے۔",hijriLoading:"🌙 ہجری تاریخ لوڈ ہو رہی ہے...",hijriUnavailable:"🌙 ہجری تاریخ دستیاب نہیں ہے۔",namazError:"نماز کے اوقات لوڈ نہیں ہو سکے۔",reminderError:"ریمائنڈر کے لیے نماز کے اوقات لوڈ نہیں ہو سکے۔",historyTitle:"📅",language:"زبان"
+ },
+ ar:{
+  name:"العربية",dir:"rtl",title:"دِيني",tagline:"رفيق الحياة الإسلامية",homeDesc:"رفيق إسلامي يجعل عبادتك اليومية أسهل وأجمل.",
+  namaz:"أوقات الصلاة",tracker:"متابعة الصلاة",reminder:"تذكير الصلاة",quran:"القرآن",dua:"الدعاء",azkar:"الأذكار",tasbeeh:"التسبيح",qibla:"القبلة",assistant:"المساعد الإسلامي",about:"حول التطبيق",
+  namazToday:"أوقات الصلاة اليوم",loading:"جارٍ التحميل...",nextPrayer:"العد التنازلي للصلاة القادمة",counting:"جارٍ الحساب...",remaining:"متبقٍ لـ",
+  trackerTitle:"متابعة الصلاة",trackerSub:"ضع علامة ✔️ عند إكمال الصلوات الخمس.",today:"اليوم:",history:"📅 عرض سجل شهر واحد",totalMonth:"📊 إجمالي هذا الشهر:",prayers:"صلوات",
+  reminderTitle:"تذكير الصلاة",reminderDesc:"فعّل الإشعارات للتذكير قبل أوقات الصلاة.",enable:"🔔 تشغيل التذكير",disable:"❌ إيقاف التذكير",reminderOff:"التذكير متوقف.",reminderOn:"🔔 تذكير الصلاة مفعّل.",reminderDisabled:"🔕 تذكير الصلاة متوقف.",noNotification:"الإشعارات غير مدعومة في هذا المتصفح.",permissionDenied:"لم يتم منح إذن الإشعارات.",
+  quranSearch:"ابحث عن اسم السورة...",duaSearch:"ابحث عن الدعاء...",azkarTitle:"الأذكار",tasbeehTitle:"التسبيح الرقمي",add:"📿 تسبيح +1",reset:"🔄 إعادة ضبط",
+  qiblaTitle:"بوصلة القبلة",qiblaDesc:"حرّك الهاتف. سيشير السهم نحو القبلة.",qiblaDirection:"اتجاه القبلة:",compass:"🧭 تشغيل البوصلة",compassPermission:"يلزم السماح باستخدام البوصلة.",compassError:"تعذر تشغيل البوصلة على هذا الهاتف أو المتصفح.",
+  assistantPrompt:"اكتب سؤالك:",assistantPlaceholder:"مثال: كم صلاة مفروضة؟",assistantButton:"💬 عرض الإجابة",unknown:"عذرًا، لا تتوفر إجابة عن هذا السؤال حاليًا.",
+  aboutP1:"مَارو دين هو موقع رفيق للحياة الإسلامية.",aboutP2:"يمكنك استخدامه لأوقات الصلاة والقرآن والدعاء والأذكار والتسبيح الرقمي والقبلة ومتابعة الصلاة.",created:"إعداد:",footer:"دِيني — رفيق الحياة الإسلامية",
+  fajr:"الفجر",sunrise:"الشروق",dhuhr:"الظهر",asr:"العصر",maghrib:"المغرب",isha:"العشاء",fajrReminder:"الفجر",dhuhrReminder:"الظهر",asrReminder:"العصر",maghribReminder:"المغرب",ishaReminder:"العشاء",prayerFive:"الفجر والظهر والعصر والمغرب والعشاء",quranFact:"القرآن فيه 114 سورة.",rozaFact:"صيام رمضان أحد أركان الإسلام الخمسة.",zakatFact:"الزكاة أحد أركان الإسلام الخمسة.",kalmaFact:"الكلمة إعلان أساسي للإيمان.",hijriLoading:"🌙 جارٍ تحميل التاريخ الهجري...",hijriUnavailable:"🌙 التاريخ الهجري غير متاح.",namazError:"تعذر تحميل أوقات الصلاة.",reminderError:"تعذر تحميل أوقات الصلاة للتذكير.",historyTitle:"📅",language:"اللغة"
+ }
 };
+let currentLang="gu";
+function t(k){return (L[currentLang]&&L[currentLang][k])||L.gu[k]||k;}
 function detectUILanguage(){
  const saved=localStorage.getItem("maroDeenLanguage");
- if(saved&&UI_LANGS.includes(saved)) return saved;
+ if(saved&&UI_LANGS.includes(saved))return saved;
  const n=(navigator.language||"").toLowerCase();
  if(n.startsWith("ar"))return "ar";
  if(n.startsWith("ur"))return "ur";
@@ -1591,23 +1654,94 @@ function detectUILanguage(){
  return "gu";
 }
 function setLanguage(lang){
- if(lang==="auto") lang=detectUILanguage();
- if(!UI_LANGS.includes(lang)) lang="gu";
+ if(lang==="auto")lang=detectUILanguage();
+ if(!UI_LANGS.includes(lang))lang="gu";
+ currentLang=lang;
  localStorage.setItem("maroDeenLanguage",lang);
- const t=UI_TEXT[lang];
- const h1=document.querySelector("header h1"); if(h1)h1.innerText="☪️ "+t.home;
- const hp=document.querySelector("header p"); if(hp)hp.innerText=t.companion;
- const titles={namazCard:"🕌 "+t.namaz,trackerCard:"☑️ "+t.tracker,reminderCard:"🔔 "+t.reminder,quranCard:"📖 "+t.quran,duaCard:"🤲 "+t.dua,azkarCard:"📿 "+t.azkar,tasbeehCard:"📿 "+t.tasbeeh,qiblaCard:"🕋 "+t.qibla,assistantCard:"🤖 "+t.assistant,aboutCard:"ℹ️ "+t.about};
- Object.keys(titles).forEach(function(id){const el=document.querySelector("#"+id+" h2");if(el)el.innerText=titles[id];});
  document.documentElement.lang=lang;
- document.documentElement.dir=(lang==="ar"||lang==="ur")?"rtl":"ltr";
- const sel=document.getElementById("languageSelect");if(sel)sel.value=lang;
+ document.documentElement.dir=L[lang].dir;
+ document.body.dir=L[lang].dir;
+ const sel=document.getElementById("languageSelect");
+ if(sel)sel.value=lang;
+ applyStaticLanguage();
+ updateHomeDate();
+ loadHijri();
+ showQuran(searchQuranList());
+ showDuas(searchDuaList());
+ updateAzkar();
+ showNamazTracker();
 }
-document.addEventListener("DOMContentLoaded",function(){
- const saved=localStorage.getItem("maroDeenLanguage");
- setLanguage(saved&&UI_LANGS.includes(saved)?saved:detectUILanguage());
-});
-
+function applyStaticLanguage(){
+ const h1=document.querySelector("header h1"); if(h1)h1.innerText="☪️ "+t("title");
+ const hp=document.querySelector("header p"); if(hp)hp.innerText=t("tagline");
+ const home=document.querySelector("#homeCard");
+ if(home){home.querySelector("h2").innerText="🌙 "+t("title");home.querySelector("p").innerText=t("homeDesc");}
+ const buttons=[...document.querySelectorAll("#homeCard .home-btn")];
+ const nav=["namaz","tracker","reminder","quran","dua","azkar","tasbeeh","qibla","assistant","about"];
+ buttons.forEach((b,i)=>{if(nav[i]){const span=b.querySelector("span");b.innerHTML=(span?span.outerHTML:"")+t(nav[i]);}});
+ const setH2=(id,key,emoji)=>{const e=document.querySelector("#"+id+" h2");if(e)e.innerText=emoji+" "+t(key);};
+ setH2("namazCard","namazToday","🕌 ");
+ setH2("countdownCard","nextPrayer","⏳ ");
+ const th=document.querySelectorAll("#trackerCard h2"); if(th[0])th[0].innerText="☑️ "+t("trackerTitle"); if(th[1])th[1].innerText="🕌 "+t("namaz");
+ const tp=document.querySelector("#trackerCard p");if(tp)tp.innerText=t("trackerSub");
+ const tc=document.querySelector("#trackerCard div[style*='e7f6f0']");if(tc)tc.innerHTML=t("today")+" <span id='todayNamazCount'>"+(document.getElementById("todayNamazCount")?.innerText||"0")+"</span>/5 "+t("prayers");
+ const hb=document.querySelector("#trackerCard button");if(hb)hb.innerText=t("history");
+ setH2("reminderCard","reminderTitle","🔔 ");
+ const rp=document.querySelector("#reminderCard p");if(rp)rp.innerText=t("reminderDesc");
+ const rb=document.querySelectorAll("#reminderCard button");if(rb[0])rb[0].innerText=t("enable");if(rb[1])rb[1].innerText=t("disable");
+ const rs=document.getElementById("reminderStatus");if(rs&&!rs.dataset.active)rs.innerText=t("reminderOff");
+ setH2("quranCard","quran","📖 "); const qs=document.getElementById("quranSearch");if(qs)qs.placeholder=t("quranSearch");
+ setH2("duaCard","dua","🤲 "); const ds=document.getElementById("duaSearch");if(ds)ds.placeholder=t("duaSearch");
+ setH2("azkarCard","azkarTitle","📿 ");
+ setH2("tasbeehCard","tasbeehTitle","📿 "); const tb=document.querySelectorAll("#tasbeehCard button");if(tb[0])tb[0].innerText=t("add");if(tb[1])tb[1].innerText=t("reset");
+ setH2("qiblaCard","qiblaTitle","🕋 "); const qp=document.querySelector("#qiblaCard p");if(qp)qp.innerText=t("qiblaDesc"); const qdir=document.querySelector("#qiblaCard p strong")?.parentElement;if(qdir)qdir.innerHTML=t("qiblaDirection")+" <strong><span id='qiblaDegree'>"+(document.getElementById("qiblaDegree")?.innerText||"--")+"</span>°</strong>"; const qb=document.querySelector("#qiblaCard button");if(qb)qb.innerText=t("compass");
+ setH2("assistantCard","assistant","🤖 ");const ap=document.querySelector("#assistantCard p");if(ap)ap.innerText=t("assistantPrompt");const ai=document.getElementById("assistantQuestion");if(ai)ai.placeholder=t("assistantPlaceholder");const ab=document.querySelector("#assistantCard button");if(ab)ab.innerText=t("assistantButton");
+ setH2("aboutCard","about","ℹ️ ");const aps=document.querySelectorAll("#aboutCard p");if(aps[0])aps[0].innerHTML="<b>"+t("title")+"</b> "+t("aboutP1");if(aps[1])aps[1].innerText=t("aboutP2");if(aps[2])aps[2].innerHTML=t("created")+"<br><b>Minhaz Musa Patel</b><br><b>Abdulla Ilyas Bhoja</b>";
+ const foot=document.querySelector(".footer");if(foot)foot.innerHTML="☪️ "+t("footer")+"<br><br>© 2026 Minhaz Musa Patel &amp; Abdulla Ilyas Bhoja";
+ const opts={gu:["ગુજરાતી","English","હિન્દી","ઉર્દૂ","અરબી"],en:["Gujarati","English","Hindi","Urdu","Arabic"],hi:["गुजराती","अंग्रेज़ी","हिन्दी","उर्दू","अरबी"],ur:["گجراتی","انگریزی","ہندی","اردو","عربی"],ar:["الغوجاراتية","الإنجليزية","الهندية","الأردية","العربية"]};
+ if(sel){[...sel.options].forEach((o,i)=>{o.textContent=opts[currentLang][i]||o.textContent;});}
+}
+function updateHomeDate(){
+ const el=document.getElementById("homeDate");if(!el)return;
+ const locale={gu:"gu-IN",en:"en-IN",hi:"hi-IN",ur:"ur-PK",ar:"ar"}[currentLang]||"gu-IN";
+ el.innerHTML="<p>📅 "+new Date().toLocaleDateString(locale,{weekday:"long",year:"numeric",month:"long",day:"numeric"})+"</p>";
+}
+function prayerRows(timings){
+ const p=[["Fajr","fajr","🌅"],["Sunrise","sunrise","☀️"],["Dhuhr","dhuhr","☀️"],["Asr","asr","🌤️"],["Maghrib","maghrib","🌇"],["Isha","isha","🌙"]];
+ return p.map(x=>"<div class='row'><b>"+x[2]+" "+t(x[1])+"</b><span>"+(timings[x[0]]||"--")+"</span></div>").join("");
+}
+async function loadNamaz(){
+ const box=document.getElementById("namazTimes");if(!box)return;
+ box.innerText=t("loading");
+ const now=new Date(),dd=String(now.getDate()).padStart(2,"0"),mm=String(now.getMonth()+1).padStart(2,"0"),yyyy=now.getFullYear();
+ const url="https://api.aladhan.com/v1/timingsByCity/"+dd+"-"+mm+"-"+yyyy+"?city=Bharuch&country=India&method=1&school=1";
+ try{const r=await fetch(url);if(!r.ok)throw new Error();const data=await r.json();if(!data.data||!data.data.timings)throw new Error();const tt=data.data.timings;box.innerHTML=prayerRows(tt);updatePrayerCountdown(tt);}catch(e){box.innerText=t("namazError");}
+}
+async function loadHijri(){
+ const el=document.getElementById("hijriDate");if(!el)return;el.innerHTML="<p>"+t("hijriLoading")+"</p>";
+ const now=new Date(),dd=String(now.getDate()).padStart(2,"0"),mm=String(now.getMonth()+1).padStart(2,"0"),yyyy=now.getFullYear();
+ try{const r=await fetch("https://api.aladhan.com/v1/gToH/"+dd+"-"+mm+"-"+yyyy);const h=(await r.json()).data.hijri;const locale={gu:"gu-IN",en:"en-IN",hi:"hi-IN",ur:"ur-PK",ar:"ar"}[currentLang]||"en-IN";el.innerHTML="<p>🌙 "+h.day+" "+(currentLang==="ar"?h.month.ar:currentLang==="ur"?h.month.ar:h.month.en)+" "+h.year+" AH</p>";}catch(e){el.innerHTML="<p>"+t("hijriUnavailable")+"</p>";}
+}
+function quranName(s){return currentLang==="ar"?s[0]:currentLang==="ur"?s[1]:currentLang==="hi"?s[1]:currentLang==="en"?s[1]:s[2];}
+function searchQuranList(){const v=(document.getElementById("quranSearch")?.value||"").toLowerCase().trim();return surah.map((s,i)=>({s,i})).filter(x=>!v||x.s[0].includes(v)||x.s[1].toLowerCase().includes(v)||x.s[2].toLowerCase().includes(v)||String(x.i+1).includes(v));}
+function showQuran(list){const box=document.getElementById("quranList");if(!box)return;box.innerHTML=list.map(x=>"<div class='quran-item'><b>"+(x.i+1)+". "+quranName(x.s)+"</b><div class='arabic'>"+x.s[0]+"</div><small>"+x.s[1]+"</small></div>").join("");}
+function searchQuran(){showQuran(searchQuranList());}
+function duaName(d){return currentLang==="gu"?d[0]:currentLang==="en"?d[2]:currentLang==="hi"?d[3]:currentLang==="ur"?d[4]:d[5];}
+function searchDuaList(){const v=(document.getElementById("duaSearch")?.value||"").toLowerCase().trim();return duas.filter(d=>!v||d.join(" ").toLowerCase().includes(v));}
+function showDuas(list){const box=document.getElementById("duaList");if(!box)return;box.innerHTML=list.map(d=>"<div class='dua-item'><b>"+duaName(d)+"</b><div class='arabic'>"+d[1]+"</div></div>").join("");}
+function searchDua(){showDuas(searchDuaList());}
+function updateAzkar(){const box=document.getElementById("azkarList");if(!box)return;box.innerHTML=azkar.map(z=>"<div class='azkar-item'><div class='arabic'>"+z[0]+"</div><b>"+z[1]+"</b></div>").join("");}
+function showNamazTracker(){const box=document.getElementById("namazTracker");if(!box)return;const data=getNamazData(),today=getTodayKey();if(!data[today]){data[today]=createEmptyDay();saveNamazData(data);}box.innerHTML=trackerPrayers.map(p=>"<label class='check' style='display:flex;align-items:center;cursor:pointer'><input type='checkbox' style='transform:scale(1.4);margin-right:12px' onchange=\"toggleNamaz('"+p[0]+"',this.checked)\" "+(data[today][p[0]]?"checked":"")+"><span style='font-size:17px'>"+p[2]+" "+t(p[0].toLowerCase())+"</span></label>").join("");updateTodayNamazCount();}
+function updateTodayNamazCount(){const d=getNamazData(),tt=getTodayKey();let c=0;if(d[tt])trackerPrayers.forEach(p=>{if(d[tt][p[0]])c++;});const el=document.getElementById("todayNamazCount");if(el)el.innerText=c;}
+function showNamazHistory(){const box=document.getElementById("namazHistory");if(!box)return;if(box.style.display==="block"){box.style.display="none";return;}const d=getNamazData(),now=new Date(),y=now.getFullYear(),m=now.getMonth(),days=new Date(y,m+1,0).getDate();let total=0,html="<h3 style='text-align:center'>📅 "+now.toLocaleDateString({gu:"gu-IN",en:"en-IN",hi:"hi-IN",ur:"ur-PK",ar:"ar"}[currentLang],{month:"long",year:"numeric"})+"</h3>";for(let day=1;day<=days;day++){const key=y+"-"+String(m+1).padStart(2,"0")+"-"+String(day).padStart(2,"0"),r=d[key]||{};let c=0,status="";trackerPrayers.forEach(p=>{if(r[p[0]])c++;status+=r[p[0]]?"<span>✅</span>":"<span>❌</span>";});total+=c;html+="<div class='history-day'><b>"+day+"</b><span>"+status+"</span><small style='color:#075e54;font-weight:bold'>"+c+"/5</small></div>";}box.innerHTML=html+"<div style='background:#075e54;color:white;padding:14px;border-radius:13px;text-align:center;margin-top:12px;font-weight:bold'>"+t("totalMonth")+" "+total+"/"+(days*5)+" "+t("prayers")+"</div>";box.style.display="block";}
+function askAssistant(){const q=(document.getElementById("assistantQuestion")?.value||"").toLowerCase().trim();let answer=t("unknown");if(q.includes("નમાઝ")||q.includes("namaz")||q.includes("نماز")||q.includes("नमाज़")||q.includes("prayer"))answer=t("prayerFive");else if(q.includes("કુરઆન")||q.includes("quran")||q.includes("قرآن")||q.includes("क़ुरआन"))answer=t("quranFact");else if(q.includes("રોઝા")||q.includes("roza")||q.includes("روزہ")||q.includes("रोज़ा"))answer=t("rozaFact");else if(q.includes("ઝકાત")||q.includes("zakat")||q.includes("زکو")||q.includes("ज़कात"))answer=t("zakatFact");else if(q.includes("કલમા")||q.includes("kalma")||q.includes("کلمہ")||q.includes("कलिमा"))answer=t("kalmaFact");document.getElementById("assistantAnswer").innerText=answer;}
+function updatePrayerCountdown(timings){const box=document.getElementById("prayerCountdown");if(!box)return;const ps=[["fajr","Fajr"],["dhuhr","Dhuhr"],["asr","Asr"],["maghrib","Maghrib"],["isha","Isha"]];function render(){const now=new Date();let next=null;for(const p of ps){const a=timings[p[1]].split(":");const d=new Date();d.setHours(+a[0],+a[1],0,0);if(d>now){next={key:p[0],time:d};break;}}if(!next){const a=timings.Fajr.split(":");const d=new Date();d.setDate(d.getDate()+1);d.setHours(+a[0],+a[1],0,0);next={key:"fajr",time:d};}const diff=next.time-now;const h=Math.floor(diff/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);box.innerText="🕌 "+t(next.key)+" "+t("remaining")+" "+String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");}render();if(window.prayerCountdownInterval)clearInterval(window.prayerCountdownInterval);window.prayerCountdownInterval=setInterval(render,1000);}
+function toggleEnglish(){setLanguage(currentLang==="en"?"gu":"en");}
+function enableNamazReminder(){if(!(typeof Notification!=="undefined")){document.getElementById("reminderStatus").innerText=t("noNotification");return;}Notification.requestPermission().then(p=>{if(p!=="granted"){document.getElementById("reminderStatus").innerText=t("permissionDenied");return;}const el=document.getElementById("reminderStatus");el.dataset.active="1";el.innerText=t("reminderOn");setupNamazReminders();});}
+function disableNamazReminder(){namazReminderTimers.forEach(clearTimeout);namazReminderTimers=[];const el=document.getElementById("reminderStatus");if(el){el.dataset.active="";el.innerText=t("reminderDisabled");}}
+async function setupNamazReminders(){namazReminderTimers.forEach(clearTimeout);namazReminderTimers=[];try{const now=new Date(),dd=String(now.getDate()).padStart(2,"0"),mm=String(now.getMonth()+1).padStart(2,"0"),yyyy=now.getFullYear();const r=await fetch("https://api.aladhan.com/v1/timingsByCity/"+dd+"-"+mm+"-"+yyyy+"?city=Bharuch&country=India&method=1&school=1");const data=await r.json(),tt=data.data.timings;const ps=[["Fajr","fajr"],["Dhuhr","dhuhr"],["Asr","asr"],["Maghrib","maghrib"],["Isha","isha"]];ps.forEach(p=>{const a=tt[p[0]].split(":");const pt=new Date();pt.setHours(+a[0],+a[1],0,0);const rt=new Date(pt.getTime()-600000),delay=rt.getTime()-Date.now();if(delay>0)namazReminderTimers.push(setTimeout(()=>new Notification("🕌 "+t("reminderTitle"),{body:t(p[1])+" "+t("remaining")+" 10 minutes",icon:"https://patelminhazmusa.github.io/maro-din/"}),delay));});}catch(e){document.getElementById("reminderStatus").innerText=t("reminderError");}}
+function applyLanguageAndRefresh(){applyStaticLanguage();updateHomeDate();loadHijri();showQuran(searchQuranList());showDuas(searchDuaList());updateAzkar();showNamazTracker();loadNamaz();}
+document.addEventListener("DOMContentLoaded",function(){const saved=localStorage.getItem("maroDeenLanguage");currentLang=saved&&UI_LANGS.includes(saved)?saved:detectUILanguage();setLanguage(currentLang);});
 </script>
 
 </body>
