@@ -1147,119 +1147,146 @@ box.style.display="block";
 }
 
 
-let qiblaDirection=0;
+let qiblaDirection = 0;
+let compassStarted = false;
+let qiblaUserLocation = null;
 
-let compassStarted=false;
+const KAABA_LAT = 21.422487;
+const KAABA_LON = 39.826206;
 
+function calculateQiblaBearing(lat, lon){
+    const lat1 = lat * Math.PI / 180;
+    const lat2 = KAABA_LAT * Math.PI / 180;
+    const dLon = (KAABA_LON - lon) * Math.PI / 180;
 
-async function loadQibla(){
+    const y = Math.sin(dLon) * Math.cos(lat2);
+    const x =
+        Math.cos(lat1) * Math.sin(lat2) -
+        Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
 
-try{
-
-const r=await fetch(
-"https://api.aladhan.com/v1/qibla/21.7051/72.9959"
-);
-
-const d=await r.json();
-
-qiblaDirection=d.data.direction;
-
-document.getElementById(
-"qiblaDegree"
-).innerText=
-Math.round(qiblaDirection);
-
+    return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
 }
 
-catch(e){
-
-document.getElementById(
-"qiblaDegree"
-).innerText="--";
-
+function setQiblaDegree(){
+    const el = document.getElementById("qiblaDegree");
+    if(el){
+        el.innerText = Math.round(qiblaDirection);
+    }
 }
 
+function loadQibla(){
+    const fallbackLat = 21.7051;
+    const fallbackLon = 72.9959;
+
+    function useLocation(lat, lon){
+        qiblaUserLocation = {lat:lat, lon:lon};
+        qiblaDirection = calculateQiblaBearing(lat, lon);
+        setQiblaDegree();
+    }
+
+    if(!navigator.geolocation){
+        useLocation(fallbackLat, fallbackLon);
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        function(position){
+            useLocation(
+                position.coords.latitude,
+                position.coords.longitude
+            );
+        },
+        function(){
+            // If the user does not allow location, use Bharuch as fallback.
+            useLocation(fallbackLat, fallbackLon);
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 300000
+        }
+    );
 }
 
+function normalizeHeading(value){
+    return (value % 360 + 360) % 360;
+}
 
 function handleOrientation(e){
+    let heading = null;
 
-let heading=null;
+    // iPhone/iPad Safari gives the real compass heading here.
+    if(typeof e.webkitCompassHeading === "number"){
+        heading = e.webkitCompassHeading;
+    }
+    // Android/Chrome: use the absolute orientation event.
+    else if(typeof e.alpha === "number"){
+        heading = 360 - e.alpha;
 
-if(
-typeof e.webkitCompassHeading==="number"
-)
+        const angle =
+            (screen.orientation && typeof screen.orientation.angle === "number")
+            ? screen.orientation.angle
+            : (typeof window.orientation === "number" ? window.orientation : 0);
 
-heading=e.webkitCompassHeading;
+        heading += angle;
+    }
 
-else if(
-typeof e.alpha==="number"
-)
+    if(heading === null || !isFinite(heading)) return;
 
-heading=360-e.alpha;
+    heading = normalizeHeading(heading);
 
-if(heading===null)
-return;
+    const rotation = qiblaDirection - heading;
+    const arrow = document.getElementById("qiblaArrow");
 
-const rotation=
-qiblaDirection-heading;
+    if(arrow){
+        arrow.style.transform =
+            "rotate(" + rotation + "deg)";
+    }
 
-document.getElementById(
-"qiblaArrow"
-).style.transform=
-"rotate("+rotation+"deg)";
-
+    const live = document.getElementById("qiblaLiveHeading");
+    if(live){
+        live.innerText = Math.round(heading) + "°";
+    }
 }
-
 
 async function startCompass(){
+    if(compassStarted) return;
 
-if(compassStarted)
-return;
+    try{
+        if(typeof DeviceOrientationEvent === "undefined"){
+            throw new Error("NO_COMPASS");
+        }
 
-try{
+        if(typeof DeviceOrientationEvent.requestPermission === "function"){
+            const permission =
+                await DeviceOrientationEvent.requestPermission();
 
-if(
-typeof DeviceOrientationEvent!=="undefined" &&
-typeof DeviceOrientationEvent.requestPermission==="function"
-){
+            if(permission !== "granted"){
+                alert(t("compassPermission"));
+                return;
+            }
+        }
 
-const p=
-await DeviceOrientationEvent.requestPermission();
+        // Prefer absolute orientation when the browser supports it.
+        window.addEventListener(
+            "deviceorientationabsolute",
+            handleOrientation,
+            true
+        );
 
-if(p!=="granted"){
+        // iOS and browsers without the absolute event use normal orientation.
+        window.addEventListener(
+            "deviceorientation",
+            handleOrientation,
+            true
+        );
 
-alert(
-"Compass permission આપવી જરૂરી છે."
-);
-
-return;
-
+        compassStarted = true;
+    }
+    catch(e){
+        alert(t("compassError"));
+    }
 }
-
-}
-
-
-window.addEventListener(
-"deviceorientation",
-handleOrientation,
-true
-);
-
-compassStarted=true;
-
-}
-
-catch(e){
-
-alert(
-"આ ફોન/browser માં compass શરૂ થઈ શક્યો નથી."
-);
-
-}
-
-}
-
 
 function askAssistant(){
 
@@ -1674,8 +1701,8 @@ function setLanguage(lang){
  document.documentElement.lang=lang;
  document.documentElement.dir=L[lang].dir;
  document.body.dir=L[lang].dir;
- const sel=document.getElementById("languageSelect");
- if(sel)sel.value=lang;
+ const langSelect=document.getElementById("languageSelect");
+ if(langSelect)langSelect.value=lang;
  applyStaticLanguage();
  updateHomeDate();
  loadHijri();
@@ -1707,12 +1734,13 @@ function applyStaticLanguage(){
  setH2("duaCard","dua","🤲 "); const ds=document.getElementById("duaSearch");if(ds)ds.placeholder=t("duaSearch");
  setH2("azkarCard","azkarTitle","📿 ");
  setH2("tasbeehCard","tasbeehTitle","📿 "); const tb=document.querySelectorAll("#tasbeehCard button");if(tb[0])tb[0].innerText=t("add");if(tb[1])tb[1].innerText=t("reset");
- setH2("qiblaCard","qiblaTitle","🕋 "); const qp=document.querySelector("#qiblaCard p");if(qp)qp.innerText=t("qiblaDesc"); const qdir=document.querySelector("#qiblaCard p strong")?.parentElement;if(qdir)qdir.innerHTML=t("qiblaDirection")+" <strong><span id='qiblaDegree'>"+(document.getElementById("qiblaDegree")?.innerText||"--")+"</span>°</strong>"; const qb=document.querySelector("#qiblaCard button");if(qb)qb.innerText=t("compass");
+ setH2("qiblaCard","qiblaTitle","🕋 "); const qp=document.querySelector("#qiblaCard p");if(qp)qp.innerText=t("qiblaDesc"); const qdir=document.querySelector("#qiblaCard p strong")?.parentElement;if(qdir)qdir.innerHTML=t("qiblaDirection")+" <strong><span id='qiblaDegree'>"+(document.getElementById("qiblaDegree")?.innerText||"--")+"</span>°</strong>"; const qb=document.querySelector("#qiblaCard button");if(qb)qb.innerText=t("compass"); const qlive=document.getElementById("qiblaLiveHeading");if(qlive&&!qlive.dataset.label)qlive.dataset.label="1";
  setH2("assistantCard","assistant","🤖 ");const ap=document.querySelector("#assistantCard p");if(ap)ap.innerText=t("assistantPrompt");const ai=document.getElementById("assistantQuestion");if(ai)ai.placeholder=t("assistantPlaceholder");const ab=document.querySelector("#assistantCard button");if(ab)ab.innerText=t("assistantButton");
  setH2("aboutCard","about","ℹ️ ");const aps=document.querySelectorAll("#aboutCard p");if(aps[0])aps[0].innerHTML="<b>"+t("title")+"</b> "+t("aboutP1");if(aps[1])aps[1].innerText=t("aboutP2");if(aps[2])aps[2].innerHTML=t("created")+"<br><b>Minhaz Musa Patel</b><br><b>Abdulla Ilyas Bhoja</b>";
  const foot=document.querySelector(".footer");if(foot)foot.innerHTML="☪️ "+t("footer")+"<br><br>© 2026 Minhaz Musa Patel &amp; Abdulla Ilyas Bhoja";
  const opts={gu:["ગુજરાતી","English","હિન્દી","ઉર્દૂ","અરબી"],en:["Gujarati","English","Hindi","Urdu","Arabic"],hi:["गुजराती","अंग्रेज़ी","हिन्दी","उर्दू","अरबी"],ur:["گجراتی","انگریزی","ہندی","اردو","عربی"],ar:["الغوجاراتية","الإنجليزية","الهندية","الأردية","العربية"]};
- if(sel){[...sel.options].forEach((o,i)=>{o.textContent=opts[currentLang][i]||o.textContent;});}
+ const langSelect=document.getElementById("languageSelect");
+ if(langSelect){[...langSelect.options].forEach((o,i)=>{o.textContent=opts[currentLang][i]||o.textContent;});}
 }
 function updateHomeDate(){
  const el=document.getElementById("homeDate");if(!el)return;
