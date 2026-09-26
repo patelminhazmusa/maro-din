@@ -137,10 +137,9 @@ gap:5px
 header h1{font-size:27px}
 }
 
-/* Multilingual support layer — added without changing existing layout/styles */
+/* Multilingual selector - does not modify existing website styles/functions */
 .language-bar{display:flex;justify-content:center;align-items:center;gap:8px;margin:0 0 12px}
 .language-bar select{padding:9px 12px;border-radius:10px;border:1px solid #cbded7;background:#fff;font-size:14px}
-
 </style>
 </head>
 
@@ -155,7 +154,6 @@ header h1{font-size:27px}
 </header>
 
 <div class="container">
-
 <div class="language-bar" aria-label="Language">
   <span>🌐</span>
   <select id="languageSelect" onchange="setLanguage(this.value)">
@@ -167,6 +165,7 @@ header h1{font-size:27px}
     <option value="ar">العربية</option>
   </select>
 </div>
+
 
 <div class="card" id="homeCard">
 <h2>🌙 મારો દિન</h2>
@@ -1283,4 +1282,333 @@ answer=
 
 
 else if(
-q.includ
+q.includes("રોઝા")||
+q.includes("roza")
+)
+
+answer=
+"રમઝાનના રોઝા ઇસ્લામના પાંચ સ્તંભોમાંથી એક છે.";
+
+
+else if(
+q.includes("ઝકાત")||
+q.includes("zakat")
+)
+
+answer=
+"ઝકાત ઇસ્લામના પાંચ સ્તંભોમાંથી એક છે.";
+
+
+else if(
+q.includes("કલમા")||
+q.includes("kalma")
+)
+
+answer=
+"કલિમા ઇમાનનો મૂળભૂત ઇકરાર છે.";
+
+
+document.getElementById(
+"assistantAnswer"
+).innerText=answer;
+
+}
+
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+updateHomeDate();
+
+updateTasbeeh();
+
+updateAzkar();
+
+showNamazTracker();
+
+showQuran(surah);
+
+showDuas(duas);
+
+loadNamaz();
+
+loadHijri();
+
+loadQibla();
+
+}
+);
+/* =========================
+   NAMAZ REMINDER
+========================= */
+
+let namazReminderTimers = [];
+
+async function enableNamazReminder(){
+
+    if(!("Notification" in window)){
+
+        document.getElementById("reminderStatus").innerText =
+        "આ browser માં Notification support નથી.";
+
+        return;
+    }
+
+    const permission = await Notification.requestPermission();
+
+    if(permission !== "granted"){
+
+        document.getElementById("reminderStatus").innerText =
+        "Notification permission આપવામાં આવી નથી.";
+
+        return;
+    }
+
+    document.getElementById("reminderStatus").innerText =
+    "🔔 Namaz Reminder ચાલુ છે.";
+
+    setupNamazReminders();
+}
+
+
+async function setupNamazReminders(){
+
+    namazReminderTimers.forEach(function(timer){
+        clearTimeout(timer);
+    });
+
+    namazReminderTimers = [];
+
+    try{
+
+        const now = new Date();
+
+        const dd = String(now.getDate()).padStart(2,"0");
+        const mm = String(now.getMonth()+1).padStart(2,"0");
+        const yyyy = now.getFullYear();
+
+        const url =
+        "https://api.aladhan.com/v1/timingsByCity/" +
+        dd + "-" + mm + "-" + yyyy +
+        "?city=Bharuch&country=India&method=1&school=1";
+
+        const r = await fetch(url);
+        const data = await r.json();
+
+        const t = data.data.timings;
+
+        const prayers = [
+
+            ["Fajr","🌅 ફજર",t.Fajr],
+            ["Dhuhr","☀️ ઝુહર",t.Dhuhr],
+            ["Asr","🌤️ અસર",t.Asr],
+            ["Maghrib","🌇 મગરિબ",t.Maghrib],
+            ["Isha","🌙 ઈશા",t.Isha]
+
+        ];
+
+        prayers.forEach(function(p){
+
+            const parts = p[2].split(":");
+
+            const prayerTime = new Date();
+
+            prayerTime.setHours(
+                parseInt(parts[0],10),
+                parseInt(parts[1],10),
+                0,
+                0
+            );
+
+            const reminderTime =
+            new Date(prayerTime.getTime() - 10 * 60 * 1000);
+
+            const delay =
+            reminderTime.getTime() - Date.now();
+
+            if(delay > 0){
+
+                const timer = setTimeout(function(){
+
+                    new Notification(
+                        "🕌 મારો દિન — નમાઝ Reminder",
+                        {
+                            body:
+                            p[1] +
+                            " ની નમાઝનો સમય નજીક છે.",
+                            icon:"https://patelminhazmusa.github.io/maro-din/"
+                        }
+                    );
+
+                },delay);
+
+                namazReminderTimers.push(timer);
+
+            }
+
+        });
+
+    }
+
+    catch(e){
+
+        document.getElementById("reminderStatus").innerText =
+        "Reminder માટે નમાઝના સમય લોડ થઈ શક્યા નથી.";
+
+    }
+
+  }
+   function disableNamazReminder(){
+
+    namazReminderTimers.forEach(function(timer){
+        clearTimeout(timer);
+    });
+
+    namazReminderTimers = [];
+
+    document.getElementById("reminderStatus").innerText =
+    "🔕 Namaz Reminder બંધ છે.";
+   }
+function updatePrayerCountdown(t){
+
+    const box = document.getElementById("prayerCountdown");
+    if(!box) return;
+
+    const prayers = [
+        ["ફજર", t.Fajr],
+        ["ઝુહર", t.Dhuhr],
+        ["અસર", t.Asr],
+        ["મગરિબ", t.Maghrib],
+        ["ઈશા", t.Isha]
+    ];
+
+    function renderCountdown(){
+
+        const now = new Date();
+        let nextPrayer = null;
+        let nextTime = null;
+
+        prayers.forEach(function(p){
+
+            const parts = p[1].split(":");
+            const d = new Date();
+
+            d.setHours(
+                parseInt(parts[0],10),
+                parseInt(parts[1],10),
+                0,
+                0
+            );
+
+            if(d > now && !nextTime){
+                nextPrayer = p[0];
+                nextTime = d;
+            }
+        });
+
+        if(!nextTime){
+
+            const parts = prayers[0][1].split(":");
+
+            nextTime = new Date();
+            nextTime.setDate(nextTime.getDate()+1);
+
+            nextTime.setHours(
+                parseInt(parts[0],10),
+                parseInt(parts[1],10),
+                0,
+                0
+            );
+
+            nextPrayer = prayers[0][0];
+        }
+
+        const diff = nextTime - now;
+
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+
+        box.innerText =
+            "🕌 " + nextPrayer +
+            " માટે " +
+            String(hours).padStart(2,"0") + ":" +
+            String(minutes).padStart(2,"0") + ":" +
+            String(seconds).padStart(2,"0") +
+            " બાકી";
+    }
+
+    renderCountdown();
+
+    if(window.prayerCountdownInterval){
+        clearInterval(window.prayerCountdownInterval);
+    }
+
+    window.prayerCountdownInterval =
+        setInterval(renderCountdown,1000);
+}
+function toggleEnglish(){
+
+    document.body.classList.toggle("englishMode");
+
+    setEnglishText();
+
+}
+   function setEnglishText(){
+
+    if(document.body.classList.contains("englishMode")){
+
+        document.querySelector("h1").innerText = "☪️ My Deen";
+
+        document.querySelector("header p").innerText =
+        "Islamic Life Companion";
+
+    }
+
+   }
+
+/* =========================
+   SAFE MULTILINGUAL LAYER
+   Existing JavaScript is kept unchanged.
+========================= */
+const UI_LANGS=["gu","en","hi","ur","ar"];
+const UI_TEXT={
+ gu:{home:"મારો દિન",companion:"Islamic Life Companion",namaz:"નમાઝના સમય",tracker:"નમાઝ Tracker",reminder:"Namaz Reminder",quran:"કુરઆન",dua:"દુઆ",azkar:"અઝકાર",tasbeeh:"તસ્બીહ",qibla:"કિબલા",assistant:"Islamic Assistant",about:"About"},
+ en:{home:"My Deen",companion:"Islamic Life Companion",namaz:"Prayer Times",tracker:"Namaz Tracker",reminder:"Namaz Reminder",quran:"Quran",dua:"Dua",azkar:"Azkar",tasbeeh:"Tasbeeh",qibla:"Qibla",assistant:"Islamic Assistant",about:"About"},
+ hi:{home:"मेरा दीन",companion:"Islamic Life Companion",namaz:"नमाज़ के समय",tracker:"नमाज़ ट्रैकर",reminder:"नमाज़ रिमाइंडर",quran:"क़ुरआन",dua:"दुआ",azkar:"अज़कार",tasbeeh:"तस्बीह",qibla:"क़िबला",assistant:"इस्लामिक असिस्टेंट",about:"जानकारी"},
+ ur:{home:"میرا دین",companion:"Islamic Life Companion",namaz:"نماز کے اوقات",tracker:"نماز ٹریکر",reminder:"نماز ریمائنڈر",quran:"قرآن",dua:"دعا",azkar:"اذکار",tasbeeh:"تسبیح",qibla:"قبلہ",assistant:"اسلامک اسسٹنٹ",about:"تعارف"},
+ ar:{home:"دِيني",companion:"رفيق الحياة الإسلامية",namaz:"أوقات الصلاة",tracker:"متابعة الصلاة",reminder:"تذكير الصلاة",quran:"القرآن",dua:"الدعاء",azkar:"الأذكار",tasbeeh:"التسبيح",qibla:"القبلة",assistant:"المساعد الإسلامي",about:"حول"}
+};
+function detectUILanguage(){
+ const saved=localStorage.getItem("maroDeenLanguage");
+ if(saved&&UI_LANGS.includes(saved)) return saved;
+ const n=(navigator.language||"").toLowerCase();
+ if(n.startsWith("ar"))return "ar";
+ if(n.startsWith("ur"))return "ur";
+ if(n.startsWith("hi"))return "hi";
+ if(n.startsWith("en"))return "en";
+ return "gu";
+}
+function setLanguage(lang){
+ if(lang==="auto") lang=detectUILanguage();
+ if(!UI_LANGS.includes(lang)) lang="gu";
+ localStorage.setItem("maroDeenLanguage",lang);
+ const t=UI_TEXT[lang];
+ const h1=document.querySelector("header h1"); if(h1)h1.innerText="☪️ "+t.home;
+ const hp=document.querySelector("header p"); if(hp)hp.innerText=t.companion;
+ const titles={namazCard:"🕌 "+t.namaz,trackerCard:"☑️ "+t.tracker,reminderCard:"🔔 "+t.reminder,quranCard:"📖 "+t.quran,duaCard:"🤲 "+t.dua,azkarCard:"📿 "+t.azkar,tasbeehCard:"📿 "+t.tasbeeh,qiblaCard:"🕋 "+t.qibla,assistantCard:"🤖 "+t.assistant,aboutCard:"ℹ️ "+t.about};
+ Object.keys(titles).forEach(function(id){const el=document.querySelector("#"+id+" h2");if(el)el.innerText=titles[id];});
+ document.documentElement.lang=lang;
+ document.documentElement.dir=(lang==="ar"||lang==="ur")?"rtl":"ltr";
+ const sel=document.getElementById("languageSelect");if(sel)sel.value=lang;
+}
+document.addEventListener("DOMContentLoaded",function(){
+ const saved=localStorage.getItem("maroDeenLanguage");
+ setLanguage(saved&&UI_LANGS.includes(saved)?saved:detectUILanguage());
+});
+
+</script>
+
+</body>
+</html>
