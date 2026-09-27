@@ -536,19 +536,20 @@ async function loadNamaz(){
  const dd=String(now.getDate()).padStart(2,"0"),mm=String(now.getMonth()+1).padStart(2,"0"),yyyy=now.getFullYear();
  const date=dd+"-"+mm+"-"+yyyy;
  const urls=[
-  "https://api.aladhan.com/v1/timings/"+date+"?latitude=21.7051&longitude=72.9959&method=1&school=1",
-  "https://api.aladhan.com/v1/timingsByCity/"+date+"?city=Bharuch&country=India&method=1&school=1"
+  "https://api.aladhan.com/v1/timingsByCity/"+date+"?city=Bharuch&country=India&method=1&school=1",
+  "https://api.aladhan.com/v1/timings/"+date+"?latitude=21.7051&longitude=72.9959&method=1&school=1"
  ];
  try{
   let timings=null;
   for(const url of urls){
    try{
-    const c=new AbortController(),timer=setTimeout(()=>c.abort(),12000);
-    const r=await fetch(url,{cache:"no-store",signal:c.signal});
+    const c=new AbortController();
+    const timer=setTimeout(()=>c.abort(),8000);
+    const res=await fetch(url,{cache:"no-store",signal:c.signal});
     clearTimeout(timer);
-    if(!r.ok)continue;
-    const j=await r.json();
-    if(j?.data?.timings){timings=j.data.timings;break;}
+    if(!res.ok)continue;
+    const j=await res.json();
+    if(j && j.code===200 && j.data && j.data.timings){timings=j.data.timings;break;}
    }catch(e){}
   }
   if(!timings)throw Error("NAMAZ_API_FAILED");
@@ -564,6 +565,45 @@ async function loadNamaz(){
  }catch(e){
   box.innerHTML="<div class='row'><b>⚠️</b><span>"+t("namazError")+"</span></div><p class='small-note'>Internet ચાલુ રાખો અને ફરી પ્રયાસ કરો.</p><button type='button' onclick='loadNamaz()'>🔄 ફરી પ્રયાસ</button>";
  }
+}
+async function loadHijri(){
+
+const now=new Date();
+
+const dd=String(now.getDate()).padStart(2,"0");
+
+const mm=String(now.getMonth()+1).padStart(2,"0");
+
+const yyyy=now.getFullYear();
+
+try{
+
+const r=await fetch(
+"https://api.aladhan.com/v1/gToH/"+
+dd+"-"+mm+"-"+yyyy
+);
+
+const h=(await r.json()).data.hijri;
+
+document.getElementById("hijriDate").innerHTML=
+
+"<p>🌙 "+
+h.day+
+" "+
+h.month.en+
+" "+
+h.year+
+" AH</p>";
+
+}
+
+catch(e){
+
+document.getElementById("hijriDate").innerHTML=
+"<p>🌙 Hijri date loading...</p>";
+
+}
+
 }
 
 
@@ -1651,8 +1691,6 @@ function setLanguage(lang){
  showDuas(searchDuaList());
  updateAzkar();
  showNamazTracker();
- const reader=document.getElementById("quranReader");
- if(reader && window.currentQuranSurah) openQuranSurah(window.currentQuranSurah);
 }
 function applyStaticLanguage(){
  const h1=document.querySelector("header h1"); if(h1)h1.innerText="☪️ "+t("title");
@@ -1730,88 +1768,11 @@ document.addEventListener("DOMContentLoaded",function(){
 });
 
 async function openQuranSurah(number){
- const old=document.getElementById("quranReader");if(old)old.remove();
- window.currentQuranSurah=number;
- const card=document.getElementById("quranCard");if(!card)return;
- const r=document.createElement("div");r.id="quranReader";r.className="quran-reader";
- r.innerHTML="<button type='button' onclick='closeQuranReader()'>✕ "+(currentLang==="en"?"Close":currentLang==="hi"?"बंद करें":currentLang==="ur"?"بند کریں":currentLang==="ar"?"إغلاق":"બંધ કરો")+"</button><h3>📖 "+t("quran")+"</h3><p>⏳ "+t("loading")+"</p>";
- card.appendChild(r);r.scrollIntoView({behavior:"smooth",block:"start"});
- try{
-  const lang=currentLang;
-  const translationEdition=await getQuranTranslationEdition(lang);
-  const urls=[
-   "https://api.alquran.cloud/v1/surah/"+number+"/quran-uthmani",
-   translationEdition ? "https://api.alquran.cloud/v1/surah/"+number+"/"+encodeURIComponent(translationEdition.identifier) : null,
-   "https://api.alquran.cloud/v1/surah/"+number+"/ar.alafasy"
-  ].filter(Boolean);
-  const results=await Promise.all(urls.map(async url=>{
-   const c=new AbortController(),timer=setTimeout(()=>c.abort(),15000);
-   try{const res=await fetch(url,{cache:"no-store",signal:c.signal});if(!res.ok)throw Error("HTTP");return await res.json();}
-   finally{clearTimeout(timer);}
-  }));
-  const arabic=results[0]?.data?.ayahs||[];
-  const translation=results[1]?.data?.ayahs||[];
-  const audio=results[2]?.data?.ayahs||[];
-  if(!arabic.length)throw Error("QURAN_API_FAILED");
-  const title=results[0]?.data?.englishName||"Quran";
-  const editionName=translationEdition?.englishName || translationEdition?.name || "";
-  const ayahs=arabic.map((a,i)=>({n:a.numberInSurah,text:a.text,tr:(translation[i]?.text||""),audio:audio[i]?.audio||""}));
-  const tafsirLabel={gu:"તફસીર",en:"Tafsir",hi:"तफ़्सीर",ur:"تفسیر",ar:"التفسير"}[lang]||"Tafsir";
-  const translationLabel={gu:"અનુવાદ",en:"Translation",hi:"अनुवाद",ur:"ترجمہ",ar:"الترجمة"}[lang]||"Translation";
-  const sourceLabel=translationEdition ? (editionName+" ("+lang.toUpperCase()+")") : (lang==="gu"?"આ ભાષા માટે વિશ્વસનીય translation edition મળ્યો નથી.":"A verified translation edition for this language was not found.");
-  const tafsirNote={
-   gu:"વિસ્તૃત તફસીર માટે Quran.comનું Tafsir પેજ ખોલો. વેબ-APIમાં ભાષા પ્રમાણે તફસીર ઉપલબ્ધ હોય ત્યારે જ inline બતાવવામાં આવશે; અહીં અનુમાનિત/બનાવટી તફસીર મૂકવામાં આવતી નથી.",
-   en:"Open Quran.com for detailed Tafsir. Inline Tafsir is shown only when a verified language edition is available; no invented Tafsir is used.",
-   hi:"विस्तृत तफ़्सीर के लिए Quran.com का Tafsir पेज खोलें। Inline तफ़्सीर केवल सत्यापित भाषा संस्करण उपलब्ध होने पर दिखाई जाएगी; मनगढ़ंत तफ़्सीर नहीं दिखाई जाएगी।",
-   ur:"تفصیلی تفسیر کے لیے Quran.com کا Tafsir صفحہ کھولیں۔ Inline تفسیر صرف مستند زبان کا ایڈیشن دستیاب ہونے پر دکھائی جائے گی؛ فرضی تفسیر شامل نہیں کی جائے گی۔",
-   ar:"للتفسير المفصل افتح صفحة التفسير في Quran.com. لا يُعرض التفسير داخل التطبيق إلا عند توفر مصدر موثوق باللغة المختارة."
-  }[lang]||"Open Quran.com for detailed Tafsir.";
-  const openLabel={gu:"📚 તફસીર ખોલો",en:"📚 Open Tafsir",hi:"📚 तफ़्सीर खोलें",ur:"📚 تفسیر کھولیں",ar:"📚 فتح التفسير"}[lang]||"📚 Open Tafsir";
-  const langQuery=encodeURIComponent(lang);
-  r.innerHTML="<button type='button' onclick='closeQuranReader()'>✕ "+(lang==="en"?"Close":lang==="hi"?"बंद करें":lang==="ur"?"بند کریں":lang==="ar"?"إغلاق":"બંધ કરો")+"</button>"+
-   "<h3>📖 "+title+"</h3>"+
-   "<div class='quran-tafsir'><b>📚 "+translationLabel+":</b> "+sourceLabel+".<br><b>📚 "+tafsirLabel+":</b> "+tafsirNote+"<br><br><a href='https://quran.com/"+number+"?locale="+langQuery+"' target='_blank' rel='noopener'>"+openLabel+"</a></div>"+
-   "<div class='quran-ayahs'>"+ayahs.map(a=>
-    "<div class='ayah' translate='no'>"+
-    "<span>"+a.n+"</span>"+
-    "<div class='ayah-arabic' dir='rtl'>"+a.text+"</div>"+
-    (a.tr?"<div class='quran-translation'><b>"+translationLabel+":</b><br>"+a.tr+"</div>":"<div class='quran-translation'>⚠️ "+sourceLabel+"</div>")+
-    "<div class='quran-actions'>"+
-    (a.audio?"<audio controls preload='none' style='width:100%'><source src='"+a.audio+"' type='audio/mpeg'></audio>":"")+
-    "<a href='https://quran.com/"+number+"?locale="+langQuery+"' target='_blank' rel='noopener'>"+openLabel+"</a>"+
-    "</div></div>"
-   ).join("")+"</div>";
- }catch(e){
-  r.innerHTML="<button type='button' onclick='closeQuranReader()'>✕</button><p>⚠️ "+(lang==="en"?"Quran could not be loaded.":lang==="hi"?"क़ुरआन लोड नहीं हो सका।":lang==="ur"?"قرآن لوڈ نہیں ہو سکا۔":lang==="ar"?"تعذر تحميل القرآن.":"કુરઆન લોડ થઈ શક્યું નથી.")+"</p><p class='small-note'>"+(t("namazError"))+"</p><button type='button' onclick='openQuranSurah("+number+")'>🔄 "+(lang==="en"?"Retry":lang==="hi"?"फिर कोशिश करें":lang==="ur"?"دوبارہ کوشش کریں":lang==="ar"?"إعادة المحاولة":"ફરી પ્રયાસ")+"</button>";
- }
+ // Surah પર click કરતાં હવે સીધું Quran.com ના reader/tafsir page પર ખૂલશે.
+ // Android માં Quran.com ની app link configured હોય તો appમાં ખૂલી શકે; નહિતર browserમાં ખુલશે.
+ const url="https://quran.com/"+number;
+ window.open(url,"_blank","noopener,noreferrer");
 }
-
-async function getQuranTranslationEdition(lang){
- if(!lang || lang==="ar") {
-   // Arabic is kept as the original Quran text; an Arabic explanatory edition is used only if the API exposes one.
- }
- try{
-   const res=await fetch("https://api.alquran.cloud/v1/edition?format=text&language="+encodeURIComponent(lang),{cache:"no-store"});
-   if(!res.ok)return null;
-   const json=await res.json();
-   const list=Array.isArray(json?.data)?json.data:[];
-   const translations=list.filter(e=>e && e.type==="translation");
-   if(!translations.length)return null;
-   const preferred={
-    gu:["gu"],
-    en:["en.sahih","en.pickthall","en.yusufali"],
-    hi:["hi.farooq","hi"],
-    ur:["ur.jalandhry","ur"],
-    ar:["ar.muyassar","ar.jalalayn","ar"]
-   }[lang]||[];
-   for(const id of preferred){
-     const hit=translations.find(e=>e.identifier===id);
-     if(hit)return hit;
-   }
-   return translations[0];
- }catch(e){return null;}
-}
-
 function closeQuranReader(){const r=document.getElementById("quranReader");if(r)r.remove()}
 
 // Keep the active search field visible above the mobile keyboard.
