@@ -1562,6 +1562,7 @@ function applyStaticLanguage(){
  setH2("assistantCard","assistant","🤖 ");const ap=document.querySelector("#assistantCard p");if(ap)ap.innerText=t("assistantPrompt");const ai=document.getElementById("assistantQuestion");if(ai)ai.placeholder=t("assistantPlaceholder");const ab=document.querySelector("#assistantCard button");if(ab)ab.innerText=t("assistantButton");
  setH2("aboutCard","about","ℹ️ ");const aps=document.querySelectorAll("#aboutCard p");if(aps[0])aps[0].innerHTML="<b>"+t("title")+"</b> "+t("aboutP1");if(aps[1])aps[1].innerText=t("aboutP2");if(aps[2])aps[2].innerHTML=t("created")+"<br><b>Minhaz Musa Patel</b><br><b>Abdulla Ilyas Bhoja</b>";
  const foot=document.querySelector(".footer");if(foot)foot.innerHTML="☪️ "+t("footer")+"<br><br>© 2026 Minhaz Musa Patel &amp; Abdulla Ilyas Bhoja";
+ const sel=document.getElementById("languageSelect");
  const opts={gu:["ગુજરાતી","English","હિન્દી","ઉર્દૂ","અરબી"],en:["Gujarati","English","Hindi","Urdu","Arabic"],hi:["गुजराती","अंग्रेज़ी","हिन्दी","उर्दू","अरबी"],ur:["گجراتی","انگریزی","ہندی","اردو","عربی"],ar:["الغوجاراتية","الإنجليزية","الهندية","الأردية","العربية"]};
  if(sel){[...sel.options].forEach((o,i)=>{o.textContent=opts[currentLang][i]||o.textContent;});}
 }
