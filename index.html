@@ -1633,7 +1633,7 @@ async function openQuranSurah(number){
   }
   const info=surah[number-1]||["","","Surah"];
   r.innerHTML="<button onclick='closeQuranReader()'>✕ બંધ કરો</button><h3>📖 "+(quranName(info)||info[1]) +"</h3>"+
-   "<div class='quran-toolbar'><button onclick='window.scrollTo({top:document.getElementById("quranReader").offsetTop,behavior:"smooth"})'>📜 આયતો</button></div>"+
+   "<div class='quran-toolbar'><button onclick='window.scrollTo({top:document.getElementById(\"quranReader\").offsetTop,behavior:\"smooth\"})'>📜 આયતો</button></div>"+
    "<div class='quran-ayahs'>"+ayahs.map((a,i)=>"<div class='ayah'><span>"+a.n+"</span><div class='ayah-arabic' dir='rtl'>"+a.text+"</div>"+(a.audio?"<div class='ayah-actions'><button type='button' onclick='playQuranAudio("+i+")'>▶️ સાંભળો</button></div>":"")+"</div>").join("")+"</div>"+
    "<audio id='quranAudio' controls preload='none' style='width:100%;margin-top:14px;display:none'></audio>";
   window.currentQuranAyahs=ayahs;
@@ -1656,6 +1656,11 @@ document.addEventListener("focusin",function(e){
 </script>
 
 <button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Top">↑</button>
-<script>window.addEventListener("scroll",function(){const b=document.getElementById("backTop");if(b)b.style.display=window.scrollY>500?"flex":"none";});</script>
+<script>
+window.addEventListener("scroll",function(){const b=document.getElementById("backTop");if(b)b.style.display=window.scrollY>500?"flex":"none";});
+window.addEventListener("error",function(e){
+  console.error("મારો દિન JavaScript error:",e.error||e.message);
+});
+</script>
 </body>
 </html>
