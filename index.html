@@ -1750,7 +1750,7 @@ function applyStaticLanguage(){
  setH2("aboutCard","about","ℹ️ ");const aps=document.querySelectorAll("#aboutCard p");if(aps[0])aps[0].innerHTML="<b>"+t("title")+"</b> "+t("aboutP1");if(aps[1])aps[1].innerText=t("aboutP2");if(aps[2])aps[2].innerHTML=t("created")+"<br><b>Minhaz Musa Patel</b><br><b>Abdulla Ilyas Bhoja</b>";
  const foot=document.querySelector(".footer");if(foot)foot.innerHTML="☪️ "+t("footer")+"<br><br>© 2026 Minhaz Musa Patel &amp; Abdulla Ilyas Bhoja";
  const opts={gu:["ગુજરાતી","English","હિન્દી","ઉર્દૂ","અરબી"],en:["Gujarati","English","Hindi","Urdu","Arabic"],hi:["गुजराती","अंग्रेज़ी","हिन्दी","उर्दू","अरबी"],ur:["گجراتی","انگریزی","ہندی","اردو","عربی"],ar:["الغوجاراتية","الإنجليزية","الهندية","الأردية","العربية"]};
- if(sel){[...sel.options].forEach((o,i)=>{o.textContent=opts[currentLang][i]||o.textContent;});}
+ const sel=document.getElementById("languageSelect"); if(sel){[...sel.options].forEach((o,i)=>{o.textContent=opts[currentLang][i]||o.textContent;});}
 }
 function updateHomeDate(){
  const el=document.getElementById("homeDate");if(!el)return;
@@ -1844,5 +1844,111 @@ function updatePrayerCountdown(timings){
 function updateAzkar(){ const box=document.getElementById("azkarList"); if(!box || typeof azkar==='undefined') return; box.innerHTML=azkar.map(z=>"<div class='azkar-item'><div class='arabic'>"+z[0]+"</div><b>"+z[1]+"</b></div>").join(""); }
 window.addEventListener("load",()=>{ setTimeout(()=>{ if(window._maroLastTimings) updatePrayerCountdown(window._maroLastTimings); if(typeof updateAzkar==='function') updateAzkar(); },500); });
 </script>
+
+<script>
+/* MARO DIN - FINAL RUNTIME PATCH */
+(function(){
+  const PRAYER_CITY = "Bharuch";
+  const PRAYER_COUNTRY = "India";
+  const PRAYER_METHOD = "1";
+  const PRAYER_SCHOOL = "1";
+
+  function safeText(key, fallback){
+    try { return typeof t === "function" ? t(key) : fallback; } catch(e) { return fallback; }
+  }
+
+  window.loadNamaz = async function(){
+    const box=document.getElementById("namazTimes");
+    if(!box) return;
+    box.innerHTML="<div class='row'><b>⏳</b><span>"+safeText("loading","લોડ થઈ રહ્યું છે...")+"</span></div>";
+    const now=new Date();
+    const date=String(now.getDate()).padStart(2,"0")+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+now.getFullYear();
+    const url="https://api.aladhan.com/v1/timingsByCity/"+date+"?city="+encodeURIComponent(PRAYER_CITY)+"&country="+encodeURIComponent(PRAYER_COUNTRY)+"&method="+PRAYER_METHOD+"&school="+PRAYER_SCHOOL;
+    try{
+      const controller=new AbortController();
+      const timeout=setTimeout(()=>controller.abort(),8000);
+      const response=await fetch(url,{cache:"no-store",signal:controller.signal,mode:"cors"});
+      clearTimeout(timeout);
+      if(!response.ok) throw new Error("HTTP "+response.status);
+      const json=await response.json();
+      const timings=json && json.data && json.data.timings;
+      if(!timings || !timings.Fajr || !timings.Dhuhr || !timings.Asr || !timings.Maghrib || !timings.Isha) throw new Error("Prayer data missing");
+      const rows=[
+        ["Fajr","fajr","🌅"],["Sunrise","sunrise","☀️"],["Dhuhr","dhuhr","☀️"],
+        ["Asr","asr","🌤️"],["Maghrib","maghrib","🌇"],["Isha","isha","🌙"]
+      ];
+      box.innerHTML=rows.map(x=>"<div class='row'><b>"+x[2]+" "+safeText(x[1],x[0])+"</b><span>"+(timings[x[0]]||"--")+"</span></div>").join("");
+      window.updatePrayerCountdown(timings);
+    }catch(error){
+      console.error("Maro Din Namaz error",error);
+      box.innerHTML="<div style='padding:12px;text-align:center'>⚠️ "+safeText("namazError","નમાઝના સમય લોડ થઈ શક્યા નથી.")+"</div><button onclick='loadNamaz()' style='width:100%;padding:12px;border:0;border-radius:10px;background:#075e54;color:#fff;font-weight:bold'>🔄 "+safeText("refresh","Refresh")+"</button>";
+      const countdown=document.getElementById("prayerCountdown");
+      if(countdown) countdown.innerText="⚠️ "+safeText("namazError","નમાઝના સમય લોડ થઈ શક્યા નથી.");
+    }
+  };
+
+  window.updatePrayerCountdown = function(timings){
+    const box=document.getElementById("prayerCountdown");
+    if(!box || !timings) return;
+    const prayers=[["fajr","Fajr"],["dhuhr","Dhuhr"],["asr","Asr"],["maghrib","Maghrib"],["isha","Isha"]];
+    function render(){
+      const now=new Date(); let next=null;
+      for(const p of prayers){
+        if(!timings[p[1]]) continue;
+        const a=timings[p[1]].split(":");
+        const d=new Date(); d.setHours(+a[0],+a[1],0,0);
+        if(d>now){ next={key:p[0],time:d}; break; }
+      }
+      if(!next && timings.Fajr){
+        const a=timings.Fajr.split(":"); const d=new Date(); d.setDate(d.getDate()+1); d.setHours(+a[0],+a[1],0,0); next={key:"fajr",time:d};
+      }
+      if(!next){box.innerText="⏳ "+safeText("counting","ગણતરી થઈ રહી છે...");return;}
+      const diff=Math.max(0,next.time-now);
+      const h=Math.floor(diff/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+      box.innerText="🕌 "+safeText(next.key,next.key)+" "+safeText("remaining","માટે બાકી")+" "+String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    }
+    render();
+    if(window.prayerCountdownInterval) clearInterval(window.prayerCountdownInterval);
+    window.prayerCountdownInterval=setInterval(render,1000);
+  };
+
+  window.updateAzkar = function(){
+    const box=document.getElementById("azkarList");
+    if(!box || typeof azkar==="undefined") return;
+    box.innerHTML=azkar.map(z=>"<div class='azkar-item'><div class='arabic'>"+z[0]+"</div><b>"+z[1]+"</b></div>").join("");
+  };
+
+  // Fix language-selector scope error and safely refresh translated content.
+  if(typeof window.setLanguage === "function"){
+    const oldSetLanguage=window.setLanguage;
+    window.setLanguage=function(lang){
+      try { return oldSetLanguage(lang); }
+      catch(e){
+        console.error("Language refresh error",e);
+        try{
+          if(lang==="auto") lang=typeof detectUILanguage==="function"?detectUILanguage():"gu";
+          currentLang=UI_LANGS.includes(lang)?lang:"gu";
+          document.documentElement.lang=currentLang;
+          const sel=document.getElementById("languageSelect"); if(sel) sel.value=currentLang;
+          if(typeof updateHomeDate==="function") updateHomeDate();
+          if(typeof updateAzkar==="function") updateAzkar();
+          if(typeof showNamazTracker==="function") showNamazTracker();
+          if(typeof searchQuranList==="function" && typeof showQuran==="function") showQuran(searchQuranList());
+          if(typeof searchDuaList==="function" && typeof showDuas==="function") showDuas(searchDuaList());
+          window.loadNamaz();
+        }catch(ignore){}
+      }
+    };
+  }
+
+  window.addEventListener("load",function(){
+    setTimeout(function(){
+      const box=document.getElementById("namazTimes");
+      if(box && /લોડ થઈ રહ્યું|Loading|جارٍ|लोड/.test(box.innerText)) window.loadNamaz();
+    },300);
+  });
+})();
+</script>
+
 </body>
 </html>
