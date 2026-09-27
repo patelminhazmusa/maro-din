@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="google" content="notranslate">
 <title>મારો દિન | Islamic Life Companion</title>
 <meta name="description" content="મારો દિન — નમાઝ, કુરઆન, દુઆ, અઝકાર, તસ્બીહ અને હિજરી તારીખ માટેનું Islamic Life Companion.">
 
@@ -16,25 +15,6 @@ gtag('config','G-SJ6X24J4BK');
 </script>
 
 <style>
-:root{--bg:#f3f8f5;--card:#ffffff;--text:#17352c;--primary:#075e54;--soft:#e7f6f0;--row:#f1f8f5;--accent:#438b7e}
-body{background:var(--bg)!important;color:var(--text)!important}
-.card{background:var(--card)!important}
-header{background:var(--primary)!important}
-h2,h3{color:var(--primary)!important}
-button{background:var(--primary)}
-.home-btn{background:var(--soft)!important;color:var(--primary)!important}
-.row,.check{background:var(--row)!important}
-.big-number{color:var(--primary)!important}
-.theme-bar{display:flex;justify-content:center;gap:8px;align-items:center;margin:8px 0 12px;flex-wrap:wrap}
-.theme-bar select{width:auto;min-height:42px;padding:9px 12px;border-radius:10px;border:1px solid #cbded7;background:var(--card);color:var(--text);font-size:14px}
-.theme-night{--bg:#101816;--card:#17231f;--text:#edf7f3;--primary:#49b49d;--soft:#203b34;--row:#1d332d;--accent:#72cdb9}
-.theme-blue{--bg:#eef5fb;--card:#fff;--text:#18334a;--primary:#1769aa;--soft:#e4f1fb;--row:#edf6fd;--accent:#4b8fc4}
-.theme-purple{--bg:#f5f0fb;--card:#fff;--text:#332542;--primary:#6b3fa0;--soft:#eee5f7;--row:#f4edf9;--accent:#8a62b8}
-.theme-gold{--bg:#fbf6e9;--card:#fffdf7;--text:#40351f;--primary:#8a6518;--soft:#f7edd0;--row:#faf2dd;--accent:#b58a2a}
-.quran-translation{margin-top:10px;padding:12px;border-radius:12px;background:var(--soft);color:var(--text);line-height:1.65}
-.quran-tafsir{margin-top:8px;padding:10px;border-radius:10px;background:var(--row);font-size:13px;line-height:1.6}
-.quran-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.quran-actions button,.quran-actions a{display:inline-block;text-decoration:none;border:0;background:var(--primary);color:#fff;padding:9px 12px;border-radius:10px;font-size:13px}
 *{box-sizing:border-box}
 body{
 margin:0;
@@ -104,20 +84,14 @@ background:#f1f8f5;
 border-radius:12px;
 margin:8px 0
 }
-/* MOBILE SEARCH / KEYBOARD FIX */
-html{scroll-padding-bottom:160px}
-body{overflow-x:hidden}
 input[type=text]{
--webkit-appearance:none;
-appearance:none;
-box-sizing:border-box;
-min-height:50px;
-font-size:18px;
-line-height:1.4;
-touch-action:manipulation;
+width:100%;
+padding:12px;
+border:1px solid #cbded7;
+border-radius:10px;
+font-size:16px;
+margin-bottom:10px
 }
-input[type=text]:focus{outline:2px solid #438b7e;outline-offset:1px}
-input[type=text]{width:100%;padding:12px;border:1px solid #cbded7;border-radius:10px;font-size:16px;margin-bottom:10px}
 .quran-item,.dua-item,.azkar-item{
 padding:14px;
 background:#f1f8f5;
@@ -166,25 +140,6 @@ header h1{font-size:27px}
 /* Multilingual selector - does not modify existing website styles/functions */
 .language-bar{display:flex;justify-content:center;align-items:center;gap:8px;margin:0 0 12px}
 .language-bar select{padding:9px 12px;border-radius:10px;border:1px solid #cbded7;background:#fff;font-size:14px}
-
-/* FINAL MOBILE + QURAN FIXES */
-*{box-sizing:border-box}body{overflow-x:hidden}input,select,button{font-family:inherit}input,select{font-size:16px;min-height:46px;width:100%;padding:11px 13px}button{min-height:44px}.quran-reader{margin-top:14px;padding:14px;background:#f8fffc;border-radius:16px;border:1px solid #d7ebe4}.quran-ayahs{display:flex;flex-direction:column;gap:12px;margin-top:12px}.ayah{background:#fff;border-radius:14px;padding:14px}.ayah-arabic{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:25px;line-height:2;text-align:right}.small-note{text-align:center;font-size:13px;color:#666}@media(max-width:600px){input,select{font-size:16px!important}.card{overflow:hidden}}
-.quran-item{width:100%;box-sizing:border-box;display:block;text-align:left;border:0;border-bottom:1px solid #dfece7;background:#fff;color:#075e54;padding:14px 10px;margin:0;border-radius:0}.quran-item .arabic{font-size:22px;text-align:right;direction:rtl;line-height:1.8;margin-top:4px}.quran-item small{color:#65756f;font-weight:400}
-
-.quran-item{cursor:pointer;font:inherit;text-align:left;width:100%;transition:background .15s,transform .08s}.quran-item:active{transform:scale(.99)}.quran-item:hover{background:#f0f8f5}.quran-open-hint{display:block;margin-top:7px;font-size:13px;color:#438b7e;font-weight:600}.quran-reader{margin-top:14px;padding:14px;background:#f7fcfa;border:1px solid #cfe5df;border-radius:14px}.quran-reader>button{margin-bottom:10px}.quran-reader h3{text-align:center;color:#075e54}.quran-ayahs{display:flex;flex-direction:column;gap:10px}.ayah{background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 5px rgba(0,0,0,.06)}.ayah-arabic{font-size:25px;line-height:2.1;text-align:right;font-family:serif}.ayah>span{display:inline-flex;width:28px;height:28px;border-radius:50%;align-items:center;justify-content:center;background:#075e54;color:#fff;font-size:12px}
-</style>
-
-<style>
-/* Final mobile search/keyboard fixes */
-#quranSearch,#duaSearch,#assistantQuestion{width:100%;box-sizing:border-box;min-height:52px;font-size:18px;padding:14px 16px;border-radius:14px;}
-.quran-item{width:100%;box-sizing:border-box;text-align:left;display:block;cursor:pointer;}
-.quran-open-hint{display:block;margin-top:6px;font-size:13px;opacity:.75;}
-.quran-reader{margin-top:16px;padding:14px;background:#f7fbf9;border-radius:16px;}
-.quran-ayahs{display:flex;flex-direction:column;gap:10px;margin-top:12px;}
-.ayah{background:#fff;border-radius:14px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-.ayah>span{display:inline-flex;min-width:30px;height:30px;border-radius:50%;align-items:center;justify-content:center;background:#075e54;color:#fff;font-size:13px;}
-.ayah-arabic{font-family:"Noto Naskh Arabic","Amiri",serif;font-size:25px;line-height:2.1;text-align:right;margin-top:8px;}
-@media(max-width:700px){input[type=text]{font-size:18px;min-height:52px;}button{min-height:46px;}body{padding-bottom:30px;}}
 </style>
 </head>
 
@@ -210,16 +165,7 @@ header h1{font-size:27px}
     <option value="ar">العربية</option>
   </select>
 </div>
-<div class="theme-bar" aria-label="Theme">
-  <span>🎨</span>
-  <select id="themeSelect" onchange="setTheme(this.value)">
-    <option value="green">🌿 Green</option>
-    <option value="night">🌙 Night</option>
-    <option value="blue">💙 Blue</option>
-    <option value="purple">💜 Purple</option>
-    <option value="gold">✨ Gold</option>
-  </select>
-</div>
+
 
 <div class="card" id="homeCard">
 <h2>🌙 મારો દિન</h2>
@@ -340,9 +286,6 @@ Reminder બંધ છે.
 <input
 type="text"
 id="quranSearch"
-autocomplete="off"
-inputmode="text"
-enterkeyhint="search"
 placeholder="સૂરાનું નામ શોધો..."
 oninput="searchQuran()"
 >
@@ -359,9 +302,6 @@ oninput="searchQuran()"
 <input
 type="text"
 id="duaSearch"
-autocomplete="off"
-inputmode="text"
-enterkeyhint="search"
 placeholder="દુઆ શોધો..."
 oninput="searchDua()"
 >
@@ -525,47 +465,68 @@ day:"numeric"
 }
 
 
-
-
-
 async function loadNamaz(){
- const box=document.getElementById("namazTimes");
- if(!box)return;
- box.innerHTML="<div class='row'><span>⏳ "+t("loading")+"</span></div>";
- const now=new Date();
- const dd=String(now.getDate()).padStart(2,"0"),mm=String(now.getMonth()+1).padStart(2,"0"),yyyy=now.getFullYear();
- const date=dd+"-"+mm+"-"+yyyy;
- const urls=[
-  "https://api.aladhan.com/v1/timingsByCity/"+date+"?city=Bharuch&country=India&method=1&school=1",
-  "https://api.aladhan.com/v1/timings/"+date+"?latitude=21.7051&longitude=72.9959&method=1&school=1"
- ];
- try{
-  let timings=null;
-  for(const url of urls){
-   try{
-    const c=new AbortController();
-    const timer=setTimeout(()=>c.abort(),8000);
-    const res=await fetch(url,{cache:"no-store",signal:c.signal});
-    clearTimeout(timer);
-    if(!res.ok)continue;
-    const j=await res.json();
-    if(j && j.code===200 && j.data && j.data.timings){timings=j.data.timings;break;}
-   }catch(e){}
-  }
-  if(!timings)throw Error("NAMAZ_API_FAILED");
-  const clean=v=>String(v||"--").split(" ")[0];
-  box.innerHTML=
-   "<div class='row'><b>🌅 "+t("fajr")+"</b><span>"+clean(timings.Fajr)+"</span></div>"+
-   "<div class='row'><b>☀️ "+t("sunrise")+"</b><span>"+clean(timings.Sunrise)+"</span></div>"+
-   "<div class='row'><b>☀️ "+t("dhuhr")+"</b><span>"+clean(timings.Dhuhr)+"</span></div>"+
-   "<div class='row'><b>🌤️ "+t("asr")+"</b><span>"+clean(timings.Asr)+"</span></div>"+
-   "<div class='row'><b>🌇 "+t("maghrib")+"</b><span>"+clean(timings.Maghrib)+"</span></div>"+
-   "<div class='row'><b>🌙 "+t("isha")+"</b><span>"+clean(timings.Isha)+"</span></div>";
-  updatePrayerCountdown(timings);
- }catch(e){
-  box.innerHTML="<div class='row'><b>⚠️</b><span>"+t("namazError")+"</span></div><p class='small-note'>Internet ચાલુ રાખો અને ફરી પ્રયાસ કરો.</p><button type='button' onclick='loadNamaz()'>🔄 ફરી પ્રયાસ</button>";
- }
+
+const now=new Date();
+
+const dd=String(now.getDate()).padStart(2,"0");
+
+const mm=String(now.getMonth()+1).padStart(2,"0");
+
+const yyyy=now.getFullYear();
+
+const url=
+
+"https://api.aladhan.com/v1/timingsByCity/"+
+dd+"-"+mm+"-"+yyyy+
+"?city=Bharuch&country=India&method=1&school=1";
+
+try{
+
+const r=await fetch(url);
+
+const data=await r.json();
+
+const t=data.data.timings;
+
+document.getElementById("namazTimes").innerHTML=
+
+"<div class='row'><b>🌅 ફજર</b><span>"+
+t.Fajr+
+"</span></div>"+
+
+"<div class='row'><b>☀️ સૂર્યોદય</b><span>"+
+t.Sunrise+
+"</span></div>"+
+
+"<div class='row'><b>☀️ ઝુહર</b><span>"+
+t.Dhuhr+
+"</span></div>"+
+
+"<div class='row'><b>🌤️ અસર</b><span>"+
+t.Asr+
+"</span></div>"+
+
+"<div class='row'><b>🌇 મગરિબ</b><span>"+
+t.Maghrib+
+"</span></div>"+
+
+"<div class='row'><b>🌙 ઈશા</b><span>"+
+t.Isha+
+"</span></div>";
+updatePrayerCountdown(t);
 }
+
+catch(e){
+
+document.getElementById("namazTimes").innerText=
+"નમાઝના સમય લોડ થઈ શક્યા નથી.";
+
+}
+
+}
+
+
 async function loadHijri(){
 
 const now=new Date();
@@ -727,8 +688,25 @@ const surah=[
 ];
 
 
-function showQuran(list){const box=document.getElementById("quranList");if(!box)return;box.innerHTML=list.map(x=>"<button type='button' class='quran-item' onclick='openQuranSurah("+ (x.i+1) +")'><b>"+(x.i+1)+". "+quranName(x.s)+"</b><div class='arabic'>"+x.s[0]+"</div><small>"+x.s[1]+"</small><span class='quran-open-hint'>📖 આયતો વાંચવા માટે અહીં ક્લિક કરો</span></button>").join("");}
+function showQuran(list){
 
+const box=document.getElementById("quranList");
+
+box.innerHTML="";
+
+list.forEach((s,i)=>{
+
+box.innerHTML+=
+
+"<div class='quran-item'>"+
+"<b>"+(i+1)+". "+s[2]+"</b>"+
+"<div class='arabic'>"+s[0]+"</div>"+
+"<small>"+s[1]+"</small>"+
+"</div>";
+
+});
+
+}
 
 
 function searchQuran(){
@@ -1350,7 +1328,30 @@ document.getElementById(
 }
 
 
+document.addEventListener(
+"DOMContentLoaded",
+function(){
 
+updateHomeDate();
+
+updateTasbeeh();
+
+updateAzkar();
+
+showNamazTracker();
+
+showQuran(surah);
+
+showDuas(duas);
+
+loadNamaz();
+
+loadHijri();
+
+loadQibla();
+
+}
+);
 /* =========================
    NAMAZ REMINDER
 ========================= */
@@ -1482,29 +1483,83 @@ async function setupNamazReminders(){
     document.getElementById("reminderStatus").innerText =
     "🔕 Namaz Reminder બંધ છે.";
    }
-function updatePrayerCountdown(timings){
- const box=document.getElementById("prayerCountdown");
- if(!box||!timings)return;
- const ps=[["fajr","Fajr"],["dhuhr","Dhuhr"],["asr","Asr"],["maghrib","Maghrib"],["isha","Isha"]];
- function render(){
-  const now=new Date(); let next=null;
-  for(const p of ps){
-   const raw=timings[p[1]]; if(!raw)continue;
-   const parts=String(raw).split(":"); if(parts.length<2)continue;
-   const d=new Date(); d.setHours(Number(parts[0]),Number(parts[1]),0,0);
-   if(d>now){next={key:p[0],time:d};break;}
-  }
-  if(!next){
-   const raw=timings.Fajr; const parts=String(raw).split(":");
-   const d=new Date(); d.setDate(d.getDate()+1); d.setHours(Number(parts[0]),Number(parts[1]),0,0);
-   next={key:"fajr",time:d};
-  }
-  const diff=Math.max(0,next.time-now);
-  const h=Math.floor(diff/3600000),m=Math.floor(diff%3600000/60000),sec=Math.floor(diff%60000/1000);
-  box.innerText="🕌 "+t(next.key)+" "+t("remaining")+" "+String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(sec).padStart(2,"0");
- }
- render(); if(window.prayerCountdownInterval)clearInterval(window.prayerCountdownInterval);
- window.prayerCountdownInterval=setInterval(render,1000);
+function updatePrayerCountdown(t){
+
+    const box = document.getElementById("prayerCountdown");
+    if(!box) return;
+
+    const prayers = [
+        ["ફજર", t.Fajr],
+        ["ઝુહર", t.Dhuhr],
+        ["અસર", t.Asr],
+        ["મગરિબ", t.Maghrib],
+        ["ઈશા", t.Isha]
+    ];
+
+    function renderCountdown(){
+
+        const now = new Date();
+        let nextPrayer = null;
+        let nextTime = null;
+
+        prayers.forEach(function(p){
+
+            const parts = p[1].split(":");
+            const d = new Date();
+
+            d.setHours(
+                parseInt(parts[0],10),
+                parseInt(parts[1],10),
+                0,
+                0
+            );
+
+            if(d > now && !nextTime){
+                nextPrayer = p[0];
+                nextTime = d;
+            }
+        });
+
+        if(!nextTime){
+
+            const parts = prayers[0][1].split(":");
+
+            nextTime = new Date();
+            nextTime.setDate(nextTime.getDate()+1);
+
+            nextTime.setHours(
+                parseInt(parts[0],10),
+                parseInt(parts[1],10),
+                0,
+                0
+            );
+
+            nextPrayer = prayers[0][0];
+        }
+
+        const diff = nextTime - now;
+
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+
+        box.innerText =
+            "🕌 " + nextPrayer +
+            " માટે " +
+            String(hours).padStart(2,"0") + ":" +
+            String(minutes).padStart(2,"0") + ":" +
+            String(seconds).padStart(2,"0") +
+            " બાકી";
+    }
+
+    renderCountdown();
+
+    if(window.prayerCountdownInterval){
+        clearInterval(window.prayerCountdownInterval);
+    }
+
+    window.prayerCountdownInterval =
+        setInterval(renderCountdown,1000);
 }
 function toggleEnglish(){
 
@@ -1611,15 +1666,6 @@ function detectUILanguage(){
  if(n.startsWith("en"))return "en";
  return "gu";
 }
-function setTheme(theme){
- const map={green:"",night:"theme-night",blue:"theme-blue",purple:"theme-purple",gold:"theme-gold"};
- document.body.classList.remove("theme-night","theme-blue","theme-purple","theme-gold");
- if(map[theme])document.body.classList.add(map[theme]);
- localStorage.setItem("maroDeenTheme",theme);
- const sel=document.getElementById("themeSelect");if(sel)sel.value=theme;
-}
-function loadTheme(){setTheme(localStorage.getItem("maroDeenTheme")||"green");}
-
 function setLanguage(lang){
  if(lang==="auto")lang=detectUILanguage();
  if(!UI_LANGS.includes(lang))lang="gu";
@@ -1677,7 +1723,26 @@ function prayerRows(timings){
  const p=[["Fajr","fajr","🌅"],["Sunrise","sunrise","☀️"],["Dhuhr","dhuhr","☀️"],["Asr","asr","🌤️"],["Maghrib","maghrib","🌇"],["Isha","isha","🌙"]];
  return p.map(x=>"<div class='row'><b>"+x[2]+" "+t(x[1])+"</b><span>"+(timings[x[0]]||"--")+"</span></div>").join("");
 }
-
+async function loadNamaz(){
+ const box=document.getElementById("namazTimes");if(!box)return;
+ box.innerText=t("loading");
+ const now=new Date(),dd=String(now.getDate()).padStart(2,"0"),mm=String(now.getMonth()+1).padStart(2,"0"),yyyy=now.getFullYear();
+ const url="https://api.aladhan.com/v1/timingsByCity/"+dd+"-"+mm+"-"+yyyy+"?city=Bharuch&country=India&method=1&school=1";
+ try{
+   const controller=new AbortController();
+   const timeout=setTimeout(()=>controller.abort(),12000);
+   const r=await fetch(url,{cache:"no-store",signal:controller.signal});
+   clearTimeout(timeout);
+   if(!r.ok)throw new Error("API");
+   const data=await r.json();
+   if(!data.data||!data.data.timings)throw new Error("DATA");
+   const tt=data.data.timings;
+   box.innerHTML=prayerRows(tt);
+   updatePrayerCountdown(tt);
+ }catch(e){
+   box.innerHTML="<div class='row'><b>⚠️</b><span>"+t("namazError")+"</span></div><button onclick='loadNamaz()'>🔄 Refresh</button>";
+ }
+}
 async function loadHijri(){
  const el=document.getElementById("hijriDate");if(!el)return;el.innerHTML="<p>"+t("hijriLoading")+"</p>";
  const now=new Date(),dd=String(now.getDate()).padStart(2,"0"),mm=String(now.getMonth()+1).padStart(2,"0"),yyyy=now.getFullYear();
@@ -1685,18 +1750,13 @@ async function loadHijri(){
 }
 function quranName(s){return currentLang==="ar"?s[0]:currentLang==="ur"?s[1]:currentLang==="hi"?s[1]:currentLang==="en"?s[1]:s[2];}
 function searchQuranList(){const v=(document.getElementById("quranSearch")?.value||"").toLowerCase().trim();return surah.map((s,i)=>({s,i})).filter(x=>!v||x.s[0].includes(v)||x.s[1].toLowerCase().includes(v)||x.s[2].toLowerCase().includes(v)||String(x.i+1).includes(v));}
-function showQuran(list){const box=document.getElementById("quranList");if(!box)return;box.innerHTML=list.map(x=>"<button type='button' class='quran-item' onclick='openQuranSurah("+ (x.i+1) +")'><b>"+(x.i+1)+". "+quranName(x.s)+"</b><div class='arabic'>"+x.s[0]+"</div><small>"+x.s[1]+"</small><span class='quran-open-hint'>📖 આયતો વાંચવા માટે અહીં ક્લિક કરો</span></button>").join("");}
+function showQuran(list){const box=document.getElementById("quranList");if(!box)return;box.innerHTML=list.map(x=>"<div class='quran-item'><b>"+(x.i+1)+". "+quranName(x.s)+"</b><div class='arabic'>"+x.s[0]+"</div><small>"+x.s[1]+"</small></div>").join("");}
 function searchQuran(){showQuran(searchQuranList());}
 function duaName(d){return currentLang==="gu"?d[0]:currentLang==="en"?d[2]:currentLang==="hi"?d[3]:currentLang==="ur"?d[4]:d[5];}
 function searchDuaList(){const v=(document.getElementById("duaSearch")?.value||"").toLowerCase().trim();return duas.filter(d=>!v||d.join(" ").toLowerCase().includes(v));}
 function showDuas(list){const box=document.getElementById("duaList");if(!box)return;box.innerHTML=list.map(d=>"<div class='dua-item'><b>"+duaName(d)+"</b><div class='arabic'>"+d[1]+"</div></div>").join("");}
 function searchDua(){showDuas(searchDuaList());}
-function updateAzkar(){
- const box=document.getElementById("azkarList"); if(!box)return;
- box.innerHTML="<div class='azkar-category'><b>🌅 Daily Azkar</b><p class='small-note'>દરરોજ વાંચવા માટેના અઝકાર</p></div>"+azkar.map((z,i)=>
-  "<div class='azkar-item'><div class='arabic' dir='rtl'>"+z[0]+"</div><b>"+(i+1)+". "+z[1]+"</b></div>"
- ).join("");
-}
+function updateAzkar(){const box=document.getElementById("azkarList");if(!box)return;box.innerHTML=azkar.map(z=>"<div class='azkar-item'><div class='arabic'>"+z[0]+"</div><b>"+z[1]+"</b></div>").join("");}
 function showNamazTracker(){const box=document.getElementById("namazTracker");if(!box)return;const data=getNamazData(),today=getTodayKey();if(!data[today]){data[today]=createEmptyDay();saveNamazData(data);}box.innerHTML=trackerPrayers.map(p=>"<label class='check' style='display:flex;align-items:center;cursor:pointer'><input type='checkbox' style='transform:scale(1.4);margin-right:12px' onchange=\"toggleNamaz('"+p[0]+"',this.checked)\" "+(data[today][p[0]]?"checked":"")+"><span style='font-size:17px'>"+p[2]+" "+t(p[0].toLowerCase())+"</span></label>").join("");updateTodayNamazCount();}
 function updateTodayNamazCount(){const d=getNamazData(),tt=getTodayKey();let c=0;if(d[tt])trackerPrayers.forEach(p=>{if(d[tt][p[0]])c++;});const el=document.getElementById("todayNamazCount");if(el)el.innerText=c;}
 function showNamazHistory(){const box=document.getElementById("namazHistory");if(!box)return;if(box.style.display==="block"){box.style.display="none";return;}const d=getNamazData(),now=new Date(),y=now.getFullYear(),m=now.getMonth(),days=new Date(y,m+1,0).getDate();let total=0,html="<h3 style='text-align:center'>📅 "+now.toLocaleDateString({gu:"gu-IN",en:"en-IN",hi:"hi-IN",ur:"ur-PK",ar:"ar"}[currentLang],{month:"long",year:"numeric"})+"</h3>";for(let day=1;day<=days;day++){const key=y+"-"+String(m+1).padStart(2,"0")+"-"+String(day).padStart(2,"0"),r=d[key]||{};let c=0,status="";trackerPrayers.forEach(p=>{if(r[p[0]])c++;status+=r[p[0]]?"<span>✅</span>":"<span>❌</span>";});total+=c;html+="<div class='history-day'><b>"+day+"</b><span>"+status+"</span><small style='color:#075e54;font-weight:bold'>"+c+"/5</small></div>";}box.innerHTML=html+"<div style='background:#075e54;color:white;padding:14px;border-radius:13px;text-align:center;margin-top:12px;font-weight:bold'>"+t("totalMonth")+" "+total+"/"+(days*5)+" "+t("prayers")+"</div>";box.style.display="block";}
@@ -1707,32 +1767,44 @@ function enableNamazReminder(){if(!(typeof Notification!=="undefined")){document
 function disableNamazReminder(){namazReminderTimers.forEach(clearTimeout);namazReminderTimers=[];const el=document.getElementById("reminderStatus");if(el){el.dataset.active="";el.innerText=t("reminderDisabled");}}
 async function setupNamazReminders(){namazReminderTimers.forEach(clearTimeout);namazReminderTimers=[];try{const now=new Date(),dd=String(now.getDate()).padStart(2,"0"),mm=String(now.getMonth()+1).padStart(2,"0"),yyyy=now.getFullYear();const r=await fetch("https://api.aladhan.com/v1/timingsByCity/"+dd+"-"+mm+"-"+yyyy+"?city=Bharuch&country=India&method=1&school=1");const data=await r.json(),tt=data.data.timings;const ps=[["Fajr","fajr"],["Dhuhr","dhuhr"],["Asr","asr"],["Maghrib","maghrib"],["Isha","isha"]];ps.forEach(p=>{const a=tt[p[0]].split(":");const pt=new Date();pt.setHours(+a[0],+a[1],0,0);const rt=new Date(pt.getTime()-600000),delay=rt.getTime()-Date.now();if(delay>0)namazReminderTimers.push(setTimeout(()=>new Notification("🕌 "+t("reminderTitle"),{body:t(p[1])+" "+t("remaining")+" 10 minutes",icon:"https://patelminhazmusa.github.io/maro-din/"}),delay));});}catch(e){document.getElementById("reminderStatus").innerText=t("reminderError");}}
 function applyLanguageAndRefresh(){applyStaticLanguage();updateHomeDate();loadHijri();showQuran(searchQuranList());showDuas(searchDuaList());updateAzkar();showNamazTracker();loadNamaz();}
-document.addEventListener("DOMContentLoaded",function(){
- loadTheme();
- const saved=localStorage.getItem("maroDeenLanguage");
- currentLang=saved&&UI_LANGS.includes(saved)?saved:detectUILanguage();
- setLanguage(currentLang);
- loadNamaz();
- loadHijri();
- loadQibla();
- updateTasbeeh();
-});
-
-async function openQuranSurah(number){
- // Surah પર click કરતાં હવે સીધું Quran.com ના reader/tafsir page પર ખૂલશે.
- // Android માં Quran.com ની app link configured હોય તો appમાં ખૂલી શકે; નહિતર browserમાં ખુલશે.
- const url="https://quran.com/"+number;
- window.open(url,"_blank","noopener,noreferrer");
-}
-function closeQuranReader(){const r=document.getElementById("quranReader");if(r)r.remove()}
-
-// Keep the active search field visible above the mobile keyboard.
-document.addEventListener("focusin",function(e){
- if(e.target && e.target.matches && e.target.matches("input[type=text]")){
-  setTimeout(function(){e.target.scrollIntoView({behavior:"smooth",block:"center"});},250);
- }
-});
+document.addEventListener("DOMContentLoaded",function(){const saved=localStorage.getItem("maroDeenLanguage");currentLang=saved&&UI_LANGS.includes(saved)?saved:detectUILanguage();setLanguage(currentLang);});
 </script>
 
+<script>
+// FINAL ROBUST NEXT-PRAYER + AZKAR PATCH
+window._maroLastTimings = null;
+window._maroCountdownTimer = null;
+function updatePrayerCountdown(timings){
+  window._maroLastTimings = timings;
+  const box=document.getElementById("prayerCountdown");
+  if(!box || !timings) return;
+  const list=[["fajr","Fajr"],["dhuhr","Dhuhr"],["asr","Asr"],["maghrib","Maghrib"],["isha","Isha"]];
+  function parseToday(v){ const m=String(v||"").match(/(\d{1,2}):(\d{2})/); if(!m) return null; const d=new Date(); d.setHours(+m[1],+m[2],0,0); return d; }
+  function render(){
+    const now=new Date(); let next=null;
+    for(const [key,name] of list){ const d=parseToday(timings[name]); if(d && d.getTime()>now.getTime()){next={key,name,d};break;} }
+    if(!next){ const d=parseToday(timings.Fajr); if(d){d.setDate(d.getDate()+1); next={key:"fajr",name:"Fajr",d};} }
+    if(!next){box.innerText="⚠️ "+(typeof t==='function'?t("namazError"):"Prayer time unavailable");return;}
+    let sec=Math.max(0,Math.floor((next.d-now)/1000));
+    const h=Math.floor(sec/3600); sec%=3600; const m=Math.floor(sec/60); const s=sec%60;
+    const label=(typeof t==='function'?t(next.key):next.name);
+    const rem=(typeof t==='function'?t("remaining"):"remaining");
+    box.innerText="🕌 "+label+" "+rem+" "+String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+  }
+  render();
+  if(window._maroCountdownTimer) clearInterval(window._maroCountdownTimer);
+  window._maroCountdownTimer=setInterval(()=>{
+    if(window._maroLastTimings) updatePrayerCountdownTick(window._maroLastTimings);
+  },1000);
+  function updatePrayerCountdownTick(tt){
+    const now=new Date(); let next=null;
+    for(const [key,name] of list){ const m=String(tt[name]||"").match(/(\d{1,2}):(\d{2})/); if(!m) continue; const d=new Date(); d.setHours(+m[1],+m[2],0,0); if(d>now){next={key,d};break;} }
+    if(!next){const m=String(tt.Fajr||"").match(/(\d{1,2}):(\d{2})/);if(m){const d=new Date();d.setDate(d.getDate()+1);d.setHours(+m[1],+m[2],0,0);next={key:"fajr",d};}}
+    if(!next)return; let sec=Math.max(0,Math.floor((next.d-now)/1000));const h=Math.floor(sec/3600);sec%=3600;const mi=Math.floor(sec/60);const se=sec%60;box.innerText="🕌 "+(typeof t==='function'?t(next.key):next.key)+" "+(typeof t==='function'?t("remaining"):"remaining")+" "+String(h).padStart(2,"0")+":"+String(mi).padStart(2,"0")+":"+String(se).padStart(2,"0");
+  }
+}
+function updateAzkar(){ const box=document.getElementById("azkarList"); if(!box || typeof azkar==='undefined') return; box.innerHTML=azkar.map(z=>"<div class='azkar-item'><div class='arabic'>"+z[0]+"</div><b>"+z[1]+"</b></div>").join(""); }
+window.addEventListener("load",()=>{ setTimeout(()=>{ if(window._maroLastTimings) updatePrayerCountdown(window._maroLastTimings); if(typeof updateAzkar==='function') updateAzkar(); },500); });
+</script>
 </body>
 </html>
