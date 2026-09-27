@@ -1482,83 +1482,29 @@ async function setupNamazReminders(){
     document.getElementById("reminderStatus").innerText =
     "🔕 Namaz Reminder બંધ છે.";
    }
-function updatePrayerCountdown(t){
-
-    const box = document.getElementById("prayerCountdown");
-    if(!box) return;
-
-    const prayers = [
-        ["ફજર", t.Fajr],
-        ["ઝુહર", t.Dhuhr],
-        ["અસર", t.Asr],
-        ["મગરિબ", t.Maghrib],
-        ["ઈશા", t.Isha]
-    ];
-
-    function renderCountdown(){
-
-        const now = new Date();
-        let nextPrayer = null;
-        let nextTime = null;
-
-        prayers.forEach(function(p){
-
-            const parts = p[1].split(":");
-            const d = new Date();
-
-            d.setHours(
-                parseInt(parts[0],10),
-                parseInt(parts[1],10),
-                0,
-                0
-            );
-
-            if(d > now && !nextTime){
-                nextPrayer = p[0];
-                nextTime = d;
-            }
-        });
-
-        if(!nextTime){
-
-            const parts = prayers[0][1].split(":");
-
-            nextTime = new Date();
-            nextTime.setDate(nextTime.getDate()+1);
-
-            nextTime.setHours(
-                parseInt(parts[0],10),
-                parseInt(parts[1],10),
-                0,
-                0
-            );
-
-            nextPrayer = prayers[0][0];
-        }
-
-        const diff = nextTime - now;
-
-        const hours = Math.floor(diff / 3600000);
-        const minutes = Math.floor((diff % 3600000) / 60000);
-        const seconds = Math.floor((diff % 60000) / 1000);
-
-        box.innerText =
-            "🕌 " + nextPrayer +
-            " માટે " +
-            String(hours).padStart(2,"0") + ":" +
-            String(minutes).padStart(2,"0") + ":" +
-            String(seconds).padStart(2,"0") +
-            " બાકી";
-    }
-
-    renderCountdown();
-
-    if(window.prayerCountdownInterval){
-        clearInterval(window.prayerCountdownInterval);
-    }
-
-    window.prayerCountdownInterval =
-        setInterval(renderCountdown,1000);
+function updatePrayerCountdown(timings){
+ const box=document.getElementById("prayerCountdown");
+ if(!box||!timings)return;
+ const ps=[["fajr","Fajr"],["dhuhr","Dhuhr"],["asr","Asr"],["maghrib","Maghrib"],["isha","Isha"]];
+ function render(){
+  const now=new Date(); let next=null;
+  for(const p of ps){
+   const raw=timings[p[1]]; if(!raw)continue;
+   const parts=String(raw).split(":"); if(parts.length<2)continue;
+   const d=new Date(); d.setHours(Number(parts[0]),Number(parts[1]),0,0);
+   if(d>now){next={key:p[0],time:d};break;}
+  }
+  if(!next){
+   const raw=timings.Fajr; const parts=String(raw).split(":");
+   const d=new Date(); d.setDate(d.getDate()+1); d.setHours(Number(parts[0]),Number(parts[1]),0,0);
+   next={key:"fajr",time:d};
+  }
+  const diff=Math.max(0,next.time-now);
+  const h=Math.floor(diff/3600000),m=Math.floor(diff%3600000/60000),sec=Math.floor(diff%60000/1000);
+  box.innerText="🕌 "+t(next.key)+" "+t("remaining")+" "+String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(sec).padStart(2,"0");
+ }
+ render(); if(window.prayerCountdownInterval)clearInterval(window.prayerCountdownInterval);
+ window.prayerCountdownInterval=setInterval(render,1000);
 }
 function toggleEnglish(){
 
@@ -1745,7 +1691,12 @@ function duaName(d){return currentLang==="gu"?d[0]:currentLang==="en"?d[2]:curre
 function searchDuaList(){const v=(document.getElementById("duaSearch")?.value||"").toLowerCase().trim();return duas.filter(d=>!v||d.join(" ").toLowerCase().includes(v));}
 function showDuas(list){const box=document.getElementById("duaList");if(!box)return;box.innerHTML=list.map(d=>"<div class='dua-item'><b>"+duaName(d)+"</b><div class='arabic'>"+d[1]+"</div></div>").join("");}
 function searchDua(){showDuas(searchDuaList());}
-function updateAzkar(){const box=document.getElementById("azkarList");if(!box)return;box.innerHTML=azkar.map(z=>"<div class='azkar-item'><div class='arabic'>"+z[0]+"</div><b>"+z[1]+"</b></div>").join("");}
+function updateAzkar(){
+ const box=document.getElementById("azkarList"); if(!box)return;
+ box.innerHTML="<div class='azkar-category'><b>🌅 Daily Azkar</b><p class='small-note'>દરરોજ વાંચવા માટેના અઝકાર</p></div>"+azkar.map((z,i)=>
+  "<div class='azkar-item'><div class='arabic' dir='rtl'>"+z[0]+"</div><b>"+(i+1)+". "+z[1]+"</b></div>"
+ ).join("");
+}
 function showNamazTracker(){const box=document.getElementById("namazTracker");if(!box)return;const data=getNamazData(),today=getTodayKey();if(!data[today]){data[today]=createEmptyDay();saveNamazData(data);}box.innerHTML=trackerPrayers.map(p=>"<label class='check' style='display:flex;align-items:center;cursor:pointer'><input type='checkbox' style='transform:scale(1.4);margin-right:12px' onchange=\"toggleNamaz('"+p[0]+"',this.checked)\" "+(data[today][p[0]]?"checked":"")+"><span style='font-size:17px'>"+p[2]+" "+t(p[0].toLowerCase())+"</span></label>").join("");updateTodayNamazCount();}
 function updateTodayNamazCount(){const d=getNamazData(),tt=getTodayKey();let c=0;if(d[tt])trackerPrayers.forEach(p=>{if(d[tt][p[0]])c++;});const el=document.getElementById("todayNamazCount");if(el)el.innerText=c;}
 function showNamazHistory(){const box=document.getElementById("namazHistory");if(!box)return;if(box.style.display==="block"){box.style.display="none";return;}const d=getNamazData(),now=new Date(),y=now.getFullYear(),m=now.getMonth(),days=new Date(y,m+1,0).getDate();let total=0,html="<h3 style='text-align:center'>📅 "+now.toLocaleDateString({gu:"gu-IN",en:"en-IN",hi:"hi-IN",ur:"ur-PK",ar:"ar"}[currentLang],{month:"long",year:"numeric"})+"</h3>";for(let day=1;day<=days;day++){const key=y+"-"+String(m+1).padStart(2,"0")+"-"+String(day).padStart(2,"0"),r=d[key]||{};let c=0,status="";trackerPrayers.forEach(p=>{if(r[p[0]])c++;status+=r[p[0]]?"<span>✅</span>":"<span>❌</span>";});total+=c;html+="<div class='history-day'><b>"+day+"</b><span>"+status+"</span><small style='color:#075e54;font-weight:bold'>"+c+"/5</small></div>";}box.innerHTML=html+"<div style='background:#075e54;color:white;padding:14px;border-radius:13px;text-align:center;margin-top:12px;font-weight:bold'>"+t("totalMonth")+" "+total+"/"+(days*5)+" "+t("prayers")+"</div>";box.style.display="block";}
