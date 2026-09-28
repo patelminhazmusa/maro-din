@@ -468,35 +468,36 @@ day:"numeric"
 async function loadNamaz(){
 
 const now=new Date();
-
 const dd=String(now.getDate()).padStart(2,"0");
-
 const mm=String(now.getMonth()+1).padStart(2,"0");
-
 const yyyy=now.getFullYear();
 
 const url=
+"https://api.aladhan.com/v1/timings/"+
+ dd+"-"+mm+"-"+yyyy+
+"?latitude=21.7051&longitude=72.9959&method=1&school=1&timezonestring=Asia%2FKolkata";
 
-"https://api.aladhan.com/v1/timingsByCity/"+
-dd+"-"+mm+"-"+yyyy+
-"?city=Bharuch&country=India&method=1&school=1";
+const box=document.getElementById("namazTimes");
+
+if(box) box.innerText="⏳ "+(t("calculating")||"Loading prayer times...");
 
 try{
+    const r=await fetch(url,{cache:"no-store"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
 
-const r=await fetch(url);
+    const data=await r.json();
+    if(!data || data.code!==200 || !data.data || !data.data.timings){
+        throw new Error("Invalid prayer API response");
+    }
 
-const data=await r.json();
+    const timings=data.data.timings;
+    window.lastPrayerTimings=timings;
+    renderNamazTimes(timings);
+    updatePrayerCountdown(timings);
 
-const t=data.data.timings;
-window.lastPrayerTimings=t;
-renderNamazTimes(t);
-updatePrayerCountdown(t);
-}
-
-catch(e){
-
-document.getElementById("namazTimes").innerText=t("errorNamaz");
-
+}catch(e){
+    if(box) box.innerText=t("errorNamaz");
+    console.error("Namaz load error:",e);
 }
 
 }
@@ -1340,9 +1341,9 @@ async function setupNamazReminders(){
         const yyyy = now.getFullYear();
 
         const url =
-        "https://api.aladhan.com/v1/timingsByCity/" +
+        "https://api.aladhan.com/v1/timings/" +
         dd + "-" + mm + "-" + yyyy +
-        "?city=Bharuch&country=India&method=1&school=1";
+        "?latitude=21.7051&longitude=72.9959&method=1&school=1&timezonestring=Asia%2FKolkata";
 
         const r = await fetch(url);
         const data = await r.json();
@@ -1468,7 +1469,7 @@ function updatePrayerCountdown(t){
                 0
             );
 
-            nextPrayer = prayers[0][0];
+            nextPrayer = t(prayers[0][0]);
         }
 
         const diff = nextTime - now;
@@ -1482,8 +1483,7 @@ function updatePrayerCountdown(t){
             " " + t("remaining") + " " +
             String(hours).padStart(2,"0") + ":" +
             String(minutes).padStart(2,"0") + ":" +
-            String(seconds).padStart(2,"0") +
-            " બાકી";
+            String(seconds).padStart(2,"0");
     }
 
     renderCountdown();
