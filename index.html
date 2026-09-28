@@ -219,6 +219,7 @@ header h1{font-size:27px}
 </div>
 
 
+<div class="card" id="locationCard"><h2>📍 Namaz Location</h2><p>તમારું શહેર અને દેશ પસંદ કરો:</p><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="prayerCity" type="text" placeholder="City (e.g. Bharuch)" style="flex:1;min-width:150px;padding:10px;border-radius:10px;border:1px solid #ccc"><input id="prayerCountry" type="text" placeholder="Country (e.g. India)" style="flex:1;min-width:150px;padding:10px;border-radius:10px;border:1px solid #ccc"><button type="button" onclick="setPrayerLocation()">📍 Set Location</button></div><div id="prayerLocationStatus" style="margin-top:10px;padding:10px;border-radius:10px;background:#f1f8f5">📍 Bharuch, India</div></div>
 <div class="card" id="namazCard">
 <h2>🕌 આજના નમાઝના સમય</h2>
    
@@ -466,42 +467,23 @@ day:"numeric"
 
 
 async function loadNamaz(){
-
-const now=new Date();
-const dd=String(now.getDate()).padStart(2,"0");
-const mm=String(now.getMonth()+1).padStart(2,"0");
-const yyyy=now.getFullYear();
-
-const url=
-"https://api.aladhan.com/v1/timings/"+
- dd+"-"+mm+"-"+yyyy+
-"?latitude=21.7051&longitude=72.9959&method=1&school=1&timezonestring=Asia%2FKolkata";
-
+const city=localStorage.getItem("prayerCity")||"Bharuch";
+const country=localStorage.getItem("prayerCountry")||"India";
 const box=document.getElementById("namazTimes");
-
+const status=document.getElementById("prayerLocationStatus");
 if(box) box.innerText="⏳ "+(t("calculating")||"Loading prayer times...");
-
+if(status) status.innerText="📍 "+city+", "+country;
+const now=new Date();
+const dd=String(now.getDate()).padStart(2,"0"),mm=String(now.getMonth()+1).padStart(2,"0"),yyyy=now.getFullYear();
 try{
-    const r=await fetch(url,{cache:"no-store"});
-    if(!r.ok) throw new Error("HTTP "+r.status);
-
-    const data=await r.json();
-    if(!data || data.code!==200 || !data.data || !data.data.timings){
-        throw new Error("Invalid prayer API response");
-    }
-
-    const timings=data.data.timings;
-    window.lastPrayerTimings=timings;
-    renderNamazTimes(timings);
-    updatePrayerCountdown(timings);
-
-}catch(e){
-    if(box) box.innerText=t("errorNamaz");
-    console.error("Namaz load error:",e);
+const url="https://api.aladhan.com/v1/timingsByCity/"+dd+"-"+mm+"-"+yyyy+"?city="+encodeURIComponent(city)+"&country="+encodeURIComponent(country)+"&method=1&school=1";
+const r=await fetch(url,{cache:"no-store"});
+if(!r.ok) throw new Error("HTTP "+r.status);
+const data=await r.json();
+if(!data||data.code!==200||!data.data||!data.data.timings) throw new Error("Invalid response");
+const timings=data.data.timings; window.lastPrayerTimings=timings; renderNamazTimes(timings); updatePrayerCountdown(timings);
+}catch(e){if(box) box.innerText=t("errorNamaz")||"Prayer times could not be loaded."; console.error("Namaz load error:",e);}
 }
-
-}
-
 
 async function loadHijri(){
 
@@ -1267,6 +1249,13 @@ document.addEventListener(
 "DOMContentLoaded",
 function(){
 
+const savedCity=localStorage.getItem("prayerCity")||"Bharuch";
+const savedCountry=localStorage.getItem("prayerCountry")||"India";
+const cityInput=document.getElementById("prayerCity");
+const countryInput=document.getElementById("prayerCountry");
+if(cityInput) cityInput.value=savedCity;
+if(countryInput) countryInput.value=savedCountry;
+
 updateHomeDate();
 
 updateTasbeeh();
@@ -1292,6 +1281,13 @@ document.addEventListener("DOMContentLoaded",function(){
     const saved=localStorage.getItem("maroDeenLanguage");
     setLanguage(saved && UI_LANGS.includes(saved) ? saved : detectUILanguage());
 });
+function setPrayerLocation(){
+const city=(document.getElementById("prayerCity")?.value||"").trim();
+const country=(document.getElementById("prayerCountry")?.value||"").trim();
+if(!city||!country){alert("City અને Country બંને લખો.");return;}
+localStorage.setItem("prayerCity",city); localStorage.setItem("prayerCountry",country); loadNamaz();
+}
+
 /* =========================
    NAMAZ REMINDER
 ========================= */
