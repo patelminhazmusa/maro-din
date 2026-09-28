@@ -150,7 +150,7 @@ header h1{font-size:27px}
 </button>
 <h1>☪️ મારો દિન</h1>
 <p>Islamic Life Companion</p>
-<div class="author">Minhaz Musa Patel &amp; Abdulla Ilyas Bhoja</div>
+<div class="author">Minhaz Musa Patel &amp; Abdullah Ilyas Bhoja</div>
 </header>
 
 <div class="container">
@@ -412,7 +412,7 @@ style="background:#f1f8f5;padding:14px;border-radius:12px;margin-top:10px">
 <p>
 Created by:<br>
 <b>Minhaz Musa Patel</b><br>
-<b>Abdulla Ilyas Bhoja</b>
+<b>Abdullah Ilyas Bhoja</b>
 </p>
 
 </div>
@@ -422,7 +422,7 @@ Created by:<br>
 <div class="footer">
 ☪️ મારો દિન — Islamic Life Companion
 <br><br>
-© 2026 Minhaz Musa Patel &amp; Abdulla Ilyas Bhoja
+© 2026 Minhaz Musa Patel &amp; Abdullah Ilyas Bhoja
 </div>
 
 
@@ -468,43 +468,36 @@ day:"numeric"
 async function loadNamaz(){
 
 const now=new Date();
-
 const dd=String(now.getDate()).padStart(2,"0");
-
 const mm=String(now.getMonth()+1).padStart(2,"0");
-
 const yyyy=now.getFullYear();
 
 const url=
+"https://api.aladhan.com/v1/timings/"+
+ dd+"-"+mm+"-"+yyyy+
+"?latitude=21.7051&longitude=72.9959&method=1&school=1&timezonestring=Asia%2FKolkata";
 
-"https://api.aladhan.com/v1/timingsByCity/"+
-dd+"-"+mm+"-"+yyyy+
-"?city=Bharuch&country=India&method=1&school=1";
+const box=document.getElementById("namazTimes");
+
+if(box) box.innerText="⏳ "+(t("calculating")||"Loading prayer times...");
 
 try{
+    const r=await fetch(url,{cache:"no-store"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
 
-const r=await fetch(url);
+    const data=await r.json();
+    if(!data || data.code!==200 || !data.data || !data.data.timings){
+        throw new Error("Invalid prayer API response");
+    }
 
-if(!r.ok) throw new Error("HTTP "+r.status);
+    const timings=data.data.timings;
+    window.lastPrayerTimings=timings;
+    renderNamazTimes(timings);
+    updatePrayerCountdown(timings);
 
-const data=await r.json();
-
-if(!data || !data.data || !data.data.timings){
-    throw new Error("Invalid prayer time response");
-}
-
-const timings=data.data.timings;
-window.lastPrayerTimings=timings;
-renderNamazTimes(timings);
-updatePrayerCountdown(timings);
-}
-
-catch(e){
-
-console.error("Namaz loading error:",e);
-const box=document.getElementById("namazTimes");
-if(box) box.innerText=t("errorNamaz");
-
+}catch(e){
+    if(box) box.innerText=t("errorNamaz");
+    console.error("Namaz load error:",e);
 }
 
 }
@@ -680,12 +673,11 @@ box.innerHTML="";
 list.forEach((s,i)=>{
 
 box.innerHTML+=
-
-"<div class='quran-item'>"+
-"<b>"+(i+1)+". "+(currentUILang==="gu"?s[2]:s[1])+"</b>"+
+"<a class='quran-item' style='display:block;text-decoration:none;color:inherit;cursor:pointer' href='https://quran.com/"+(surah.indexOf(s)+1)+"' target='_blank' rel='noopener noreferrer'>"+
+"<b>"+(surah.indexOf(s)+1)+". "+(currentUILang==="gu"?s[2]:s[1])+"</b>"+
 "<div class='arabic'>"+s[0]+"</div>"+
 "<small>"+s[1]+"</small>"+
-"</div>";
+"</a>";
 
 });
 
@@ -731,6 +723,8 @@ const duas=[
 
 ];
 
+
+const duaKeys=["duaMorning","duaForgiveness","duaParents","duaKnowledge","duaWorld"];
 
 function showDuas(list){
 
@@ -937,7 +931,7 @@ p[0]+
 ">"+
 
 "<span style='font-size:17px'>"+
-p[2]+" "+t(p[1])
+p[2]+" "+t(p[1])+
 "</span>"+
 
 "</label>"
@@ -1347,16 +1341,12 @@ async function setupNamazReminders(){
         const yyyy = now.getFullYear();
 
         const url =
-        "https://api.aladhan.com/v1/timingsByCity/" +
+        "https://api.aladhan.com/v1/timings/" +
         dd + "-" + mm + "-" + yyyy +
-        "?city=Bharuch&country=India&method=1&school=1";
+        "?latitude=21.7051&longitude=72.9959&method=1&school=1&timezonestring=Asia%2FKolkata";
 
         const r = await fetch(url);
         const data = await r.json();
-
-        if(!data || !data.data || !data.data.timings){
-            throw new Error("Invalid prayer time response");
-        }
 
         const timings = data.data.timings;
 
@@ -1428,17 +1418,17 @@ async function setupNamazReminders(){
     namazReminderEnabled=false;
     document.getElementById("reminderStatus").innerText = t("reminderOff");
    }
-function updatePrayerCountdown(t){
+function updatePrayerCountdown(timings){
 
     const box = document.getElementById("prayerCountdown");
     if(!box) return;
 
     const prayers = [
-        ["fajr", t.Fajr],
-        ["dhuhr", t.Dhuhr],
-        ["asr", t.Asr],
-        ["maghrib", t.Maghrib],
-        ["isha", t.Isha]
+        ["fajr", timings.Fajr],
+        ["dhuhr", timings.Dhuhr],
+        ["asr", timings.Asr],
+        ["maghrib", timings.Maghrib],
+        ["isha", timings.Isha]
     ];
 
     function renderCountdown(){
@@ -1479,7 +1469,7 @@ function updatePrayerCountdown(t){
                 0
             );
 
-            nextPrayer = prayers[0][0];
+            nextPrayer = t(prayers[0][0]);
         }
 
         const diff = nextTime - now;
@@ -1493,8 +1483,7 @@ function updatePrayerCountdown(t){
             " " + t("remaining") + " " +
             String(hours).padStart(2,"0") + ":" +
             String(minutes).padStart(2,"0") + ":" +
-            String(seconds).padStart(2,"0") +
-            " બાકી";
+            String(seconds).padStart(2,"0");
     }
 
     renderCountdown();
@@ -1514,7 +1503,7 @@ const UI_LANGS=["gu","en","hi","ur","ar"];
 
 const UI_TEXT={
 gu:{
-home:"મારો દિન", companion:"Islamic Life Companion",
+home:"મારો દિન", homeIntro:"આપનું Islamic Life Companion — નમાઝ, કુરઆન, દુઆ, અઝકાર અને ઇબાદત માટે.", companion:"Islamic Life Companion",
 namaz:"નમાઝના સમય", todayNamaz:"આજના નમાઝના સમય",
 tracker:"નમાઝ Tracker", trackerTimes:"નમાઝના સમય",
 trackerHelp:"આજની પાંચેય નમાઝ પૂર્ણ થાય ત્યારે સામે ✔️ કરો.",
@@ -1552,7 +1541,7 @@ zikr1:"સુબ્હાનલ્લાહ", zikr2:"અલહમ્દુલિ
 language:"ભાષા"
 },
 en:{
-home:"My Deen", companion:"Islamic Life Companion",
+home:"My Deen", homeIntro:"Your Islamic Life Companion for prayer, Quran, Dua, Azkar and worship.", companion:"Islamic Life Companion",
 namaz:"Prayer Times", todayNamaz:"Today's Prayer Times",
 tracker:"Namaz Tracker", trackerTimes:"Prayer Times",
 trackerHelp:"Mark ✔️ when you complete each of the five daily prayers.",
@@ -1590,7 +1579,7 @@ zikr1:"SubhanAllah", zikr2:"Alhamdulillah", zikr3:"Allahu Akbar", zikr4:"Astaghf
 language:"Language"
 },
 hi:{
-home:"मेरा दीन", companion:"Islamic Life Companion",
+home:"मेरा दीन", homeIntro:"नमाज़, क़ुरआन, दुआ, अज़कार और इबादत के लिए आपका Islamic Life Companion।", companion:"Islamic Life Companion",
 namaz:"नमाज़ के समय", todayNamaz:"आज के नमाज़ के समय",
 tracker:"नमाज़ ट्रैकर", trackerTimes:"नमाज़ के समय",
 trackerHelp:"पाँचों रोज़ाना नमाज़ पूरी होने पर ✔️ करें।",
@@ -1628,7 +1617,7 @@ zikr1:"सुब्हानल्लाह", zikr2:"अल्हम्दुल
 language:"भाषा"
 },
 ur:{
-home:"میرا دین", companion:"Islamic Life Companion",
+home:"میرا دین", homeIntro:"نماز، قرآن، دعا، اذکار اور عبادت کے لیے آپ کا اسلامی ساتھی۔", companion:"Islamic Life Companion",
 namaz:"نماز کے اوقات", todayNamaz:"آج کے نماز کے اوقات",
 tracker:"نماز ٹریکر", trackerTimes:"نماز کے اوقات",
 trackerHelp:"پانچوں روزانہ نمازیں مکمل ہونے پر ✔️ کریں۔",
@@ -1666,7 +1655,7 @@ zikr1:"سبحان اللہ", zikr2:"الحمدللہ", zikr3:"اللہ اکبر"
 language:"زبان"
 },
 ar:{
-home:"دِيني", companion:"رفيق الحياة الإسلامية",
+home:"دِيني", homeIntro:"رفيقك الإسلامي للصلاة والقرآن والدعاء والأذكار والعبادة.", companion:"رفيق الحياة الإسلامية",
 namaz:"أوقات الصلاة", todayNamaz:"أوقات الصلاة اليوم",
 tracker:"متابعة الصلاة", trackerTimes:"أوقات الصلاة",
 trackerHelp:"ضع علامة ✔️ عند إتمام الصلوات الخمس.",
@@ -1758,6 +1747,19 @@ function setLanguage(lang){
         if(h2) h2.innerText=titles[id];
     });
 
+    const homeH2=document.querySelector("#homeCard h2");
+    if(homeH2) homeH2.innerText="🌙 "+t("home");
+    const homeP=document.querySelector("#homeCard > p");
+    if(homeP) homeP.innerText=t("homeIntro");
+    const homeButtons=[
+        ["namazCard","namaz"],["trackerCard","tracker"],["reminderCard","reminder"],
+        ["quranCard","quran"],["duaCard","dua"],["azkarCard","azkar"],["tasbeehCard","tasbeeh"],
+        ["qiblaCard","qibla"],["assistantCard","assistant"],["aboutCard","about"]
+    ];
+    document.querySelectorAll("#homeCard .home-btn").forEach(function(btn,i){
+        if(homeButtons[i]) { const icon=btn.querySelector("span"); btn.innerHTML=(icon?icon.outerHTML:"")+t(homeButtons[i][1]); }
+    });
+
     const trackerH2=document.querySelector("#trackerCard h2:nth-of-type(2)");
     if(trackerH2) trackerH2.innerText="🕌 "+t("trackerTimes");
 
@@ -1813,10 +1815,10 @@ function setLanguage(lang){
     const aboutPs=document.querySelectorAll("#aboutCard p");
     if(aboutPs[0]) aboutPs[0].innerHTML="<b>"+t("home")+"</b> "+t("about1");
     if(aboutPs[1]) aboutPs[1].innerText=t("about2");
-    if(aboutPs[2]) aboutPs[2].innerHTML=t("created")+"<br><b>Minhaz Musa Patel</b><br><b>Abdulla Ilyas Bhoja</b>";
+    if(aboutPs[2]) aboutPs[2].innerHTML=t("created")+"<br><b>Minhaz Musa Patel</b><br><b>Abdullah Ilyas Bhoja</b>";
 
     const footer=document.querySelector(".footer");
-    if(footer) footer.innerHTML=t("footer")+"<br><br>© 2026 Minhaz Musa Patel &amp; Abdulla Ilyas Bhoja";
+    if(footer) footer.innerHTML=t("footer")+"<br><br>© 2026 Minhaz Musa Patel &amp; Abdullah Ilyas Bhoja";
 
     const sel=document.getElementById("languageSelect");
     if(sel) sel.value=lang;
