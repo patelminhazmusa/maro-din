@@ -712,18 +712,24 @@ function showDuas(list){
 
 const box=document.getElementById("duaList");
 
+if(!box) return;
+
 box.innerHTML="";
 
-list.forEach(d=>
+(list || []).forEach(function(d){
 
-box.innerHTML+=
+const idx=duas.indexOf(d);
+const key=duaKeys[idx];
 
-"<div class='dua-item'>"+
-"<b>"+t(duaKeys[duas.index(d)])+"</b>"+
-"<div class='arabic'>"+d[1]+"</div>"+
-"</div>"
+const title=(typeof t==="function" ? t(key) : d[0]) || d[0];
 
-);
+box.innerHTML +=
+"<div class='dua-item'>" +
+"<b>"+title+"</b>" +
+"<div class='arabic'>"+d[1]+"</div>" +
+"</div>";
+
+});
 
 }
 
@@ -731,15 +737,13 @@ box.innerHTML+=
 function searchDua(){
 
 const input=document.getElementById("duaSearch");
-const v=(input ? input.value : "").toLowerCase().trim();
+const v=((input && input.value) || "").toLowerCase().trim();
 
 showDuas(
-
-duas.filter(d=>
-d[0].toLowerCase().includes(v)||
-d[1].includes(v)
-)
-
+duas.filter(function(d){
+return d[0].toLowerCase().includes(v) ||
+d[1].toLowerCase().includes(v);
+})
 );
 
 }
