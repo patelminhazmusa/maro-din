@@ -288,7 +288,7 @@ Reminder બંધ છે.
 type="text"
 id="quranSearch"
 placeholder="સૂરાનું નામ શોધો..."
-oninput="searchQuran"
+oninput="searchQuran()"
 >
 
 <div id="quranList"></div>
@@ -730,10 +730,8 @@ box.innerHTML+=
 
 function searchDua(){
 
-const v=document
-.getElementById("duaSearch")
-.value
-.toLowerCase();
+const input=document.getElementById("duaSearch");
+const v=(input ? input.value : "").toLowerCase().trim();
 
 showDuas(
 
